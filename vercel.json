@@ -1,0 +1,24 @@
+{
+  "rewrites": [
+    {
+      "source": "/surah-:name-video",
+      "destination": "/seo-pages/surah-:name-video.html"
+    },
+    {
+      "source": "/quran-video-maker",
+      "destination": "/seo-pages/usecase-pages/quran-video-maker.html"
+    },
+    {
+      "source": "/islamic-video-maker",
+      "destination": "/seo-pages/usecase-pages/islamic-video-maker.html"
+    },
+    {
+      "source": "/quran-reels-maker",
+      "destination": "/seo-pages/usecase-pages/quran-reels-maker.html"
+    },
+    {
+      "source": "/create-quran-video",
+      "destination": "/seo-pages/usecase-pages/create-quran-video.html"
+    }
+  ]
+}
