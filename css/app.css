@@ -201,6 +201,11 @@
     .settings-tab-btn:hover { color: var(--text-main); background: rgba(0, 122, 255, 0.05); }
     .settings-tab-btn.active { background: var(--panel-bg); color: var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
 
+    /* تحسين أداء تبويبات الإعدادات وتخفيف الريندر */
+    .settings-section {
+        content-visibility: auto;
+    }
+
         .file-upload-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; background: var(--input-bg); border: 2px dashed var(--border-color); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.2s; font-size: 11px; color: var(--text-muted); }
         .file-upload-btn:hover { border-color: var(--accent); color: var(--text-main); background: rgba(0, 122, 255, 0.05); }
 
