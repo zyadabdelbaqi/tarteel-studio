@@ -81,45 +81,49 @@ const surahSlugs = [
         if (supabaseClient) {
             const urlHasAuthParams = window.location.hash.includes('access_token=') || window.location.hash.includes('refresh_token=') || window.location.search.includes('code=');
             
-            let session = null;
-
-            // حاول تجيب session بسرعة
-            const res = await supabaseClient.auth.getSession();
-            session = res.data.session;
-
-            // لو فيه OAuth params ومفيش session → استنى شوية
-            if (!session && urlHasAuthParams) {
-                console.log("Waiting for session...");
-
-                await new Promise(resolve => {
-                    const timeout = setTimeout(resolve, 3000); // max 3 ثواني
-
-                    const { data: { subscription } } = supabaseClient.auth.onAuthStateChange((_event, newSession) => {
-                        if (newSession) {
-                            session = newSession;
-                            clearTimeout(timeout);
-                            subscription.unsubscribe();
-                            resolve();
-                        }
-                    });
-                });
-            }
-            
             if (urlHasAuthParams) {
                 // إزالة رموز تسجيل الدخول من الرابط بعد معالجتها لمنع سرقة الجهاز القديم للجلسة عند الريفريش
                 const cleanUrl = window.location.href.split('#')[0].split('?')[0];
                 window.history.replaceState(null, '', cleanUrl);
             }
 
-            state.user = session?.user || null;
-            if (state.user) {
-                const isValid = await enforceSingleSession(state.user);
-                if (isValid) {
-                    await loadUserPlan().catch(e => console.warn("Initial load plan error:", e));
-                    // جلب البيانات الأحدث من السيرفر للتأكد من عدم تسجيل الدخول من جهاز آخر أثناء إغلاق الصفحة
-                    supabaseClient.auth.getUser().then(({ data: { user } }) => {
-                        if (user) enforceSingleSession(user);
-                    });
+            let resolved = false;
+
+            const timeout = setTimeout(() => {
+                if (!resolved) {
+                    console.warn("Session timeout");
+                    finishInit(null);
+                }
+            }, 3000);
+
+            supabaseClient.auth.onAuthStateChange(async (_event, session) => {
+                if (resolved) return;
+
+                resolved = true;
+                clearTimeout(timeout);
+
+                finishInit(session);
+            });
+
+            async function finishInit(session) {
+                state.user = session?.user || null;
+
+                if (state.user) {
+                    const isValid = await enforceSingleSession(state.user);
+                    if (isValid) {
+                        await loadUserPlan().catch(()=>{});
+                        // جلب البيانات الأحدث من السيرفر للتأكد من عدم تسجيل الدخول من جهاز آخر أثناء إغلاق الصفحة
+                        supabaseClient.auth.getUser().then(({ data: { user } }) => {
+                            if (user) enforceSingleSession(user);
+                        });
+                    }
+                }
+
+                checkAuth();
+
+                if (UI.globalLoader) {
+                    UI.globalLoader.style.opacity = '0';
+                    UI.globalLoader.classList.add('hidden');
                 }
             }
 
