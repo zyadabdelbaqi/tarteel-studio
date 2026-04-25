@@ -91,12 +91,12 @@ const surahSlugs = [
 
             state.user = session?.user || null;
             if (state.user) {
-                const isValid = await enforceSingleSession(state.user);
+                const isValid = true; // تم التعطيل مؤقتًا
                 if (isValid) {
                     await loadUserPlan().catch(e => console.warn("Initial load plan error:", e));
                     // جلب البيانات الأحدث من السيرفر للتأكد من عدم تسجيل الدخول من جهاز آخر أثناء إغلاق الصفحة
                     supabaseClient.auth.getUser().then(({ data: { user } }) => {
-                        if (user) enforceSingleSession(user);
+                        // if (user) enforceSingleSession(user); // تم التعطيل مؤقتًا
                     });
                 }
             }
@@ -121,7 +121,7 @@ const surahSlugs = [
                 }
 
                 if (state.user) {
-                    const isValid = await enforceSingleSession(state.user);
+                const isValid = true; // تم التعطيل مؤقتًا
                     if (!isValid) return;
                     await loadUserPlan().catch(e => console.warn("Auth change plan error:", e));
                 }
@@ -156,7 +156,7 @@ const surahSlugs = [
                 try {
                     const { data: { user }, error } = await supabaseClient.auth.getUser();
                     if (user && !error) {
-                        enforceSingleSession(user);
+                    // enforceSingleSession(user); // تم التعطيل مؤقتًا
                     }
                 } catch (e) {} finally {
                     isCheckingSession = false;
