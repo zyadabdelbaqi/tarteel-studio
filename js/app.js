@@ -37,8 +37,18 @@ const surahSlugs = [
             const lastSeenUpdateId = localStorage.getItem('last_seen_update');
 
             if (data.id !== lastSeenUpdateId) {
-                UI.updateTitle.innerText = data.title;
-                UI.updateContent.innerHTML = data.content.replace(/(?:\r\n|\r|\n)/g, '<br>'); // يحول النزول لسطر إلى وسم HTML ليظهر بشكل صحيح
+                const safeTitle = data.title || 'تحديث جديد';
+                const safeContent = data.content || '';
+                
+                UI.updateTitle.textContent = safeTitle;
+                UI.updateContent.textContent = ''; // تفريغ المحتوى
+                
+                // بناء الأسطر الجديدة بأمان تام باستخدام الـ DOM بدلاً من innerHTML
+                safeContent.split(/(?:\r\n|\r|\n)/g).forEach((line, idx, arr) => {
+                    UI.updateContent.appendChild(document.createTextNode(line));
+                    if (idx < arr.length - 1) UI.updateContent.appendChild(document.createElement('br'));
+                });
+                
                 UI.updatesModal.style.display = 'flex';
                 if (window.lucide) window.lucide.createIcons();
 
@@ -71,13 +81,29 @@ const surahSlugs = [
         if (supabaseClient) {
             const urlHasAuthParams = window.location.hash.includes('access_token=') || window.location.hash.includes('refresh_token=') || window.location.search.includes('code=');
             
-            // تحديث الشرط ليدعم أنظمة التسجيل الحديثة (PKCE) التي تعتمد على code في الرابط
-            if (urlHasAuthParams) {
-                localStorage.removeItem('device_session_id');
-                localStorage.removeItem('device_session_ver');
-            }
+            let session = null;
 
-            const { data: { session } } = await supabaseClient.auth.getSession();
+            // حاول تجيب session بسرعة
+            const res = await supabaseClient.auth.getSession();
+            session = res.data.session;
+
+            // لو فيه OAuth params ومفيش session → استنى شوية
+            if (!session && urlHasAuthParams) {
+                console.log("Waiting for session...");
+
+                await new Promise(resolve => {
+                    const timeout = setTimeout(resolve, 3000); // max 3 ثواني
+
+                    const { data: { subscription } } = supabaseClient.auth.onAuthStateChange((_event, newSession) => {
+                        if (newSession) {
+                            session = newSession;
+                            clearTimeout(timeout);
+                            subscription.unsubscribe();
+                            resolve();
+                        }
+                    });
+                });
+            }
             
             if (urlHasAuthParams) {
                 // إزالة رموز تسجيل الدخول من الرابط بعد معالجتها لمنع سرقة الجهاز القديم للجلسة عند الريفريش
@@ -240,6 +266,10 @@ const surahSlugs = [
             state.bgImg.src = defaultBg;
             const firstThumb = document.querySelector('#stockImages img');
             if (firstThumb) firstThumb.classList.add('active');
+            
+            // مزامنة قيمة ظل الآيات الافتراضية في الواجهة
+            if (UI.shadowBlur) UI.shadowBlur.value = 15;
+            if (UI.shadowBlurVal) UI.shadowBlurVal.innerText = '15';
         }
 
         if (state.user && sessionStorage.getItem('pendingExport') === 'true') {
@@ -249,6 +279,16 @@ const surahSlugs = [
             loadHeavyScripts();
             if (state.exportBlobUrl) resetExportUI(); else UI.confirmModal.style.display = 'flex';
         }
+
+        // إجبار الواجهة على مزامنة جميع أشرطة التمرير مع حالة التطبيق والمعاينة فور فتح الموقع
+        const syncVisualStates = [
+            UI.fontSize, UI.bgBlur, UI.bgZoom, UI.opacityRange,
+            UI.shadowBlur, UI.textY, UI.transShadowBlur, UI.animIntensity,
+            UI.surahY, UI.surahX, UI.surahFontSize, UI.waveformY, UI.waveformHeight
+        ];
+        syncVisualStates.forEach(el => {
+            if (el) el.dispatchEvent(new Event('input', { bubbles: true }));
+        });
 
         startMainSyncLoop(); // Start data syncing loop
 
@@ -338,7 +378,17 @@ const surahSlugs = [
                 const btn = document.createElement('button');
                 btn.className = `reciter-btn ${state.selectedReciter === r.id ? 'active' : ''}`;
                 const arabicStyle = getArabicStyle(r.style);
-                btn.innerHTML = `<span>${r.translated_name?.name || r.reciter_name}</span><span class="style-badge">${arabicStyle}</span>`;
+            
+            const safeReciterName = r.translated_name?.name || r.reciter_name || 'قارئ غير معروف';
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = safeReciterName;
+            
+            const badgeSpan = document.createElement('span');
+            badgeSpan.className = "style-badge";
+            badgeSpan.textContent = arabicStyle;
+            
+            btn.appendChild(nameSpan);
+            btn.appendChild(badgeSpan);
                 btn.onclick = () => { if(state.isExporting) return; state.selectedReciter = r.id; renderReciterButtons(filter); updateContent(); };
                 UI.reciters.appendChild(btn);
             });
@@ -714,7 +764,7 @@ const surahSlugs = [
             UI.themeToggle.innerHTML = `<i data-lucide="${state.isLightMode ? 'moon' : 'sun'}" class="w-5 h-5 block"></i>`; lucide.createIcons();
         }
 
-        function createCustomDropdown(selectElement) {
+        function createCustomDropdown(selectElement, withSearch = false) {
             if (!selectElement) return;
 
             const wrapper = document.createElement('div');
@@ -732,38 +782,102 @@ const surahSlugs = [
             optionsContainer.className = 'custom-select-options custom-scroll';
             wrapper.appendChild(optionsContainer);
 
+            let searchInput = null;
+            if (withSearch) {
+                const searchWrapper = document.createElement('div');
+                searchWrapper.className = 'sticky z-20 pb-2 mb-2';
+                searchWrapper.style.top = '-0.5rem';
+                searchWrapper.style.marginTop = '-0.5rem';
+                searchWrapper.style.marginLeft = '-0.5rem';
+                searchWrapper.style.marginRight = '-0.5rem';
+                searchWrapper.style.padding = '0.5rem 0.5rem 0 0.5rem';
+                searchWrapper.style.backgroundColor = 'var(--panel-bg)';
+
+                searchInput = document.createElement('input');
+                searchInput.type = 'text';
+                searchInput.placeholder = 'بحث...';
+                searchInput.className = 'w-full bg-[var(--input-bg)] text-[var(--text-main)] border border-[var(--border-color)] rounded-md px-3 py-2 text-sm focus:outline-none focus:border-[var(--accent)]';
+                
+                searchInput.addEventListener('click', (e) => e.stopPropagation());
+                
+                searchWrapper.appendChild(searchInput);
+                optionsContainer.appendChild(searchWrapper);
+            }
+
+            const optionsList = document.createElement('div');
+            optionsContainer.appendChild(optionsList);
+
             const triggerSpan = trigger.querySelector('span');
 
-            const populateOptions = () => {
-                optionsContainer.innerHTML = '';
+            const populateOptions = (filter = '') => {
+                optionsList.innerHTML = '';
                 const options = Array.from(selectElement.options);
+                let matchCount = 0;
+
                 options.forEach((option, index) => {
+                    const text = option.textContent;
+                    if (filter && !text.toLowerCase().includes(filter.toLowerCase())) return;
+
+                    matchCount++;
                     const optionEl = document.createElement('div');
                     optionEl.className = 'custom-select-option';
-                    optionEl.textContent = option.textContent;
+                    optionEl.textContent = text;
                     optionEl.dataset.value = option.value;
                     if (option.selected) {
                         optionEl.classList.add('selected');
-                        triggerSpan.textContent = option.textContent;
+                        triggerSpan.textContent = text;
                     }
                     optionEl.addEventListener('click', () => {
                         selectElement.value = option.value;
-                        triggerSpan.textContent = option.textContent;
+                        triggerSpan.textContent = text;
                         wrapper.classList.remove('open');
+                        if (searchInput) searchInput.value = '';
                         // Manually trigger change event for frameworks
                         const event = new Event('change', { bubbles: true });
                         selectElement.dispatchEvent(event);
                         // Re-populate to update selected state
                         populateOptions();
                     });
-                    optionsContainer.appendChild(optionEl);
+                    optionsList.appendChild(optionEl);
                 });
-                lucide.createIcons();
+
+                if (matchCount === 0 && filter) {
+                    const noRes = document.createElement('div');
+                    noRes.className = 'text-center text-xs text-[var(--text-muted)] py-2';
+                    noRes.textContent = 'لا توجد نتائج';
+                    optionsList.appendChild(noRes);
+                }
+                if (window.lucide) lucide.createIcons();
             };
+
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    populateOptions(e.target.value);
+                });
+            }
 
             trigger.addEventListener('click', (e) => {
                 e.preventDefault();
-                wrapper.classList.toggle('open');
+                const isOpen = wrapper.classList.contains('open');
+                
+                document.querySelectorAll('.custom-select-wrapper.open').forEach(w => {
+                    if (w !== wrapper) w.classList.remove('open');
+                });
+
+                if (!isOpen) {
+                    wrapper.classList.add('open');
+                    if (searchInput) {
+                        searchInput.value = '';
+                        populateOptions();
+                        setTimeout(() => {
+                            if (window.innerWidth > 768) {
+                                searchInput.focus();
+                            }
+                        }, 50);
+                    }
+                } else {
+                    wrapper.classList.remove('open');
+                }
             });
 
             document.addEventListener('click', (e) => {
@@ -776,6 +890,7 @@ const surahSlugs = [
             const observer = new MutationObserver((mutations) => {
                 for(const mutation of mutations) {
                     if (mutation.type === 'childList') {
+                        if (searchInput) searchInput.value = '';
                         populateOptions();
                         break;
                     }
@@ -817,7 +932,7 @@ const surahSlugs = [
         function setupEvents() {
             setupAccordion();
 
-            createCustomDropdown(UI.surah);
+            createCustomDropdown(UI.surah, true);
             // Note: Custom dropdowns update the original select, triggering 'change', so History works automatically.
             createCustomDropdown(UI.canvasSize);
             createCustomDropdown(UI.fontVersion);
@@ -1078,9 +1193,9 @@ const surahSlugs = [
                                     .trim-range::-moz-range-thumb { pointer-events: auto; width: 14px; height: 28px; background: white; border-radius: 6px; cursor: ew-resize; border: none; box-shadow: 0 1px 4px rgba(0,0,0,0.5); }
                                 </style>
                                 <div class="flex justify-between items-center text-[10px] text-zinc-400 font-bold px-1 mb-1">
-                                    <span id="trimStartLabel" class="bg-[#007AFF]/20 px-2 py-0.5 rounded text-blue-100">0.0s</span>
+                                    <span id="trimStartLabel" class="bg-[#007AFF]/20 px-2 py-0.5 rounded text-[#007AFF]">0.0s</span>
                                     <span class="text-[#007AFF]"><i data-lucide="scissors" class="w-3 h-3 inline-block align-middle"></i> اقتطاع جزء من الصوت</span>
-                                    <span id="trimEndLabel" class="bg-[#007AFF]/20 px-2 py-0.5 rounded text-blue-100">0.0s</span>
+                                    <span id="trimEndLabel" class="bg-[#007AFF]/20 px-2 py-0.5 rounded text-[#007AFF]">0.0s</span>
                                 </div>
                                 <div class="relative w-full h-8 bg-[#007AFF]/10 border border-[#007AFF]/20 rounded-lg flex items-center" dir="ltr">
                                     <div id="trimVisualTrack" class="absolute h-full bg-[#007AFF]/50 border-y border-[#007AFF] rounded-md pointer-events-none" style="left: 0%; right: 0%;"></div>
