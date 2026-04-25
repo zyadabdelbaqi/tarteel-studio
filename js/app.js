@@ -81,28 +81,9 @@ const surahSlugs = [
         if (supabaseClient) {
             const urlHasAuthParams = window.location.hash.includes('access_token=') || window.location.hash.includes('refresh_token=') || window.location.search.includes('code=');
             
-            // تحديث الشرط ليدعم أنظمة التسجيل الحديثة (PKCE) التي تعتمد على code في الرابط
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            
             if (urlHasAuthParams) {
-                localStorage.removeItem('device_session_id');
-                localStorage.removeItem('device_session_ver');
-            }
-
-            // معالجة أخطاء تسجيل الدخول القادمة من الرابط
-            const urlSearchParams = new URLSearchParams(window.location.search);
-            const authError = urlSearchParams.get('error_description') || urlSearchParams.get('error');
-            if (authError) {
-                alert('حدث خطأ أثناء تسجيل الدخول: ' + decodeURIComponent(authError.replace(/\+/g, ' ')));
-            }
-            
-            let session = null;
-            try {
-                const res = await supabaseClient.auth.getSession();
-                session = res.data?.session;
-            } catch (e) {
-                console.error("Auth session error:", e);
-            }
-            
-            if (urlHasAuthParams || authError) {
                 // إزالة رموز تسجيل الدخول من الرابط بعد معالجتها لمنع سرقة الجهاز القديم للجلسة عند الريفريش
                 const cleanUrl = window.location.href.split('#')[0].split('?')[0];
                 window.history.replaceState(null, '', cleanUrl);
