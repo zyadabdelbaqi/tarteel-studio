@@ -203,7 +203,7 @@
 
     /* تحسين أداء تبويبات الإعدادات وتخفيف الريندر */
     .settings-section {
-        content-visibility: auto;
+        /* content-visibility: auto; تم التعطيل لأنها تقص القوائم المنسدلة وتمنعها من الظهور فوق باقي العناصر */
     }
 
         .file-upload-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; background: var(--input-bg); border: 2px dashed var(--border-color); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.2s; font-size: 11px; color: var(--text-muted); }
@@ -240,6 +240,10 @@
             position: relative;
             width: 100%;
             color: var(--text-main);
+        }
+
+        .custom-select-wrapper.open {
+            z-index: 99999;
         }
 
         .custom-select-trigger {
