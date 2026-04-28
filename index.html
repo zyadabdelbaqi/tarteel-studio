@@ -23,8 +23,6 @@
 
     <link rel="stylesheet" href="css/tailwind.css">
     <link rel="stylesheet" href="css/app.css">
-    <script src="js/lib/lucide.min.js" defer></script>
-    <script src="js/lib/supabase.min.js" defer></script>
 
     <!-- Structured Data for SEO -->
     <script type="application/ld+json">
@@ -536,14 +534,14 @@
             </div>
             
             <div class="flex items-center gap-1 bg-[var(--input-bg)] p-1 rounded-xl border border-[var(--border-color)] overflow-x-auto custom-scroll" id="mainSettingsTabs">
-                <button class="settings-tab-btn active flex-1 justify-center" data-target="sec-batch"><i data-lucide="sliders-horizontal" class="w-4 h-4"></i><span class="text-[11px] font-bold">النطاق والصوت</span></button>
-                <button class="settings-tab-btn flex-1 justify-center" data-target="sec-bg">
+                <button class="settings-tab-btn active flex-1 justify-center" data-step="batch"><i data-lucide="sliders-horizontal" class="w-4 h-4"></i><span class="text-[11px] font-bold">النطاق والصوت</span></button>
+                <button class="settings-tab-btn flex-1 justify-center" data-step="bg">
                     <i data-lucide="image" class="w-4 h-4"></i><span class="text-[11px] font-bold">الخلفية</span>
                 </button>
-                <button class="settings-tab-btn flex-1 justify-center" data-target="sec-design">
+                <button class="settings-tab-btn flex-1 justify-center" data-step="design">
                     <i data-lucide="type" class="w-4 h-4"></i><span class="text-[11px] font-bold">النص</span>
                 </button>
-                <button class="settings-tab-btn flex-1 justify-center" data-target="sec-addons">
+                <button class="settings-tab-btn flex-1 justify-center" data-step="addons">
                     <i data-lucide="sparkles" class="w-4 h-4"></i><span class="text-[11px] font-bold">إضافات</span>
                 </button>
             </div>
@@ -552,9 +550,9 @@
             <div class="sidebar-content custom-scroll">
                 <div class="space-y-4">
                     <!-- 1. Scope & Audio Settings -->
-                    <section id="sec-batch" class="settings-section block"><div class="space-y-3 pt-2">
+                    <section id="step-batch" class="step active"><div class="space-y-3 pt-2">
                         <div class="space-y-3 pt-2">
-                            <select id="surahSelect" class="w-full rounded-xl outline-none focus:border-[#007AFF] text-sm"></select>
+                            <select id="surahSelect" data-tab="ayahs" class="w-full rounded-xl outline-none focus:border-[#007AFF] text-sm"></select>
                             <div class="grid grid-cols-2 gap-3 font-sans">
                                 <div class="relative">
                                     <span class="absolute right-3 top-2 text-[10px] text-zinc-600">من آية</span>
@@ -579,7 +577,7 @@
 
                             <!-- Audio Source Tabs -->
                             <div class="tab-container">
-                                <button class="tab-btn active" id="tabOnline">قارئ أونلاين</button>
+                                <button class="tab-btn active" id="tabOnline" data-tab="audio">قارئ أونلاين</button>
                                 <button class="tab-btn flex items-center justify-center gap-1.5" id="tabLocal">
                                     <span>ارفع صوتك</span>
                                     <span class="px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-[9px] font-bold rounded-md shadow-sm">PRO</span>
@@ -655,7 +653,7 @@
                 <!-- 2. Reciter (Merged) -->
 
                 <!-- 3. Background Media Settings -->
-                <section id="sec-bg" class="settings-section hidden">
+                <section id="step-bg" class="step">
                     <div class="space-y-4 pt-2">
                             <div class="grid grid-cols-2 gap-2">
                                 <label class="file-upload-btn">
@@ -707,7 +705,7 @@
                 </section>
 
                 <!-- 4. The Design -->
-                <section id="sec-design" class="settings-section hidden">
+                <section id="step-design" class="step">
                     <div class="space-y-4 pt-2">
                             <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-2">
                                 <span class="text-[10px] text-[#007AFF] font-bold block">إصدار الخط</span>
@@ -790,7 +788,7 @@
                 </section>
 
                 <!-- 5. Add-ons -->
-                <section id="sec-addons" class="settings-section hidden">
+                <section id="step-addons" class="step">
                     <div class="space-y-4 pt-2">
                                 <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
                                     <div class="flex items-center justify-between">
@@ -918,6 +916,9 @@
     </main>
 </div>
 
+    <!-- Load external libraries synchronously at the end of the body to guarantee order before the module -->
+    <script src="js/lib/lucide.min.js"></script>
+    <script src="js/lib/supabase.min.js"></script>
     <script type="module" src="js/app.js"></script>
 </body>
 </html>
