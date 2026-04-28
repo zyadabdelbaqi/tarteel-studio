@@ -201,6 +201,19 @@
     .settings-tab-btn:hover { color: var(--text-main); background: rgba(0, 122, 255, 0.05); }
     .settings-tab-btn.active { background: var(--panel-bg); color: var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
 
+    /* Steps & Tabs Animation System */
+    .step {
+        display: none;
+        animation: fade 0.25s ease;
+    }
+    .step.active {
+        display: block;
+    }
+    @keyframes fade {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
     /* تحسين أداء تبويبات الإعدادات وتخفيف الريندر */
     .settings-section {
         /* content-visibility: auto; تم التعطيل لأنها تقص القوائم المنسدلة وتمنعها من الظهور فوق باقي العناصر */
@@ -327,6 +340,18 @@
         @keyframes warningPulse { 0% { border-color: rgba(239, 68, 68, 0.2); background: rgba(239, 68, 68, 0.05); } 50% { border-color: rgba(239, 68, 68, 0.6); background: rgba(239, 68, 68, 0.15); } 100% { border-color: rgba(239, 68, 68, 0.2); background: rgba(239, 68, 68, 0.05); } }
         .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .tab-btn.required, .custom-select-trigger.required {
+            border: 1px solid red !important;
+            animation: shake 0.3s;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            50% { transform: translateX(4px); }
+            75% { transform: translateX(-4px); }
+            100% { transform: translateX(0); }
+        }
 
         @media (max-width: 1024px) {
             .sidebar-content .space-y-6 {
