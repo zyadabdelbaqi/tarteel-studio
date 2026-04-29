@@ -24,6 +24,16 @@
     <link rel="stylesheet" href="css/tailwind.css">
     <link rel="stylesheet" href="css/app.css">
 
+    <style>
+        .active-link {
+            color: #007AFF !important;
+        }
+        .active-link span {
+            width: 100% !important;
+            opacity: 1 !important;
+        }
+    </style>
+
     <!-- Structured Data for SEO -->
     <script type="application/ld+json">
     {
@@ -120,26 +130,55 @@
 <script src="js/in-app.js"></script>
 
 <!-- Landing Page -->
-<main id="landingPage" class="fixed inset-0 bg-[var(--bg-dark)] z-[1500] flex flex-col items-center text-center p-6 overflow-y-auto transition-all duration-700">
+<main id="landingPage" class="fixed inset-0 bg-[var(--bg-dark)] z-[1500] flex flex-col items-center text-center p-6 overflow-y-auto transition-all duration-700 scroll-smooth">
     <div class="fixed inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#007AFF]/10 rounded-full blur-[100px]"></div>
-        <div class="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-500/10 rounded-full blur-[100px]"></div>
+        <div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#007AFF]/10 rounded-full blur-[70px]"></div>
+        <div class="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-500/10 rounded-full blur-[70px]"></div>
     </div>
 
-    <header class="w-full max-w-5xl flex justify-between items-center mb-8 z-20 relative">
-        <img src="img/logo/tarteel-studio-quran-logo.webp" alt="Tarteel Studio Logo" class="h-16 md:h-20">
-        <nav class="flex items-center gap-2">
-            <button id="lpLoginBtn" class="text-sm font-bold text-[#007AFF] hover:bg-[#007AFF]/10 px-4 py-2 rounded-lg transition-colors">تسجيل الدخول</button>
-            <button id="lpOpenProfileBtn" class="hidden theme-toggle-btn !border-[#007AFF]/30 !bg-[#007AFF]/10 !text-[#007AFF]"><i data-lucide="user" class="w-5 h-5 block"></i></button>
+    <header class="w-full max-w-5xl mb-8 z-20">
+        <div class="flex flex-wrap items-center justify-between gap-y-6 pb-4 w-full">
+        <div class="flex-1">
+            <img src="img/logo/tarteel-studio-quran-logo.webp" alt="Tarteel Studio Logo" class="h-16 md:h-20 landing-logo">
+        </div>
+        
+        <!-- روابط الوصول السريع -->
+        <nav class="flex w-full lg:w-auto order-last lg:order-none justify-center items-center gap-4 md:gap-8 text-sm md:text-base font-bold text-[#007AFF] md:mt-4">
+            <a href="#features" class="relative group transition-colors py-1">
+                المميزات
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#007AFF] rounded-full transition-all duration-300 opacity-0 group-hover:w-full group-hover:opacity-100"></span>
+            </a>
+            <a href="#pricing" class="relative group transition-colors py-1">
+                الأسعار
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#007AFF] rounded-full transition-all duration-300 opacity-0 group-hover:w-full group-hover:opacity-100"></span>
+            </a>
+            <a href="#testimonials" class="relative group transition-colors py-1">
+                الآراء
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#007AFF] rounded-full transition-all duration-300 opacity-0 group-hover:w-full group-hover:opacity-100"></span>
+            </a>
+            <a href="#faq" class="relative group transition-colors py-1">
+                الأسئلة الشائعة
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#007AFF] rounded-full transition-all duration-300 opacity-0 group-hover:w-full group-hover:opacity-100"></span>
+            </a>
         </nav>
+        
+        <div class="flex flex-1 items-center justify-end gap-4 md:gap-5">
+            <button id="lpLoginBtn" class="text-sm md:text-base font-bold text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 px-5 py-2 md:px-6 md:py-2.5 rounded-xl transition-all">تسجيل الدخول</button>
+            <button id="lpOpenProfileBtn" class="hidden text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 p-2 md:p-2.5 rounded-xl transition-all"><i data-lucide="user" class="w-5 h-5 block"></i></button>
+            <button id="lpThemeToggle" class="text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 p-2 md:p-2.5 rounded-xl transition-all" title="تغيير المظهر"><i data-lucide="moon" class="w-5 h-5 block"></i></button>
+        </div>
+        </div>
+
+        <!-- خط فاصل متدرج (بدون الحاجة لـ absolute ليصبح الكود مقاوماً للكسر مستقبلاً) -->
+        <div class="w-full h-px bg-gradient-to-r from-transparent via-[#007AFF]/15 to-transparent"></div>
     </header>
 
     <div class="relative z-10 max-w-5xl mx-auto my-auto w-full animate-fade-in-up">
         <section id="hero" class="py-10 md:py-16 space-y-8">
-            <h1 class="text-5xl md:text-8xl font-black tracking-tighter leading-[1.4] md:leading-[1.5] mb-6">
-                صمم فيديوهات قرآنيـة
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[1.4] md:leading-[1.3] mb-6">
+                حوّل التلاوة إلى فيديو يخطف القلوب
                 <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] via-cyan-400 to-purple-500">باحترافية وذكاء</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] via-cyan-400 to-purple-500">في ثوانٍ معدودة</span>
             </h1>
 
             <div class="inline-flex items-center justify-center gap-2 px-8 py-2.5 rounded-full bg-[#007AFF]/10 border border-[#007AFF]/20 text-[#007AFF] font-bold text-sm md:text-base mb-8 animate-fade-in-up" style="animation-delay: 0.1s;">
@@ -150,24 +189,24 @@
                 استديو متكامل لتحويل التلاوات الصوتية إلى مرئيات مذهلة. مزامنة تلقائية للآيات، خطوط عثمانية عالية الدقة، وتصدير فوري لمنصات التواصل.
             </p>
 
+            <div class="text-center animate-fade-in-up" style="animation-delay: 0.1s;">
+                <p class="mb-6 text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] to-purple-500">
+                    +20,000 فيديو قرآني تم إنشاؤه
+                </p>
+            </div>
+
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button id="startNowBtn" class="group relative px-8 py-4 bg-[#007AFF] hover:bg-[#0060c9] text-white text-lg font-bold rounded-2xl shadow-xl shadow-[#007AFF]/30 transition-all hover:scale-105 hover:-translate-y-1 overflow-hidden">
                     <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                     <div class="relative flex items-center gap-3">
-                        <span>ابدأ التصميم مجاناً</span>
+                    <span>أنشئ أول فيديو لك الآن</span>
                         <i data-lucide="arrow-left" class="w-5 h-5 group-hover:-translate-x-1 transition-transform"></i>
                     </div>
                 </button>
-                <a href="https://wa.me/201204746971" target="_blank" class="px-8 py-4 bg-[var(--panel-bg)] hover:bg-[var(--input-bg)] text-[var(--text-main)] text-lg font-bold rounded-2xl border border-[var(--border-color)] transition-all flex items-center gap-3">
+            <a href="https://wa.me/201204746971" target="_blank" class="px-8 py-4 bg-transparent hover:bg-[var(--panel-bg)] text-zinc-500 hover:text-[var(--text-main)] text-lg font-medium rounded-2xl border border-zinc-500/30 hover:border-[var(--border-color)] transition-all flex items-center gap-3">
                     <i data-lucide="message-circle" class="w-5 h-5"></i>
                     <span>تواصل معنا</span>
                 </a>
-            </div>
-
-            <div class="mt-16 text-center animate-fade-in-up" style="animation-delay: 0.1s;">
-                <p class="mt-16 mb-12 text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] to-purple-500">
-                    +20,000 فيديو قرآني تم إنشاؤه
-                </p>
             </div>
         </section>
 
@@ -177,7 +216,15 @@
                 <div class="h-8 bg-[#18181b] border-b border-[#27272a] flex items-center px-4 gap-2">
                     <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div><div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div><div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
                 </div>
-                <img src="img/img.webp" alt="واجهة التطبيق" class="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+                <div class="relative overflow-hidden cursor-pointer" onclick="document.getElementById('startNowBtn').click()">
+                    <!-- فيديو يعمل تلقائياً وبصمت كمعاينة حية -->
+                    <video src="video/preview.mp4" preload="auto" muted loop playsinline class="w-full h-auto object-cover opacity-90 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700"></video>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-20 h-20 bg-[#007AFF] rounded-full flex items-center justify-center text-white shadow-[0_0_30px_rgba(0,122,255,0.6)] transform scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500">
+                            <i data-lucide="play" class="w-8 h-8 ml-1 fill-white"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -191,23 +238,50 @@
         </section>
 
 
-        <section id="features" class="mt-12 pb-12 w-full">
+        <section id="features" class="mt-12 pb-12 w-full max-w-5xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">مميزات Tarteel Studio</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-right">
-                <div class="p-8 rounded-3xl bg-[var(--panel-bg)]/50 backdrop-blur-sm border border-[var(--border-color)] hover:border-[#007AFF]/30 transition-colors group">
-                    <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i data-lucide="wand-2" class="text-blue-500 w-6 h-6"></i></div>
-                    <h3 class="font-bold text-xl mb-3">مزامنة ذكية</h3>
-                    <p class="text-sm text-zinc-500 leading-relaxed">نظام ذكي يربط الصوت بالنص القرآني تلقائياً بدقة عالية مع إمكانية التعديل اليدوي.</p>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 text-right">
+                
+                <!-- الميزة الأساسية (Featured) -->
+                <div class="md:col-span-7 p-8 rounded-3xl bg-[var(--panel-bg)]/50 backdrop-blur-sm border border-[var(--border-color)] hover:border-[#007AFF] shadow-[0_0_30px_rgba(0,122,255,0.05)] transition-all group relative overflow-hidden flex flex-col justify-center">
+                    <div class="absolute -top-20 -right-20 w-40 h-40 bg-[#007AFF]/20 blur-3xl rounded-full pointer-events-none"></div>
+                    
+                    <div class="w-14 h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform relative z-10">
+                        <i data-lucide="wand-2" class="text-[#007AFF] w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-bold text-2xl mb-3 text-[var(--text-main)] relative z-10">مزامنة ذكية سحرية</h3>
+                    <p class="text-base text-zinc-400 leading-relaxed relative z-10 max-w-md">نظام ذكي يربط الصوت بالنص القرآني تلقائياً بدقة عالية مع إمكانية التعديل اليدوي السلس. وداعاً لساعات المونتاج الطويلة!</p>
                 </div>
-                <div class="p-8 rounded-3xl bg-[var(--panel-bg)]/50 backdrop-blur-sm border border-[var(--border-color)] hover:border-[#007AFF]/30 transition-colors group">
-                    <div class="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i data-lucide="layers" class="text-purple-500 w-6 h-6"></i></div>
-                    <h3 class="font-bold text-xl mb-3">تخصيص كامل</h3>
-                    <p class="text-sm text-zinc-500 leading-relaxed">تحكم في الخطوط، الألوان، الخلفيات، والمؤثرات البصرية لتناسب هويتك البصرية.</p>
+
+                <!-- الميزة الثانية -->
+                <div class="md:col-span-5 p-8 rounded-3xl bg-[var(--panel-bg)]/50 backdrop-blur-sm border border-[var(--border-color)] hover:border-purple-500/40 transition-all group relative overflow-hidden flex flex-col justify-center">
+                    <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-purple-500/10 blur-3xl rounded-full pointer-events-none"></div>
+                    
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform relative z-10">
+                        <i data-lucide="layers" class="text-purple-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 relative z-10">تخصيص كامل للهوية</h3>
+                    <p class="text-sm text-zinc-500 leading-relaxed relative z-10">تحكم في الخطوط، الألوان، الخلفيات، والمؤثرات البصرية لتناسب هويتك وتتميز عن غيرك.</p>
                 </div>
-                <div class="p-8 rounded-3xl bg-[var(--panel-bg)]/50 backdrop-blur-sm border border-[var(--border-color)] hover:border-[#007AFF]/30 transition-colors group">
-                    <div class="w-12 h-12 bg-orange-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i data-lucide="zap" class="text-orange-500 w-6 h-6"></i></div>
-                    <h3 class="font-bold text-xl mb-3">تصدير فوري</h3>
-                    <p class="text-sm text-zinc-500 leading-relaxed">ريندر محلي سريع جداً يدعم دقة 4K ومعدل إطارات 60fps لنتائج سينمائية.</p>
+
+                <!-- الميزة الثالثة (Wide Card) -->
+                <div class="md:col-span-12 p-8 rounded-3xl bg-[var(--panel-bg)]/50 backdrop-blur-sm border border-[var(--border-color)] hover:border-orange-500/40 transition-all group flex flex-col md:flex-row items-start md:items-center justify-between gap-6 overflow-hidden relative">
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-orange-500/5 blur-3xl rounded-full pointer-events-none"></div>
+                    
+                    <div class="flex-1 relative z-10">
+                        <div class="w-12 h-12 bg-orange-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <i data-lucide="zap" class="text-orange-500 w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3">تصدير فوري وسريع جداً</h3>
+                        <p class="text-sm text-zinc-500 leading-relaxed max-w-2xl">ريندر يدعم دقة 4K ومعدل إطارات 60fps لنتائج سينمائية ترفع من جودة محتواك على منصات التواصل</p>
+                    </div>
+                    
+                    <!-- شارات بصرية للميزة الثالثة (تصدير) -->
+                    <div class="flex flex-wrap md:flex-nowrap gap-3 relative z-10 shrink-0 mt-4 md:mt-0">
+                        <div class="px-4 py-2.5 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-500 text-xs font-bold flex items-center gap-2"><i data-lucide="monitor-play" class="w-4 h-4"></i> 4K Quality</div>
+                        <div class="px-4 py-2.5 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-500 text-xs font-bold flex items-center gap-2"><i data-lucide="gauge" class="w-4 h-4"></i> 60 FPS</div>
+                        <div class="px-4 py-2.5 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-500 text-xs font-bold flex items-center gap-2"><i data-lucide="file-video" class="w-4 h-4"></i> MP4</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -525,11 +599,11 @@
             <div class="flex items-center justify-between">
                 <img src="img/logo/tarteel-studio-quran-logo2.webp" id="studioLogoBtn" alt="Tarteel Studio Logo" class="h-8 lg:h-10 cursor-pointer hover:opacity-80 transition-opacity shrink-0" title="العودة للصفحة الرئيسية">
                 <div class="flex items-center gap-2 shrink-0">
-                    <button id="themeToggle" class="theme-toggle-btn"><i data-lucide="moon" class="w-5 h-5 block"></i></button>
-                    <button id="loginBtn" class="theme-toggle-btn !border-[#007AFF]/30 !bg-[#007AFF]/10 !text-[#007AFF] text-xs font-bold px-4 hidden">دخول</button>
-                    <button id="openProfileBtn" class="theme-toggle-btn !border-[#007AFF]/30 !bg-[#007AFF]/10 !text-[#007AFF] hidden">
+                    <button id="loginBtn" class="hidden text-xs font-bold text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 px-4 py-2 rounded-xl transition-all">تسجيل الدخول</button>
+                    <button id="openProfileBtn" class="hidden text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 p-2 rounded-xl transition-all">
                         <i data-lucide="user" class="w-5 h-5 block"></i>
                     </button>
+                    <button id="themeToggle" class="text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 p-2 rounded-xl transition-all" title="تغيير المظهر"><i data-lucide="moon" class="w-5 h-5 block"></i></button>
                 </div>
             </div>
             
