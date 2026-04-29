@@ -51,6 +51,14 @@
             --input-bg: #18181b;
         }
 
+    .landing-logo {
+        transition: filter 0.3s ease;
+    }
+
+    body.dark-mode .landing-logo {
+        filter: brightness(1.35) drop-shadow(0 0 15px rgba(0, 122, 255, 0.5));
+    }
+
     .hidden {
         display: none !important;
     }
