@@ -1,5 +1,0 @@
-<IfModule mod_headers.c>
-    # تفعيل Multi-thread الحقيقي (SharedArrayBuffer) في FFmpeg
-    Header set Cross-Origin-Embedder-Policy "require-corp"
-    Header set Cross-Origin-Opener-Policy "same-origin"
-</IfModule>
