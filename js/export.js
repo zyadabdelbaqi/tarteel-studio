@@ -78,8 +78,8 @@ async function ensureFFmpegReady() {
                     console.warn("⚠️ SharedArrayBuffer غير مفعل! FFmpeg سيعمل على نواة واحدة (Single-thread).");
                     console.warn("لتفعيل Multi-thread يجب ضبط الـ Headers: COOP و COEP في إعدادات السيرفر واستخدام HTTPS.");
                 }
-                const corePrefix = isSABSupported ? 'https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/umd/ffmpeg-core' : '/ffmpeg/ffmpeg-core';
-                const workerPath = isSABSupported ? 'https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/umd/ffmpeg-core.worker.js' : '/ffmpeg/worker.js';
+                const corePrefix = isSABSupported ? '/ffmpeg/ffmpeg-core-mt' : '/ffmpeg/ffmpeg-core';
+                const workerPath = isSABSupported ? '/ffmpeg/ffmpeg-core-mt.worker.js' : '/ffmpeg/worker.js';
 
                 await ffmpeg.load({
                     coreURL: await toBlobURL(`${corePrefix}.js`, 'text/javascript'),
