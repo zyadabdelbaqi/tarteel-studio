@@ -885,6 +885,45 @@
                                 <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center gap-2">
+                                            <span class="text-xs font-bold block">بسم الله الرحمن الرحيم</span>
+                                        </div>
+                                        <label class="toggle-switch"><input type="checkbox" id="showBasmala"><span class="slider"></span></label>
+                                    </div>
+                                    <div id="basmalaControls" class="space-y-3 pt-2 border-t border-[var(--border-color)]">
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">شكل البسملة</span><span id="basmalaNumberVal" class="text-[10px] text-[#007AFF] font-bold">6</span></div>
+                                        <input type="range" id="basmalaNumber" min="1" max="122" value="6" class="w-full">
+                                    </div>
+                                        <div>
+                                            <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">موقع بسم الله (Y)</span><span id="basmalaYVal" class="text-[10px] text-[#007AFF] font-bold">15%</span></div>
+                                            <input type="range" id="basmalaY" min="5" max="50" value="15" class="w-full">
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">موقع بسم الله أفقي (X)</span><span id="basmalaXVal" class="text-[10px] text-[#007AFF] font-bold">50%</span></div>
+                                            <input type="range" id="basmalaX" min="5" max="95" value="50" class="w-full">
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">حجم بسم الله</span><span id="basmalaSizeVal" class="text-[10px] text-[#007AFF] font-bold">90</span></div>
+                                            <input type="range" id="basmalaSize" min="20" max="150" value="90" class="w-full">
+                                        </div>
+                                        <div class="flex items-center justify-between pt-2 border-t border-[var(--border-color)]">
+                                            <span class="text-[10px] text-zinc-500">لون النص</span>
+                                            <div class="w-10"><input type="color" id="basmalaColor" value="#ffffff" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">قوة الظل</span><span id="basmalaShadowBlurVal" class="text-[10px] text-[#007AFF] font-bold">10</span></div>
+                                            <input type="range" id="basmalaShadowBlur" min="0" max="30" value="10" class="w-full">
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-[10px] text-zinc-500">لون الظل</span>
+                                            <div class="w-10"><input type="color" id="basmalaShadowColor" value="#000000" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
                                             <span class="text-xs font-bold block">موجة صوتية (Waveform)</span>
                                             <span class="px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-[9px] font-bold rounded-md shadow-sm">PRO</span>
                                         </div>
