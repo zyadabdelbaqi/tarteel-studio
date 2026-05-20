@@ -1,8 +1,30 @@
 /// <reference no-default-lib="true" />
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
-import { CORE_URL, FFMessageType } from "./const.js";
-import { ERROR_UNKNOWN_MESSAGE_TYPE, ERROR_NOT_LOADED, ERROR_IMPORT_FAILURE, } from "./errors.js";
+
+// Inlined from const.js
+const CORE_URL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js';
+var FFMessageType;
+(function (FFMessageType) {
+    FFMessageType["LOAD"] = "LOAD";
+    FFMessageType["EXEC"] = "EXEC";
+    FFMessageType["WRITE_FILE"] = "WRITE_FILE";
+    FFMessageType["READ_FILE"] = "READ_FILE";
+    FFMessageType["DELETE_FILE"] = "DELETE_FILE";
+    FFMessageType["RENAME"] = "RENAME";
+    FFMessageType["CREATE_DIR"] = "CREATE_DIR";
+    FFMessageType["LIST_DIR"] = "LIST_DIR";
+    FFMessageType["DELETE_DIR"] = "DELETE_DIR";
+    FFMessageType["MOUNT"] = "MOUNT";
+    FFMessageType["UNMOUNT"] = "UNMOUNT";
+    FFMessageType["ERROR"] = "ERROR";
+    FFMessageType["LOG"] = "LOG";
+    FFMessageType["PROGRESS"] = "PROGRESS";
+})(FFMessageType || (FFMessageType = {}));
+// Inlined from errors.js
+const ERROR_UNKNOWN_MESSAGE_TYPE = new Error("unknown message type");
+const ERROR_NOT_LOADED = new Error("ffmpeg is not loaded, call ffmpeg.load() first");
+const ERROR_IMPORT_FAILURE = new Error("failed to import ffmpeg-core.js");
 let ffmpeg;
 const load = async ({ coreURL: _coreURL, wasmURL: _wasmURL, workerURL: _workerURL, }) => {
     const first = !ffmpeg;
