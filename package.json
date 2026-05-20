@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && cp -r img fonts video data dist/ && mkdir -p dist/js && cp -r js/lib dist/js/",
+    "build": "vite build && cp -r img fonts video data dist/ 2>/dev/null || true && mkdir -p dist/js && cp -r js/lib dist/js/ 2>/dev/null || true",
     "preview": "vite preview"
   },
   "keywords": [],
