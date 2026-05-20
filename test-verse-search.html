@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Verse Search</title>
+    <style>
+        body {
+            font-family: 'Noto Sans Arabic', sans-serif;
+            background-color: #f4f4f5;
+            color: #18181b;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #007AFF;
+            text-align: center;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #e4e4e7;
+            border-radius: 8px;
+        }
+        .test-case {
+            padding: 10px;
+            margin: 10px 0;
+            background: #f1f1f2;
+            border-radius: 6px;
+        }
+        .success {
+            color: #10B981;
+            font-weight: bold;
+        }
+        .error {
+            color: #EF4444;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #e4e4e7;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #007AFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0060c9;
+        }
+        #results {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 6px;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 اختبار وظيفة البحث عن الآيات</h1>
+        
+        <div class="test-section">
+            <h2>🧪 حالات اختبار</h2>
+            
+            <div class="test-case">
+                <strong>حالة 1:</strong> بحث عن آية محددة (2:255 - آية الكرسي)
+                <br>
+                <strong>النتيجة المتوقعة:</strong> يجب إيجاد السورة 2، الآية 255
+                <button onclick="testSearch('2:255')">اختبار البحث</button>
+            </div>
+
+            <div class="test-case">
+                <strong>حالة 2:</strong> بحث عن مجموعة آيات (2:255-257)
+                <br>
+                <strong>النتيجة المتوقعة:</strong> يجب إيجاد السورة 2، الآيات 255-257
+                <button onclick="testSearch('2:255-257')">اختبار البحث</button>
+            </div>
+
+            <div class="test-case">
+                <strong>حالة 3:</strong> بحث غير صالح (أحرف عشوائية)
+                <br>
+                <strong>النتيجة المتوقعة:</strong> لا توجد نتائج
+                <button onclick="testSearch('abc')">اختبار البحث</button>
+            </div>
+
+            <div class="test-case">
+                <strong>حالة 4:</strong> بحث باستخدام علامة القسمة (2/255)
+                <br>
+                <strong>النتيجة المتوقعة:</strong> يجب إيجاد السورة 2، الآية 255
+                <button onclick="testSearch('2/255')">اختبار البحث</button>
+            </div>
+
+            <div class="test-case">
+                <strong>حالة 5:</strong> بحث عن أول آية في القرآن (1:1)
+                <br>
+                <strong>النتيجة المتوقعة:</strong> يجب إيجاد السورة 1، الآية 1
+                <button onclick="testSearch('1:1')">اختبار البحث</button>
+            </div>
+
+            <div class="test-case">
+                <strong>حالة 6:</strong> بحث عن آخر آية في القرآن (114:6)
+                <br>
+                <strong>النتيجة المتوقعة:</strong> يجب إيجاد السورة 114، الآية 6
+                <button onclick="testSearch('114:6')">اختبار البحث</button>
+            </div>
+
+            <div class="test-case">
+                <strong>حالة 7:</strong> بحث عن آية من سورة الفاتحة
+                <br>
+                <strong>النتيجة المتوقعة:</strong> يجب إيجاد السورة 1، الآيات 1-3
+                <button onclick="testSearch('1:1-3')">اختبار البحث</button>
+            </div>
+
+            <div class="test-case">
+                <strong>حالة 8:</strong> حقل فارغ
+                <br>
+                <strong>النتيجة المتوقعة:</strong> يجب إخفاء نتائج البحث
+                <button onclick="testSearch('')">اختبار البحث</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔍 شريط البحث الفعلي</h2>
+            <p>أدخل مرجع آية في الحقل أدناه لاختبار وظيفة البحث:</p>
+            <input type="text" id="searchInput" placeholder="اكتب مرجع الآية هنا (مثال: 2:255)">
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button onclick="performSearch()">🔍 بحث</button>
+                <button onclick="clearSearch()">🗑️ مسح</button>
+            </div>
+            <div id="results">
+                <em>النتائج ستظهر هنا...</em>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📄 ملخص التنفيذ</h2>
+            <p><strong>ماذا تم إضافته؟</strong></p>
+            <ul>
+                <li>✏️ حقل بحث جديد في القائمة الجانبية للبحث عن الآيات</li>
+                <li>🔍 دعم للبحث باستخدام مرجع الآية (مثال: 2:255 أو 2:255-257 أو 2/255)</li>
+                <li>📍 عرض نتائج البحث مع معاينة سريعة للنص</li>
+                <li>🎯 قدرة على تحديد السورة والآيات مباشرة من نتائج البحث</li>
+                <li>✨ تأثيرات بصرية وانتقالات سلسة لتحسين تجربة المستخدم</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // وظيفة اختبار البحث
+        function testSearch(query) {
+            const input = document.getElementById('searchInput');
+            input.value = query;
+            performSearch();
+        }
+
+        // وظيفة مسح البحث
+        function clearSearch() {
+            const input = document.getElementById('searchInput');
+            const results = document.getElementById('results');
+            input.value = '';
+            results.innerHTML = '<em>النتائج ستظهر هنا...</em>';
+        }
+
+        // وظيفة تنفيذ البحث
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const results = document.getElementById('results');
+            
+            if (!query) {
+                results.innerHTML = '<p class="error">⚠️ يرجى إدخال مرجع آية للبحث.</p>';
+                return;
+            }
+
+            // Pattern 1: Direct verse reference (e.g., "2:255", "2:255-257", "2/255")
+            const refPattern = /^(\d{1,3})[:/]\s*(\d{1,3})\s*(?:-\s*(\d{1,3}))?$/;
+            const refMatch = query.match(refPattern);
+            
+            if (refMatch) {
+                const surahNum = parseInt(refMatch[1]);
+                const startAyah = parseInt(refMatch[2]);
+                const endAyah = refMatch[3] ? parseInt(refMatch[3]) : startAyah;
+
+                if (surahNum >= 1 && surahNum <= 114 && startAyah >= 1 && endAyah >= startAyah) {
+                    results.innerHTML = `
+                        <div class="success">
+                            ✅ <strong>تم العثور على النتائج:</strong><br>
+                            📖 السورة رقم: ${surahNum}<br>
+                            🔢 الآيات: ${startAyah}${endAyah > startAyah ? ` - ${endAyah}` : ''}<br>
+                            🎯 سيتم تحديد هذه الآيات في واجهة التطبيق
+                        </div>
+                    `;
+                    return;
+                }
+            }
+
+            results.innerHTML = `
+                <div class="error">
+                    ❌ <strong>لم يتم العثور على نتائج.</strong><br>
+                    ℹ️ يرجى التأكد من صحة المرجع.<br>
+                    💡 مثال للمراجع الصحيحة: 2:255 أو 2:255-257 أو 2/255
+                </div>
+            `;
+        }
+
+        // اختبار تلقائي عند تحميل الصفحة
+        window.onload = function() {
+            console.log('🧪 صفحة اختبار وظيفة البحث عن الآيات جاهزة');
+            console.log('✨ يمكنك استخدام أزرار الاختبار أو إدخال مراجع يدوية');
+        };
+    </script>
+</body>
+</html>

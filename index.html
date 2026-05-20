@@ -21,8 +21,7 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="css/tailwind.css">
-    <link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="/src/style.css">
 
     <style>
         .active-link {
@@ -101,23 +100,6 @@
     }
     </script>
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1213923854153919');
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1213923854153919&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
 </head>
 <body class="">
 
@@ -505,7 +487,7 @@
                 <span id="planStatus" class="px-3 py-1 bg-zinc-500/10 text-zinc-500 text-xs font-bold rounded-full">نشط</span>
             </div>
             <a id="upgradeBtn" href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية" target="_blank" class="w-full py-3 bg-gradient-to-r from-orange-500 to-pink-500 hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-orange-500/20 hidden flex items-center justify-center gap-2">
-                <i data-lucide="sparkles" class="w-4 h-4"></i>ترقية للنسخة الاحترافية
+                <i data-lucide="sparkles" class="w-4 h-4"></i> ترقية للنسخة الاحترافية
             </a>
             <button id="logoutBtn" class="w-full py-3.5 bg-red-500/10 hover:bg-red-500/20 text-red-600 dark:text-red-400 rounded-xl font-bold transition-all border border-red-500/10 flex items-center justify-center gap-2"><i data-lucide="log-out" class="w-4 h-4"></i>تسجيل الخروج</button>
         </div>
@@ -1083,9 +1065,6 @@
     </main>
 </div>
 
-    <!-- Load external libraries synchronously at the end of the body to guarantee order before the module -->
-    <script src="js/lib/lucide.min.js"></script>
-    <script src="js/lib/supabase.min.js"></script>
-    <script type="module" src="js/app.js"></script>
+    <script type="module" src="/js/app.js"></script>
 </body>
 </html>
