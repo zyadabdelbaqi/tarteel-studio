@@ -3,28 +3,28 @@
             font-style: normal;
             font-weight: 400;
             font-display: swap;
-            src: url('../fonts/Noto_Sans_Arabic/static/NotoSansArabic-Regular.ttf') format('truetype');
+            src: url('https://cdn.jsdelivr.net/gh/zyadabdelbaqi/tarteel-assets@main/fonts/Noto_Sans_Arabic/static/NotoSansArabic-Regular.ttf') format('truetype');
         }
         @font-face {
             font-family: 'Noto Sans Arabic';
             font-style: normal;
             font-weight: 500;
             font-display: swap;
-            src: url('../fonts/Noto_Sans_Arabic/static/NotoSansArabic-Medium.ttf') format('truetype');
+            src: url('https://cdn.jsdelivr.net/gh/zyadabdelbaqi/tarteel-assets@main/fonts/Noto_Sans_Arabic/static/NotoSansArabic-Medium.ttf') format('truetype');
         }
         @font-face {
             font-family: 'Noto Sans Arabic';
             font-style: normal;
             font-weight: 700;
             font-display: swap;
-            src: url('../fonts/Noto_Sans_Arabic/static/NotoSansArabic-Bold.ttf') format('truetype');
+            src: url('https://cdn.jsdelivr.net/gh/zyadabdelbaqi/tarteel-assets@main/fonts/Noto_Sans_Arabic/static/NotoSansArabic-Bold.ttf') format('truetype');
         }
         @font-face {
             font-family: 'Noto Sans Arabic';
             font-style: normal;
             font-weight: 900;
             font-display: swap;
-            src: url('../fonts/Noto_Sans_Arabic/static/NotoSansArabic-Black.ttf') format('truetype');
+            src: url('https://cdn.jsdelivr.net/gh/zyadabdelbaqi/tarteel-assets@main/fonts/Noto_Sans_Arabic/static/NotoSansArabic-Black.ttf') format('truetype');
         }
 
         :root {
