@@ -68,7 +68,10 @@
             transition: all 0.2s ease; /* إضافة انتقال ناعم لتحسين المظهر */
         }
 
-        body.dark-mode .header-logo {
+        .paypal-logo { transition: filter 0.2s ease; }
+
+        body.dark-mode .header-logo,
+        body.dark-mode .paypal-logo {
             filter: brightness(0) invert(1); /* تحويل اللوجو للون الأبيض ليكون واضحاً واحترافياً في الوضع الداكن */
         }
 
