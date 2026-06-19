@@ -694,8 +694,11 @@
             <div class="sidebar-content custom-scroll">
                 <div class="space-y-4">
                     <!-- 1. Scope & Audio Settings -->
-                    <section id="step-batch" class="step active"><div class="space-y-3 pt-2">
+                    <section id="step-batch" class="step active">
                         <div class="space-y-3 pt-2">
+                            <div id="templateSection" class="mb-4">
+                                <!-- سيتم إنشاء محدد القوالب هنا بواسطة JavaScript -->
+                            </div>
                             <select id="surahSelect" data-tab="ayahs" class="w-full rounded-xl outline-none focus:border-[#007AFF] text-sm"></select>
                             <div class="grid grid-cols-2 gap-3 font-sans">
                                 <div class="relative">
@@ -869,6 +872,11 @@
                                 <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">موقع النص عمودياً (Y)</span><span id="textYVal" class="text-[10px] text-[#007AFF] font-bold">50%</span></div>
                                 <input type="range" id="textY" min="5" max="95" value="50" class="w-full">
                             </div>
+                            
+                            <div>
+                                <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">موقع النص أفقياً (X)</span><span id="textXVal" class="text-[10px] text-[#007AFF] font-bold">50%</span></div>
+                                <input type="range" id="textX" min="5" max="95" value="50" class="w-full">
+                            </div>
 
                             <div class="flex items-center justify-between p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)]">
                                 <div><span class="text-xs font-bold block">إظهار الترجمة</span></div>
@@ -887,23 +895,31 @@
 
                             <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
                                 <span class="text-[10px] text-[#007AFF] font-bold block">ألوان النص القرآني</span>
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div><span class="text-[10px] text-zinc-500 mb-1 block">لون النص</span><input type="color" id="textColor" value="#ffffff"></div>
-                                    <div><span class="text-[10px] text-zinc-500 mb-1 block">لون الظل</span><input type="color" id="shadowColor" value="#000000"></div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] text-zinc-500">لون النص</span>
+                                    <div class="w-10 h-8"><input type="color" id="textColor" value="#ffffff" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
                                 </div>
-                                <div>
-                                <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">قوة ظل الآيات</span><span id="shadowBlurDisplay" class="text-[10px] text-[#007AFF] font-bold">15</span></div>
-                                <input type="range" id="shadowBlur" min="0" max="60" value="15" class="w-full">
+                                <div class="flex items-center justify-between pt-2 border-t border-[var(--border-color)]">
+                                    <span class="text-[10px] text-zinc-500">لون الظل</span>
+                                    <div class="w-10 h-8"><input type="color" id="shadowColor" value="#000000" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
+                                </div>
+                                <div class="pt-2 border-t border-[var(--border-color)]">
+                                    <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">قوة ظل الآيات</span><span id="shadowBlurDisplay" class="text-[10px] text-[#007AFF] font-bold">15</span></div>
+                                    <input type="range" id="shadowBlur" min="0" max="60" value="15" class="w-full">
                                 </div>
                             </div>
 
                             <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
                                 <span class="text-[10px] text-[#007AFF] font-bold block">ألوان الترجمة</span>
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div><span class="text-[10px] text-zinc-500 mb-1 block">لون الترجمة</span><input type="color" id="transTextColor" value="#d4d4d8"></div>
-                                    <div><span class="text-[10px] text-zinc-500 mb-1 block">لون ظل الترجمة</span><input type="color" id="transShadowColor" value="#000000"></div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] text-zinc-500">لون الترجمة</span>
+                                    <div class="w-10 h-8"><input type="color" id="transTextColor" value="#d4d4d8" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
                                 </div>
-                                <div>
+                                <div class="flex items-center justify-between pt-2 border-t border-[var(--border-color)]">
+                                    <span class="text-[10px] text-zinc-500">لون ظل الترجمة</span>
+                                    <div class="w-10 h-8"><input type="color" id="transShadowColor" value="#000000" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
+                                </div>
+                                <div class="pt-2 border-t border-[var(--border-color)]">
                                     <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">قوة ظل الترجمة</span><span id="transShadowBlurDisplay" class="text-[10px] text-[#007AFF] font-bold">0</span></div>
                                     <input type="range" id="transShadowBlur" min="0" max="60" value="0" class="w-full">
                                 </div>
@@ -978,7 +994,7 @@
                                         </div>
                                         <div class="flex items-center justify-between pt-2 border-t border-[var(--border-color)]">
                                             <span class="text-[10px] text-zinc-500">لون النص</span>
-                                            <div class="w-10"><input type="color" id="basmalaColor" value="#ffffff" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
+                                            <div class="w-10 h-8"><input type="color" id="basmalaColor" value="#ffffff" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
                                         </div>
                                         <div>
                                             <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">قوة الظل</span><span id="basmalaShadowBlurVal" class="text-[10px] text-[#007AFF] font-bold">10</span></div>
@@ -986,7 +1002,7 @@
                                         </div>
                                         <div class="flex items-center justify-between">
                                             <span class="text-[10px] text-zinc-500">لون الظل</span>
-                                            <div class="w-10"><input type="color" id="basmalaShadowColor" value="#000000" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
+                                            <div class="w-10 h-8"><input type="color" id="basmalaShadowColor" value="#000000" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1009,7 +1025,7 @@
                                     </div>
                                     <div class="flex items-center justify-between pt-2 border-t border-[var(--border-color)]">
                                         <span class="text-[10px] text-zinc-500">لون الموجة</span>
-                                        <div class="w-10"><input type="color" id="waveformColor" value="#ffffff"></div>
+                                        <div class="w-10 h-8"><input type="color" id="waveformColor" value="#ffffff" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
                                     </div>
                                 </div>
 
@@ -1102,6 +1118,14 @@
     <!-- Load external libraries synchronously at the end of the body to guarantee order before the module -->
     <script src="js/lib/lucide.min.js"></script>
     <script src="js/lib/supabase.min.js"></script>
-    <script type="module" src="js/app.js"></script>
+    <script>
+        // Cache-busting for module scripts
+        (function() {
+            const appScript = document.createElement('script');
+            appScript.type = 'module';
+            appScript.src = `js/app.js?v=${new Date().getTime()}`;
+            document.body.appendChild(appScript);
+        })();
+    </script>
 </body>
 </html>
