@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarteel Studio | تصميم فيديوهات قرآنية احترافية | Quran Video Maker</title>
-    <meta name="description" content="استديو Tarteel لتحويل التلاوات الصوتية إلى فيديوهات قرآنية احترافية مع مزامنة الآيات وتصدير سريع لـ Reels و TikTok. أفضل أداة لصناع المحتوى القرآني - Quran video maker & Islamic video generator.">
-    <meta name="keywords" content="تصميم فيديوهات قرآنية, مونتاج قرآن, صانع محتوى إسلامي, قرآن ريلز, Tarteel Studio, Quran video maker, Islamic video generator, Quran reels maker, Quran background video">
+    <meta name="description"
+        content="استديو Tarteel لتحويل التلاوات الصوتية إلى فيديوهات قرآنية احترافية مع مزامنة الآيات وتصدير سريع لـ Reels و TikTok. أفضل أداة لصناع المحتوى القرآني - Quran video maker & Islamic video generator.">
+    <meta name="keywords"
+        content="تصميم فيديوهات قرآنية, مونتاج قرآن, صانع محتوى إسلامي, قرآن ريلز, Tarteel Studio, Quran video maker, Islamic video generator, Quran reels maker, Quran background video">
     <meta property="og:title" content="Tarteel Studio - تصميم فيديوهات قرآنية احترافية">
-    <meta property="og:description" content="حوّل التلاوات الصوتية إلى فيديوهات قرآنية احترافية بسهولة. أفضل أداة لصناع المحتوى القرآني والمقاطع القصيرة (Reels).">
+    <meta property="og:description"
+        content="حوّل التلاوات الصوتية إلى فيديوهات قرآنية احترافية بسهولة. أفضل أداة لصناع المحتوى القرآني والمقاطع القصيرة (Reels).">
     <meta property="og:image" content="https://i.ibb.co/20LsMjxT/Screenshot-20260220-234643.webp">
     <meta property="og:type" content="website">
 
@@ -28,6 +32,7 @@
         .active-link {
             color: #007AFF !important;
         }
+
         .active-link span {
             width: 100% !important;
             opacity: 1 !important;
@@ -102,594 +107,833 @@
     </script>
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 </head>
+
 <body class="">
 
-<!-- Global Loading Spinner -->
-<div id="globalLoader" class="fixed inset-0 bg-[var(--bg-dark)] z-[10000] flex flex-col items-center justify-center transition-opacity duration-500">
-    <div class="relative w-24 h-24 flex justify-center items-center mb-6">
-        <div class="absolute inset-0 rounded-full border-4 border-[#007AFF]/20"></div>
-        <div class="absolute inset-0 rounded-full border-4 border-[#007AFF] border-t-transparent animate-spin"></div>
-        <img src="img/logo/tarteel-studio-quran-logo3.webp" alt="Tarteel Logo" class="w-10 h-10 rounded-full animate-pulse" onerror="this.style.display='none'">
-    </div>
-    <h2 class="text-2xl font-black mb-2 tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] to-cyan-400">Tarteel Studio</h2>
-    <p class="text-sm text-zinc-500 animate-pulse">جاري تجهيز الاستوديو...</p>
-</div>
-
-<!-- In-App Browser Detection Overlay -->
-<div id="inAppOverlay" class="fixed inset-0 bg-[#09090b] z-[9999] hidden flex-col items-center justify-center p-6 text-center">
-    <div class="bg-[#007AFF]/10 p-6 rounded-full mb-6 animate-pulse">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-    </div>
-    <h2 class="text-2xl md:text-3xl font-black text-white mb-4 leading-tight">يرجى الفتح في المتصفح</h2>
-    <p class="text-zinc-400 mb-8 max-w-md leading-relaxed text-sm md:text-base">
-        متصفح فيسبوك/انستجرام لا يدعم تقنيات المعالجة العالية لهذا التطبيق مما يسبب بطء وتعليق.
-        <br><br>
-        للحصول على تجربة سلسة، اضغط الزر أدناه للفتح في <span class="text-[#007AFF] font-bold">Chrome</span> أو <span class="text-[#007AFF] font-bold">Safari</span>.
-    </p>
-    <button id="openExternalBtn" class="px-8 py-4 bg-[#007AFF] hover:bg-[#0060c9] text-white font-bold rounded-2xl transition-all shadow-lg shadow-[#007AFF]/20 w-full max-w-xs flex items-center justify-center gap-3">
-        <span>فتح في المتصفح الخارجي</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-    </button>
-</div>
-<script src="js/in-app.js"></script>
-
-<!-- Landing Page -->
-<main id="landingPage" class="fixed inset-0 bg-[var(--bg-dark)] z-[1500] flex flex-col items-center text-center p-6 overflow-y-auto transition-all duration-700 scroll-smooth">
-    <div class="fixed inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#007AFF]/10 rounded-full blur-[70px]"></div>
-        <div class="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-500/10 rounded-full blur-[70px]"></div>
+    <!-- Global Loading Spinner -->
+    <div id="globalLoader"
+        class="fixed inset-0 bg-[var(--bg-dark)] z-[10000] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="relative w-24 h-24 flex justify-center items-center mb-6">
+            <div class="absolute inset-0 rounded-full border-4 border-[#007AFF]/20"></div>
+            <div class="absolute inset-0 rounded-full border-4 border-[#007AFF] border-t-transparent animate-spin">
+            </div>
+            <img src="img/logo/tarteel-studio-quran-logo3.webp" alt="Tarteel Logo"
+                class="w-10 h-10 rounded-full animate-pulse" onerror="this.style.display='none'">
+        </div>
+        <h2
+            class="text-2xl font-black mb-2 tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] to-cyan-400">
+            Tarteel Studio</h2>
+        <p class="text-sm text-zinc-500 animate-pulse">جاري تجهيز الاستوديو...</p>
     </div>
 
-    <header class="w-full max-w-5xl mb-8 z-20">
-        <div class="flex flex-wrap items-center justify-between gap-y-6 pb-4 w-full">
-        <div class="flex-1">
-            <img src="img/logo/tarteel-studio-quran-logo.webp" alt="Tarteel Studio Logo" class="h-16 md:h-20 landing-logo">
+    <!-- In-App Browser Detection Overlay -->
+    <div id="inAppOverlay"
+        class="fixed inset-0 bg-[#09090b] z-[9999] hidden flex-col items-center justify-center p-6 text-center">
+        <div class="bg-[#007AFF]/10 p-6 rounded-full mb-6 animate-pulse">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
         </div>
-        
-        <!-- روابط الوصول السريع -->
-        <nav class="flex w-full lg:w-auto order-last lg:order-none justify-center items-center gap-4 md:gap-8 text-sm md:text-base font-bold text-[#007AFF] md:mt-4">
-            <a href="#features" class="relative group transition-colors py-1">
-                المميزات
-                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#007AFF] rounded-full transition-all duration-300 opacity-0 group-hover:w-full group-hover:opacity-100"></span>
-            </a>
-            <a href="#pricing" class="relative group transition-colors py-1">
-                الأسعار
-                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#007AFF] rounded-full transition-all duration-300 opacity-0 group-hover:w-full group-hover:opacity-100"></span>
-            </a>
-            <a href="#testimonials" class="relative group transition-colors py-1">
-                الآراء
-                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#007AFF] rounded-full transition-all duration-300 opacity-0 group-hover:w-full group-hover:opacity-100"></span>
-            </a>
-            <a href="#faq" class="relative group transition-colors py-1">
-                الأسئلة الشائعة
-                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#007AFF] rounded-full transition-all duration-300 opacity-0 group-hover:w-full group-hover:opacity-100"></span>
-            </a>
-        </nav>
-        
-        <div class="flex flex-1 items-center justify-end gap-4 md:gap-5">
-            <button id="lpLoginBtn" class="text-sm md:text-base font-bold text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 px-5 py-2 md:px-6 md:py-2.5 rounded-xl transition-all">تسجيل الدخول</button>
-            <button id="lpOpenProfileBtn" class="hidden text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 p-2 md:p-2.5 rounded-xl transition-all"><i data-lucide="user" class="w-5 h-5 block"></i></button>
-            <button id="lpThemeToggle" class="text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 p-2 md:p-2.5 rounded-xl transition-all" title="تغيير المظهر"><i data-lucide="moon" class="w-5 h-5 block"></i></button>
-        </div>
-        </div>
-
-        <!-- خط فاصل متدرج (بدون الحاجة لـ absolute ليصبح الكود مقاوماً للكسر مستقبلاً) -->
-        <div class="w-full h-px bg-gradient-to-r from-transparent via-[#007AFF]/15 to-transparent"></div>
-    </header>
-
-    <div class="relative z-10 max-w-5xl mx-auto my-auto w-full animate-fade-in-up">
-        <section id="hero" class="py-10 md:py-16 space-y-8">
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[1.4] md:leading-[1.3] mb-6">
-                حوّل التلاوة إلى فيديو يخطف القلوب
-                <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] via-cyan-400 to-purple-500">في ثوانٍ معدودة</span>
-            </h1>
-
-            <div class="inline-flex items-center justify-center gap-2 px-8 py-2.5 rounded-full bg-[#007AFF]/10 border border-[#007AFF]/20 text-[#007AFF] font-bold text-sm md:text-base mb-8 animate-fade-in-up" style="animation-delay: 0.1s;">
-                <span>مثالي لصناع الريلز ومحتوى تيك توك القرآني</span>
-            </div>
-
-            <p class="text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto leading-relaxed mb-10">
-                استديو متكامل لتحويل التلاوات الصوتية إلى مرئيات مذهلة. مزامنة تلقائية للآيات، خطوط عثمانية عالية الدقة، وتصدير فوري لمنصات التواصل.
-            </p>
-
-            <div class="text-center animate-fade-in-up" style="animation-delay: 0.1s;">
-                <p class="mb-6 text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] to-purple-500">
-                    +30,000 فيديو قرآني تم إنشاؤه
-                </p>
-            </div>
-
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button id="startNowBtn" class="group relative px-8 py-4 bg-[#007AFF] hover:bg-[#0060c9] text-white text-lg font-bold rounded-2xl shadow-xl shadow-[#007AFF]/30 transition-all hover:scale-105 hover:-translate-y-1 overflow-hidden">
-                    <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                    <div class="relative flex items-center gap-3">
-                    <span>أنشئ أول فيديو لك الآن</span>
-                        <i data-lucide="arrow-left" class="w-5 h-5 group-hover:-translate-x-1 transition-transform"></i>
-                    </div>
-                </button>
-            <a href="https://wa.me/201204746971" target="_blank" class="px-8 py-4 bg-transparent hover:bg-[var(--panel-bg)] text-zinc-500 hover:text-[var(--text-main)] text-lg font-medium rounded-2xl border border-zinc-500/30 hover:border-[var(--border-color)] transition-all flex items-center gap-3">
-                    <i data-lucide="message-circle" class="w-5 h-5"></i>
-                    <span>تواصل معنا</span>
-                </a>
-            </div>
-        </section>
-
-        <section id="preview" class="relative w-full max-w-5xl mx-auto mb-16 group animate-fade-in-up" style="animation-delay: 0.2s;">
-            <div class="absolute -inset-1 bg-gradient-to-r from-[#007AFF] to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-            <div class="relative rounded-2xl bg-[#121214] border border-[#27272a] overflow-hidden shadow-2xl">
-                <div class="h-8 bg-[#18181b] border-b border-[#27272a] flex items-center px-4 gap-2">
-                    <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div><div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div><div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
-                </div>
-                <div class="relative overflow-hidden cursor-pointer" onclick="document.getElementById('startNowBtn').click()">
-                    <!-- صورة معاينة بدلاً من الفيديو -->
-                    <img src="img/img.webp" alt="معاينة" class="w-full h-auto aspect-video object-cover opacity-90 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700 transform-gpu will-change-transform">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="w-20 h-20 bg-[#007AFF] rounded-full flex items-center justify-center text-white shadow-[0_0_30px_rgba(0,122,255,0.6)] transform scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500">
-                            <i data-lucide="play" class="w-8 h-8 ml-1 fill-white"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="examples" class="mt-16 pb-12 w-full">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">أمثلة من إبداعات مستخدمينا</h2>
-            <div class="grid grid-cols-3 gap-3 md:gap-6 max-w-screen-md mx-auto">
-                <div class="rounded-xl md:rounded-2xl bg-zinc-800 overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300" style="aspect-ratio: 9/16;"><img src="img/users/1.webp" alt="مثال فيديو قرآني" class="object-cover w-full h-full"></div>
-                <div class="rounded-xl md:rounded-2xl bg-zinc-800 overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300" style="aspect-ratio: 9/16;"><img src="img/users/2.webp" alt="مثال فيديو قرآني" class="object-cover w-full h-full"></div>
-                <div class="rounded-xl md:rounded-2xl bg-zinc-800 overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300" style="aspect-ratio: 9/16;"><img src="img/users/3.webp" alt="مثال فيديو قرآني" class="object-cover w-full h-full"></div>
-            </div>
-        </section>
-
-
-        <section id="features" class="mt-12 pb-12 w-full max-w-5xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">مميزات Tarteel Studio</h2>
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 text-right">
-                
-                <!-- الميزة الأساسية (Featured) -->
-                <div class="md:col-span-7 p-8 rounded-3xl bg-[var(--panel-bg)]/50 backdrop-blur-sm border border-[var(--border-color)] hover:border-[#007AFF] shadow-[0_0_30px_rgba(0,122,255,0.05)] transition-all group relative overflow-hidden flex flex-col justify-center">
-                    <div class="absolute -top-20 -right-20 w-40 h-40 bg-[#007AFF]/20 blur-3xl rounded-full pointer-events-none"></div>
-                    
-                    <div class="w-14 h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform relative z-10">
-                        <i data-lucide="wand-2" class="text-[#007AFF] w-7 h-7"></i>
-                    </div>
-                    <h3 class="font-bold text-2xl mb-3 text-[var(--text-main)] relative z-10">مزامنة ذكية سحرية</h3>
-                    <p class="text-base text-zinc-400 leading-relaxed relative z-10 max-w-md">نظام ذكي يربط الصوت بالنص القرآني تلقائياً بدقة عالية مع إمكانية التعديل اليدوي السلس. وداعاً لساعات المونتاج الطويلة!</p>
-                </div>
-
-                <!-- الميزة الثانية -->
-                <div class="md:col-span-5 p-8 rounded-3xl bg-[var(--panel-bg)]/50 backdrop-blur-sm border border-[var(--border-color)] hover:border-purple-500/40 transition-all group relative overflow-hidden flex flex-col justify-center">
-                    <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-purple-500/10 blur-3xl rounded-full pointer-events-none"></div>
-                    
-                    <div class="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform relative z-10">
-                        <i data-lucide="layers" class="text-purple-500 w-6 h-6"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-3 relative z-10">تخصيص كامل للهوية</h3>
-                    <p class="text-sm text-zinc-500 leading-relaxed relative z-10">تحكم في الخطوط، الألوان، الخلفيات، والمؤثرات البصرية لتناسب هويتك وتتميز عن غيرك.</p>
-                </div>
-
-                <!-- الميزة الثالثة (Wide Card) -->
-                <div class="md:col-span-12 p-8 rounded-3xl bg-[var(--panel-bg)]/50 backdrop-blur-sm border border-[var(--border-color)] hover:border-orange-500/40 transition-all group flex flex-col md:flex-row items-start md:items-center justify-between gap-6 overflow-hidden relative">
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-orange-500/5 blur-3xl rounded-full pointer-events-none"></div>
-                    
-                    <div class="flex-1 relative z-10">
-                        <div class="w-12 h-12 bg-orange-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <i data-lucide="zap" class="text-orange-500 w-6 h-6"></i>
-                        </div>
-                        <h3 class="font-bold text-xl mb-3">تصدير فوري وسريع جداً</h3>
-                        <p class="text-sm text-zinc-500 leading-relaxed max-w-2xl">ريندر يدعم دقة 4K ومعدل إطارات 60fps لنتائج سينمائية ترفع من جودة محتواك على منصات التواصل</p>
-                    </div>
-                    
-                    <!-- شارات بصرية للميزة الثالثة (تصدير) -->
-                    <div class="flex flex-wrap md:flex-nowrap gap-3 relative z-10 shrink-0 mt-4 md:mt-0">
-                        <div class="px-4 py-2.5 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-500 text-xs font-bold flex items-center gap-2"><i data-lucide="monitor-play" class="w-4 h-4"></i> 4K Quality</div>
-                        <div class="px-4 py-2.5 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-500 text-xs font-bold flex items-center gap-2"><i data-lucide="gauge" class="w-4 h-4"></i> 60 FPS</div>
-                        <div class="px-4 py-2.5 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-500 text-xs font-bold flex items-center gap-2"><i data-lucide="file-video" class="w-4 h-4"></i> MP4</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="pricing" class="mt-12 pb-12 w-full max-w-5xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">خطط الاشتراك</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-right px-4 pt-8">
-                <!-- Free Plan -->
-                <div class="p-8 rounded-3xl bg-gradient-to-b from-[var(--panel-bg)]/50 to-[#007AFF]/10 border border-[#007AFF]/50 hover:border-[#007AFF] flex flex-col h-full transition-all duration-[350ms] ease-in-out">
-                    <h3 class="font-bold text-2xl mb-2">الباقة المجانية</h3>
-                    <p class="text-sm text-zinc-500/70 mb-4">للبدء في تجربة إنشاء الفيديوهات القرآنية.</p>
-                    <div class="text-4xl font-black mb-6">مجاناً</div>
-                    <ul class="space-y-3 mb-6 flex-1">
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-green-500"></i><span class="text-sm">تصدير حتى 5 آيات للمقطع</span></li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-green-500"></i><span class="text-sm">وصول لجميع القراء المتاحين أونلاين</span></li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-green-500"></i><span class="text-sm">خلفيات وخطوط عثمانية عالية الدقة</span></li>
-                        <li class="flex items-center gap-3 text-zinc-500/70"><i data-lucide="x" class="w-5 h-5 text-red-500/50"></i><span class="text-sm">ظهور شعار Tarteel Studio</span></li>
-                        <li class="flex items-center gap-3 text-zinc-500/70"><i data-lucide="x" class="w-5 h-5 text-red-500/50"></i><span class="text-sm">الميزات الاحترافية غير متاحة</span></li>
-                    </ul>
-                    <button id="pricingStartFreeBtn" class="w-full py-3.5 bg-transparent border border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/15 hover:ring-1 hover:ring-[#007AFF] rounded-xl font-bold transition-all text-base">ابدأ الآن مجاناً</button>
-                    <p class="text-[10px] text-zinc-500/70 text-center font-medium mt-2">بدون بطاقة ائتمانية للتجربة المجانية</p>
-                </div>
-                <!-- Pro Plan --> 
-                <div class="p-8 rounded-3xl bg-gradient-to-b from-[#007AFF]/10 to-purple-500/5 border border-[#007AFF]/30 hover:border-[#007AFF]/50 hover:shadow-[0_20px_40px_rgba(0,122,255,0.15)] hover:-translate-y-1.5 transition-all duration-[350ms] ease-in-out flex flex-col h-full relative group">
-                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 z-10 px-4 py-1.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-[11px] font-bold rounded-full shadow-lg shadow-orange-500/30 flex items-center gap-1 whitespace-nowrap">
-                        فتح جميع الميزات الاحترافية
-                    </div>
-                    <div class="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
-                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#007AFF] to-purple-500"></div>
-                    </div>
-                    <h3 class="font-bold text-2xl mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] to-purple-500">الباقة الاحترافية (Pro)</h3>
-                    <p class="text-sm text-zinc-500 mb-4">لصناع المحتوى القرآني والمهتمين بنشر القرآن.</p>
-                    <div class="mb-6 space-y-3">
-                        <div>
-                            <p class="text-4xl font-black">149 جنيه / شهر <span class="text-lg font-medium text-zinc-400">(داخل مصر)</span></p>
-                            <p class="text-xs text-zinc-400 font-bold mt-1">أقل من 5 جنيه يوميًا</p>
-                            <p class="text-xs text-zinc-500 mt-1 flex items-center gap-1"><span>أو 999 جنيه سنوياً</span> <span class="text-green-500 font-bold text-[10px] bg-green-500/10 px-1.5 py-0.5 rounded-md">(وفر 44% - 789 جنيه)</span></p>
-                        </div>
-                        <div dir="rtl" class="text-right">
-                            <p class="text-3xl font-black text-[var(--text-main)]" dir="ltr">$6.99 / month <span class="text-base font-medium text-zinc-400">(International)</span></p>
-                            <p class="text-xs text-zinc-500 flex items-center gap-1 justify-start -mt-0.5"><span dir="ltr">or $59 / year</span> <span class="text-green-500 font-bold text-[10px] bg-green-500/10 px-1.5 py-0.5 rounded-md">(وفر 30% - $25)</span></p>
-                        </div>
-                    </div>
-                    <ul class="space-y-3 mb-6 flex-1">
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm font-bold text-[#007AFF]">جميع الميزات الاحترافية</span></li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm">عدد لا محدود من الآيات</span></li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm">عدد لا محدود من المقاطع</span></li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm">إزالة شعار Tarteel Studio</span></li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm">رفع تلاواتك الخاصة والمزامنة اليدوية</span></li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm">إضافة شعارك الخاص (علامة مائية)</span></li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm">إضافة موجات صوتية (Waveform)</span></li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm">تقسيم الآيات الطويلة بذكاء</span></li>
-                    </ul>
-                    <div class="text-xs text-zinc-500 mt-2 mb-3">
-                        <span class="block font-bold mb-1">الدفع متاح عبر:</span>
-                        <span>Vodafone Cash, InstaPay, Binance Pay, USDT, تحويل بنكي دولي</span>
-                    </div>
-                    <div class="flex flex-col gap-3 mt-1">
-                        <div class="w-full flex flex-col gap-2.5">
-                            <form class="paypal-form w-full" action="https://www.paypal.com/ncp/payment/HUMFM9Y7QZLPN" method="post" target="_blank">
-                                <input type="hidden" name="custom" class="paypalCustomId" data-plan="monthly" value="" />
-                                <button type="submit" class="w-full py-3.5 bg-[#FFD140] hover:bg-[#F4C430] text-black rounded-xl font-bold transition-all shadow-lg shadow-[#FFD140]/30 flex items-center justify-center gap-2 text-base">
-                                    <i data-lucide="calendar" class="w-5 h-5"></i>
-                                    <span>اشتراك شهري عبر PayPal</span>
-                                </button>
-                            </form>
-                            <form class="paypal-form w-full mt-4" action="https://www.paypal.com/ncp/payment/NECZPFG9ANVD8" method="post" target="_blank">
-                                <input type="hidden" name="custom" class="paypalCustomId" data-plan="annual" value="" />
-                                <button type="submit" class="w-full py-3.5 bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-600 ring-1 ring-green-500/30 hover:ring-green-500/50 rounded-xl font-bold transition-all shadow-lg flex items-center justify-center gap-2 text-base">
-                                    <i data-lucide="calendar-check" class="w-5 h-5 text-green-400"></i>
-                                    <span>اشتراك سنوي عبر PayPal (وفر 30%)</span>
-                                </button>
-                                <div class="flex items-center gap-1.5 justify-center opacity-70 mt-4">
-                                    <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards" class="h-4" />
-                                    <span class="text-[10px] text-zinc-500 flex items-center gap-1">مدعوم من <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" class="h-3 inline-block paypal-logo" style="vertical-align:middle;"/></span>
-                                </div>
-                            </form>
-                            <div class="flex items-center justify-center gap-1.5 text-green-500 text-[11px] font-bold bg-green-500/10 py-1.5 px-3 rounded-lg w-fit mx-auto mt-4 border border-green-500/20">
-                                <i data-lucide="zap" class="w-3 h-3 fill-green-500"></i>
-                                <span>يتم التفعيل تلقائيًا بعد الدفع</span>
-                            </div>
-                            <div class="flex flex-wrap items-center justify-center gap-3 mt-2 text-[10px] text-zinc-500 font-medium">
-                                <div class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-green-500"></i><span>آمن عبر PayPal</span></div>
-                                <div class="flex items-center gap-1"><i data-lucide="credit-card" class="w-3.5 h-3.5 text-green-500"></i><span>لا يتم حفظ بيانات البطاقة</span></div>
-                            </div>
-                        </div>
-                        <a href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية" target="_blank" class="w-full py-2.5 bg-[var(--input-bg)] border border-[var(--border-color)] text-zinc-500 hover:text-[#007AFF] hover:bg-[#007AFF]/5 hover:border-[#007AFF]/50 rounded-xl font-medium transition-all text-sm text-center flex justify-center items-center gap-2 mt-1"><i data-lucide="message-circle" class="w-4 h-4"></i>طرق دفع أخرى (واتساب)</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="testimonials" class="mt-12 pb-12 w-full">
-            <div class="flex flex-col items-center mb-10">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">يثق بنا صناع المحتوى</h2>
-                <button id="addReviewBtn" class="px-6 py-2.5 bg-[var(--panel-bg)] hover:bg-[var(--input-bg)] text-[var(--text-main)] text-sm font-bold rounded-xl border border-[var(--border-color)] transition-all flex items-center gap-2 shadow-sm">
-                    <i data-lucide="message-square-plus" class="w-4 h-4"></i>
-                    <span>أضف رأيك في الأداة</span>
-                </button>
-            </div>
-            <div id="testimonialsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-right">
-                <!-- سيتم إدراج التقييمات هنا ديناميكياً -->
-            </div>
-        </section>
-
-        <section id="faq" class="mt-12 pb-12 w-full max-w-3xl mx-auto text-right">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">الأسئلة الشائعة</h2>
-            <div class="space-y-4">
-                <details class="bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-2xl p-5 group cursor-pointer hover:border-[#007AFF]/50 transition-colors">
-                    <summary class="font-bold text-lg outline-none list-none flex justify-between items-center">
-                        هل موقع Tarteel Studio مجاني؟
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-[#007AFF] group-open:rotate-180 transition-transform"></i>
-                    </summary>
-                    <p class="text-sm text-zinc-400 mt-4 leading-relaxed">
-                        نعم، يوفر Tarteel Studio باقة مجانية تتيح لك تصميم فيديوهات قرآنية وتصدير حتى 5 آيات للمقطع الواحد بخطوط عثمانية عالية الدقة. كما تتوفر باقة احترافية للميزات المتقدمة وتصدير مقاطع أطول.
-                    </p>
-                </details>
-                <details class="bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-2xl p-5 group cursor-pointer hover:border-[#007AFF]/50 transition-colors">
-                    <summary class="font-bold text-lg outline-none list-none flex justify-between items-center">
-                        كيف أقوم بتنزيل الفيديو بعد تصميمه؟
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-[#007AFF] group-open:rotate-180 transition-transform"></i>
-                    </summary>
-                    <p class="text-sm text-zinc-400 mt-4 leading-relaxed">
-                        بعد الانتهاء من تخصيص الفيديو واختيار الآيات، اضغط على زر "تصدير المقطع". ستبدأ عملية المعالجة مباشرة في متصفحك، وبمجرد انتهائها سيظهر لك زر "تحميل الفيديو" لحفظه على جهازك بصيغة MP4.
-                    </p>
-                </details>
-                <details class="bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-2xl p-5 group cursor-pointer hover:border-[#007AFF]/50 transition-colors">
-                    <summary class="font-bold text-lg outline-none list-none flex justify-between items-center">
-                        هل يمكنني رفع تلاوة صوتية خاصة بي؟
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-[#007AFF] group-open:rotate-180 transition-transform"></i>
-                    </summary>
-                    <p class="text-sm text-zinc-400 mt-4 leading-relaxed">
-                        نعم، تتيح لك النسخة الاحترافية (Pro) رفع ملفاتك الصوتية (MP3/WAV) واستخدام أداة المزامنة اليدوية الذكية لربط الصوت بالآيات بكل سهولة ودقة.
-                    </p>
-                </details>
-                <details class="bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-2xl p-5 group cursor-pointer hover:border-[#007AFF]/50 transition-colors">
-                    <summary class="font-bold text-lg outline-none list-none flex justify-between items-center">
-                        ما هي المنصات المدعومة لمشاركة الفيديوهات؟
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-[#007AFF] group-open:rotate-180 transition-transform"></i>
-                    </summary>
-                    <p class="text-sm text-zinc-400 mt-4 leading-relaxed">
-                        يدعم الاستوديو تصدير الفيديوهات بمقاسات متعددة لتناسب جميع المنصات مثل: الطولي 9:16 (Reels، TikTok، YouTube Shorts)، المربع 1:1 أو البورتريه 4:5 (Instagram Post)، والعرضي 16:9 (يوتيوب العادي).
-                    </p>
-                </details>
-                <details class="bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-2xl p-5 group cursor-pointer hover:border-[#007AFF]/50 transition-colors">
-                    <summary class="font-bold text-lg outline-none list-none flex justify-between items-center">
-                        هل أحتاج إلى تحميل أي برامج لاستخدام Tarteel Studio؟
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-[#007AFF] group-open:rotate-180 transition-transform"></i>
-                    </summary>
-                    <p class="text-sm text-zinc-400 mt-4 leading-relaxed">
-                        لا، Tarteel Studio يعمل بالكامل عبر المتصفح (أونلاين). لست بحاجة لتحميل أو تثبيت أي برامج، فقط سجل دخولك وابدأ التصميم مباشرة من أي جهاز.
-                    </p>
-                </details>
-                <details class="bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-2xl p-5 group cursor-pointer hover:border-[#007AFF]/50 transition-colors">
-                    <summary class="font-bold text-lg outline-none list-none flex justify-between items-center">
-                        ما هي جودة الفيديوهات التي يمكنني تصديرها؟
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-[#007AFF] group-open:rotate-180 transition-transform"></i>
-                    </summary>
-                    <p class="text-sm text-zinc-400 mt-4 leading-relaxed">
-                        يمكنك تصدير الفيديوهات بجودات متعددة تبدأ من 480p وحتى 4K، مع دعم معدل إطارات يصل إلى 60 إطاراً في الثانية (60fps) لضمان أعلى دقة وسلاسة في الفيديو النهائي.
-                    </p>
-                </details>
-                <details class="bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-2xl p-5 group cursor-pointer hover:border-[#007AFF]/50 transition-colors">
-                    <summary class="font-bold text-lg outline-none list-none flex justify-between items-center">
-                        هل أستطيع تغيير ألوان الخطوط والخلفيات؟
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-[#007AFF] group-open:rotate-180 transition-transform"></i>
-                    </summary>
-                    <p class="text-sm text-zinc-400 mt-4 leading-relaxed">
-                        بالتأكيد! يوفر لك الاستوديو تحكماً كاملاً في ألوان النصوص، والظلال، واختيار خلفيات جاهزة عالية الدقة أو رفع خلفياتك الخاصة (صور أو فيديوهات).
-                    </p>
-                </details>
-            </div>
-        </section>
-
-        <section class="max-w-5xl mx-auto mb-16 text-center">
-            <h2 class="text-3xl font-bold mb-8 text-[var(--text-main)]">
-                أدوات الفيديوهات القرآنية
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-lg text-zinc-400">
-                <a href="/quran-video-maker" class="hover:text-[#007AFF] transition-colors">
-                    صانع الفيديوهات القرآنية
-                </a>
-                <a href="/islamic-video-maker" class="hover:text-[#007AFF] transition-colors">
-                    صانع الفيديوهات الإسلامية
-                </a>
-                <a href="/quran-reels-maker" class="hover:text-[#007AFF] transition-colors">
-                    صانع ريلز قرآني
-                </a>
-                <a href="/create-quran-video" class="hover:text-[#007AFF] transition-colors">
-                    إنشاء فيديو قرآني
-                </a>
-            </div>
-        </section>
-
-        <footer class="text-zinc-500 text-sm pb-6">
-            <div class="flex flex-wrap justify-center gap-4 mb-4">
-                <a href="/terms.html" class="hover:text-[#007AFF] transition-colors">شروط الاستخدام</a>
-                <a href="/privacy.html" class="hover:text-[#007AFF] transition-colors">سياسة الخصوصية</a>
-                <a href="/refund.html" class="hover:text-[#007AFF] transition-colors">سياسة الاسترجاع</a>
-            </div>
-            <p>© 2026 Tarteel Studio. جميع الحقوق محفوظة.</p>
-        </footer>
-    </div>
-</main>
-
-<!-- Authentication & Modals -->
-<div id="authScreen" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-[2000] flex items-center justify-center p-4 transition-all duration-500">
-    <div class="bg-[var(--panel-bg)] border border-[var(--border-color)] w-full max-w-md p-8 rounded-3xl shadow-2xl text-center relative">
-        <button id="closeAuthBtn" class="absolute top-4 left-4 p-2 hover:bg-[var(--input-bg)] rounded-full transition-colors"><i data-lucide="x" class="w-5 h-5 text-zinc-500"></i></button>
-        <img src="img/logo/tarteel-studio-quran-logo2.webp" alt="Tarteel Studio Logo" class="w-40 mx-auto mb-4">
-        <p class="text-zinc-500 text-sm mb-8 mt-2">أنشئ محتوى قرآني احترافي في ثوانٍ</p>
-        <div class="space-y-4">
-            <button id="google-login" class="w-full py-4 bg-[var(--panel-bg)] text-[var(--text-main)] border border-[var(--border-color)] hover:bg-[var(--input-bg)] rounded-xl font-bold shadow-sm transition-all flex items-center justify-center gap-3">
-                <svg class="w-6 h-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                <span>المتابعة باستخدام Google</span>
-            </button>
-        </div>
-    </div>
-</div>
-
-<div id="profileModal" class="confirm-modal">
-    <div class="modal-card relative">
-        <button id="closeProfileBtn" class="absolute top-4 left-4 p-2 hover:bg-[var(--input-bg)] rounded-full transition-colors"><i data-lucide="x" class="w-5 h-5 text-zinc-500"></i></button>
-        <div class="w-24 h-24 bg-gradient-to-tr from-[#007AFF] to-cyan-400 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl font-bold text-white shadow-xl" id="profileAvatar">A</div>
-        <h3 class="text-2xl font-bold mb-1" id="profileName">User Name</h3>
-        <p class="text-zinc-500 text-sm mb-8" id="profileEmail">user@example.com</p>
-        <div class="space-y-3">
-            <div class="p-4 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="p-2 bg-orange-500/10 rounded-lg"><i data-lucide="crown" class="w-5 h-5 text-orange-500"></i></div>
-                    <div class="text-right"><span class="block font-bold text-sm">الخطة الحالية</span><span id="planName" class="block text-[10px] text-zinc-500">مجانية (Free)</span></div>
-                </div>
-                <span id="planStatus" class="px-3 py-1 bg-zinc-500/10 text-zinc-500 text-xs font-bold rounded-full">نشط</span>
-            </div>
-            <a id="upgradeBtn" href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية" target="_blank" class="w-full py-3 bg-gradient-to-r from-orange-500 to-pink-500 hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-orange-500/20 hidden flex items-center justify-center gap-2">
-                <i data-lucide="sparkles" class="w-4 h-4"></i>ترقية للنسخة الاحترافية
-            </a>
-            <button id="logoutBtn" class="w-full py-3.5 bg-red-500/10 hover:bg-red-500/20 text-red-600 dark:text-red-400 rounded-xl font-bold transition-all border border-red-500/10 flex items-center justify-center gap-2"><i data-lucide="log-out" class="w-4 h-4"></i>تسجيل الخروج</button>
-        </div>
-    </div>
-</div>
-
-<div id="confirmModal" class="confirm-modal">
-    <div class="modal-card">
-        <div class="bg-[#007AFF]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-            <i data-lucide="video" class="text-[#007AFF] w-8 h-8"></i>
-        </div>
-        <h3 class="text-xl font-bold mb-2">تأكيد التصدير</h3>
-        <p class="text-zinc-500 text-sm mb-6 leading-relaxed">هل انت متأكد من بدأ تصدير الفيديو</p>
-        <div class="space-y-3">
-            <button id="startExportBtn" class="w-full py-3 bg-[#007AFF] hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-[#007AFF]/20 flex items-center justify-center gap-2">
-                <i data-lucide="download" class="w-4 h-4"></i>
-                <span>تصدير الفيديو</span>
-            </button>
-            <button id="confirmNo" class="text-zinc-500 text-xs hover:text-zinc-700 mt-2">إلغاء</button>
-        </div>
-    </div>
-</div>
-
-<div id="limitModal" class="confirm-modal">
-    <div class="modal-card">
-        <div class="bg-orange-500/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-            <i data-lucide="alert-triangle" class="text-orange-500 w-8 h-8"></i>
-        </div>
-        <h3 class="text-xl font-bold mb-2">تجاوزت حد الخطة المجانية</h3>
-        <p class="text-zinc-500 text-sm mb-6 leading-relaxed">عذراً، النسخة المجانية تتيح لك تصدير 5 آيات فقط للمقطع الواحد. انشر سورة كاملة بضغطة واحدة وفك قيود الـ 5 آيات بالترقية للنسخة الاحترافية.</p>
-        <div class="space-y-3">
-            <a href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية" target="_blank" class="w-full py-3.5 bg-[#25D366] hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-[#25D366]/20 flex items-center justify-center gap-2">
-                <i data-lucide="sparkles" class="w-5 h-5"></i>
-                <span>ترقية للنسخة الاحترافية</span>
-            </a>
-            <button id="confirmLimit" class="w-full py-3.5 bg-orange-500 hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-orange-500/20">الاستمرار بالنسخة المجانية (5 آيات)</button>
-            <button id="viewPricingBtnLimit" class="w-full py-3 bg-transparent border border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/10 rounded-xl font-bold transition-all">عرض خطط الأسعار</button>
-            <button id="cancelLimit" class="text-zinc-500 text-xs hover:text-zinc-700 mt-2">إلغاء</button>
-        </div>
-    </div>
-</div>
-
-<div id="proFeatureModal" class="confirm-modal">
-    <div class="modal-card">
-        <div class="bg-gradient-to-tr from-orange-500 to-pink-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-orange-500/20">
-            <i data-lucide="crown" class="text-white w-8 h-8"></i>
-        </div>
-        <h3 class="text-xl font-bold mb-2">ميزة للمحترفين فقط</h3>
-        <p class="text-zinc-500 text-sm mb-6 leading-relaxed" id="proFeatureMsg">هذه الميزة متاحة فقط في النسخة الاحترافية.</p>
-        <div class="space-y-3">
-            <a href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية" target="_blank" class="w-full py-3.5 bg-gradient-to-r from-orange-500 to-pink-500 hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2">
-                <i data-lucide="sparkles" class="w-5 h-5"></i>
-                <span>ترقية للنسخة الاحترافية</span>
-            </a>
-            <button id="viewPricingBtn" class="w-full py-3 bg-transparent border border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/10 rounded-xl font-bold transition-all">عرض خطط الأسعار</button>
-            <button id="closeProModal" class="text-zinc-500 text-xs hover:text-zinc-700">إلغاء</button>
-        </div>
-    </div>
-</div>
-
-<div id="deleteAudioConfirmModal" class="confirm-modal">
-    <div class="modal-card">
-        <div class="bg-red-500/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-            <i data-lucide="trash-2" class="text-red-500 w-8 h-8"></i>
-        </div>
-        <h3 class="text-xl font-bold mb-2">تأكيد الحذف</h3>
-        <p class="text-zinc-500 text-sm mb-6 leading-relaxed">هل أنت متأكد من حذف الملف الصوتي؟ سيتم حذف جميع توقيتات المزامنة اليدوية التي قمت بها.</p>
-        <div class="space-y-3">
-            <button id="confirmDeleteAudio" class="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-red-500/20">نعم، احذف الملف</button>
-            <button id="cancelDeleteAudio" class="text-zinc-500 text-xs hover:text-zinc-700 mt-2">إلغاء</button>
-        </div>
-    </div>
-</div>
-
-<div id="reviewModal" class="confirm-modal">
-    <div class="modal-card relative text-right">
-        <button id="closeReviewModal" class="absolute top-4 left-4 p-2 hover:bg-[var(--input-bg)] rounded-full transition-colors"><i data-lucide="x" class="w-5 h-5 text-zinc-500"></i></button>
-        <h3 class="text-xl font-bold mb-2 text-[var(--text-main)]">شاركنا رأيك</h3>
-        <p class="text-zinc-500 text-sm mb-6">رأيك يهمنا ويساعدنا على تطوير Tarteel Studio</p>
-        <div class="space-y-4">
-            <div>
-                <textarea id="reviewContent" rows="4" placeholder="اكتب رأيك هنا بحرية..." class="w-full p-4 rounded-xl text-sm border border-[var(--border-color)] bg-[var(--input-bg)] text-[var(--text-main)] focus:border-[#007AFF] outline-none resize-none custom-scroll"></textarea>
-            </div>
-            <button id="submitReviewBtn" class="w-full py-3 bg-[#007AFF] hover:bg-[#0060c9] text-white rounded-xl font-bold transition-all shadow-lg shadow-[#007AFF]/20 flex items-center justify-center gap-2">
-                <i data-lucide="send" class="w-4 h-4"></i>
-                <span>إرسال التقييم</span>
-            </button>
-            <p id="reviewFeedback" class="text-xs text-center hidden"></p>
-        </div>
-    </div>
-</div>
-
-<!-- نافذة التحديثات -->
-<div id="updatesModal" class="confirm-modal" style="display: none;">
-    <div class="modal-card">
-        <div class="bg-[#007AFF]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i data-lucide="bell-ring" class="text-[#007AFF] w-8 h-8"></i>
-        </div>
-        <h3 id="updateTitle" class="text-2xl font-bold mb-4 text-[var(--text-main)]"></h3>
-        <div id="updateContent" class="text-sm text-[var(--text-muted)] mb-8 leading-relaxed text-right space-y-3 max-h-60 overflow-y-auto custom-scroll pr-2 whitespace-pre-line">
-            <!-- محتوى التحديث سيتم جلبه هنا -->
-        </div>
-        <button id="closeUpdateBtn" class="w-full py-3 bg-[#007AFF] hover:bg-[#0060c9] text-white font-bold rounded-xl transition-all shadow-lg shadow-[#007AFF]/30">
-           تمام
+        <h2 class="text-2xl md:text-3xl font-black text-white mb-4 leading-tight">يرجى الفتح في المتصفح</h2>
+        <p class="text-zinc-400 mb-8 max-w-md leading-relaxed text-sm md:text-base">
+            متصفح فيسبوك/انستجرام لا يدعم تقنيات المعالجة العالية لهذا التطبيق مما يسبب بطء وتعليق.
+            <br><br>
+            للحصول على تجربة سلسة، اضغط الزر أدناه للفتح في <span class="text-[#007AFF] font-bold">Chrome</span> أو
+            <span class="text-[#007AFF] font-bold">Safari</span>.
+        </p>
+        <button id="openExternalBtn"
+            class="px-8 py-4 bg-[#007AFF] hover:bg-[#0060c9] text-white font-bold rounded-2xl transition-all shadow-lg shadow-[#007AFF]/20 w-full max-w-xs flex items-center justify-center gap-3">
+            <span>فتح في المتصفح الخارجي</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+            </svg>
         </button>
     </div>
-</div>
+    <script src="js/in-app.js"></script>
 
-<!-- Export Progress Modal (Full Screen) -->
-<div id="exportOverlay" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-[3000] items-center justify-center p-4 transition-all duration-500" style="display: none;">
-    <div id="exportProcessingUI" class="w-full max-w-sm bg-[var(--panel-bg)] border border-[var(--border-color)] p-6 md:p-8 rounded-3xl shadow-2xl flex flex-col items-center text-center">
-        <div class="bg-[#007AFF]/10 p-4 rounded-full mb-4 border border-[#007AFF]/20 animate-pulse">
-            <i data-lucide="video" class="text-[#007AFF] w-8 h-8"></i>
+    <!-- Landing Page -->
+    <main id="landingPage"
+        class="fixed inset-0 bg-[var(--bg-dark)] z-[1500] flex flex-col items-center text-center p-6 overflow-y-auto transition-all duration-700 scroll-smooth">
+        <div class="fixed inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#007AFF]/10 rounded-full blur-[70px]"></div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-500/10 rounded-full blur-[70px]">
+            </div>
         </div>
-        <h3 class="text-lg md:text-xl font-bold mb-2">جاري المعالجة والتصدير</h3>
-        <p class="text-zinc-500 text-xs mb-6">يرجى عدم إغلاق هذه الصفحة</p>
-        <div class="w-full bg-[var(--input-bg)] rounded-full h-3 mb-2 overflow-hidden border border-[var(--border-color)]">
-            <div id="exportProgressBar" class="bg-gradient-to-r from-[#007AFF] to-cyan-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
-        </div>
-        <div class="flex justify-between w-full px-2 mt-1">
-            <span id="exportPercent" class="text-[#007AFF] font-bold text-sm">0%</span>
-            <span id="exportCounter" class="text-zinc-400 text-xs">0 / 0</span>
-        </div>
-    </div>
-    
-    <div id="exportFinishedUI" class="w-full max-w-sm bg-[var(--panel-bg)] border border-[var(--border-color)] p-6 md:p-8 rounded-3xl shadow-2xl flex flex-col items-center text-center hidden">
-        <div class="bg-green-500/10 p-4 rounded-full mb-4 border border-green-500/20">
-            <i data-lucide="check" class="text-green-500 w-10 h-10"></i>
-        </div>
-        <h3 class="text-lg md:text-2xl font-black mb-2">اكتمل التصدير بنجاح!</h3>
-        <p class="text-zinc-500 text-sm mb-6">المقطع جاهز للتحميل الآن</p>
-        <div class="space-y-3 w-full">
-            <button id="downloadFinalBtn" class="w-full py-3.5 bg-[#007AFF] hover:opacity-90 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg transition-all"><i data-lucide="download" class="w-5 h-5"></i>تحميل الفيديو</button>
-            <button id="downloadThumbBtn" class="w-full py-3 bg-[var(--input-bg)] border border-[var(--border-color)] text-zinc-400 hover:text-[#007AFF] rounded-xl flex items-center justify-center gap-2 transition-all"><i data-lucide="image" class="w-5 h-5"></i>تحميل الصورة المصغرة</button>
-            <button id="backToEditorBtn" class="w-full py-3 bg-[var(--input-bg)] border border-[var(--border-color)] text-zinc-400 hover:text-[#007AFF] rounded-xl text-sm transition-all">العودة للمحرر</button>
-        </div>
-    </div>
-</div>
 
-<!-- Main Studio Layout -->
-<div class="studio-grid">
-    <aside id="mainSidebar" class="sidebar">
-        <!-- Sidebar Header with Logo, Auth and Tabs -->
-        <div class="flex flex-col gap-4 p-4 lg:p-5 border-b border-[var(--border-color)] shrink-0 z-20">
-            <div class="flex items-center justify-between">
-                <img src="img/logo/tarteel-studio-quran-logo2.webp" id="studioLogoBtn" alt="Tarteel Studio Logo" class="h-8 lg:h-10 cursor-pointer hover:opacity-80 transition-opacity shrink-0" title="العودة للصفحة الرئيسية">
-                <div class="flex items-center gap-2 shrink-0">
-                    <button id="loginBtn" class="hidden text-xs font-bold text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 px-4 py-2 rounded-xl transition-all">تسجيل الدخول</button>
-                    <button id="openProfileBtn" class="hidden text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 p-2 rounded-xl transition-all">
-                        <i data-lucide="user" class="w-5 h-5 block"></i>
-                    </button>
-                    <button id="themeToggle" class="text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 p-2 rounded-xl transition-all" title="تغيير المظهر"><i data-lucide="moon" class="w-5 h-5 block"></i></button>
+        <header class="w-full max-w-5xl mb-8 z-20">
+            <div class="flex flex-wrap items-center justify-between gap-y-6 pb-4 w-full">
+                <div class="flex-1">
+                    <img src="img/logo/tarteel-studio-quran-logo.webp" alt="Tarteel Studio Logo"
+                        class="h-16 md:h-20 landing-logo">
+                </div>
+
+                <!-- روابط الوصول السريع -->
+                <nav
+                    class="flex w-full lg:w-auto order-last lg:order-none justify-center items-center gap-4 md:gap-8 text-sm md:text-base font-bold text-[#007AFF] md:mt-4">
+                    <a href="#features" class="relative group transition-colors py-1">
+                        المميزات
+                        <span
+                            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#007AFF] rounded-full transition-all duration-300 opacity-0 group-hover:w-full group-hover:opacity-100"></span>
+                    </a>
+                    <a href="#pricing" class="relative group transition-colors py-1">
+                        الأسعار
+                        <span
+                            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#007AFF] rounded-full transition-all duration-300 opacity-0 group-hover:w-full group-hover:opacity-100"></span>
+                    </a>
+                    <a href="#testimonials" class="relative group transition-colors py-1">
+                        الآراء
+                        <span
+                            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#007AFF] rounded-full transition-all duration-300 opacity-0 group-hover:w-full group-hover:opacity-100"></span>
+                    </a>
+                    <a href="#faq" class="relative group transition-colors py-1">
+                        الأسئلة الشائعة
+                        <span
+                            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#007AFF] rounded-full transition-all duration-300 opacity-0 group-hover:w-full group-hover:opacity-100"></span>
+                    </a>
+                </nav>
+
+                <div class="flex flex-1 items-center justify-end gap-4 md:gap-5">
+                    <button id="lpLoginBtn"
+                        class="text-sm md:text-base font-bold text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 px-5 py-2 md:px-6 md:py-2.5 rounded-xl transition-all">تسجيل
+                        الدخول</button>
+                    <button id="lpOpenProfileBtn"
+                        class="hidden text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 p-2 md:p-2.5 rounded-xl transition-all"><i
+                            data-lucide="user" class="w-5 h-5 block"></i></button>
+                    <button id="lpThemeToggle"
+                        class="text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 p-2 md:p-2.5 rounded-xl transition-all"
+                        title="تغيير المظهر"><i data-lucide="moon" class="w-5 h-5 block"></i></button>
                 </div>
             </div>
-            
-            <div class="flex items-center gap-1 bg-[var(--input-bg)] p-1 rounded-xl border border-[var(--border-color)] overflow-x-auto custom-scroll" id="mainSettingsTabs">
-                <button class="settings-tab-btn active flex-1 justify-center" data-step="batch"><i data-lucide="sliders-horizontal" class="w-4 h-4"></i><span class="text-[11px] font-bold">النطاق والصوت</span></button>
-                <button class="settings-tab-btn flex-1 justify-center" data-step="bg">
-                    <i data-lucide="image" class="w-4 h-4"></i><span class="text-[11px] font-bold">الخلفية</span>
-                </button>
-                <button class="settings-tab-btn flex-1 justify-center" data-step="design">
-                    <i data-lucide="type" class="w-4 h-4"></i><span class="text-[11px] font-bold">النص</span>
-                </button>
-                <button class="settings-tab-btn flex-1 justify-center" data-step="addons">
-                    <i data-lucide="sparkles" class="w-4 h-4"></i><span class="text-[11px] font-bold">إضافات</span>
+
+            <!-- خط فاصل متدرج (بدون الحاجة لـ absolute ليصبح الكود مقاوماً للكسر مستقبلاً) -->
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-[#007AFF]/15 to-transparent"></div>
+        </header>
+
+        <div class="relative z-10 max-w-5xl mx-auto my-auto w-full animate-fade-in-up">
+            <section id="hero" class="py-10 md:py-16 space-y-8">
+                <h1
+                    class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[1.4] md:leading-[1.3] mb-6">
+                    حوّل التلاوة إلى فيديو يخطف القلوب
+                    <br>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] via-cyan-400 to-purple-500">في
+                        ثوانٍ معدودة</span>
+                </h1>
+
+                <div class="inline-flex items-center justify-center gap-2 px-8 py-2.5 rounded-full bg-[#007AFF]/10 border border-[#007AFF]/20 text-[#007AFF] font-bold text-sm md:text-base mb-8 animate-fade-in-up"
+                    style="animation-delay: 0.1s;">
+                    <span>مثالي لصناع الريلز ومحتوى تيك توك القرآني</span>
+                </div>
+
+                <p class="text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto leading-relaxed mb-10">
+                    استديو متكامل لتحويل التلاوات الصوتية إلى مرئيات مذهلة. مزامنة تلقائية للآيات، خطوط عثمانية عالية
+                    الدقة، وتصدير فوري لمنصات التواصل.
+                </p>
+
+                <div class="text-center animate-fade-in-up" style="animation-delay: 0.1s;">
+                    <p
+                        class="mb-6 text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] to-purple-500">
+                        +30,000 فيديو قرآني تم إنشاؤه
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button id="startNowBtn"
+                        class="group relative px-8 py-4 bg-[#007AFF] hover:bg-[#0060c9] text-white text-lg font-bold rounded-2xl shadow-xl shadow-[#007AFF]/30 transition-all hover:scale-105 hover:-translate-y-1 overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        </div>
+                        <div class="relative flex items-center gap-3">
+                            <span>أنشئ أول فيديو لك الآن</span>
+                            <i data-lucide="arrow-left"
+                                class="w-5 h-5 group-hover:-translate-x-1 transition-transform"></i>
+                        </div>
+                    </button>
+                    <a href="https://wa.me/201204746971" target="_blank"
+                        class="px-8 py-4 bg-transparent hover:bg-[var(--panel-bg)] text-zinc-500 hover:text-[var(--text-main)] text-lg font-medium rounded-2xl border border-zinc-500/30 hover:border-[var(--border-color)] transition-all flex items-center gap-3">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        <span>تواصل معنا</span>
+                    </a>
+                </div>
+            </section>
+
+            <section id="preview" class="relative w-full max-w-5xl mx-auto mb-16 group animate-fade-in-up"
+                style="animation-delay: 0.2s;">
+                <div
+                    class="absolute -inset-1 bg-gradient-to-r from-[#007AFF] to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000">
+                </div>
+                <div class="relative rounded-2xl bg-[#121214] border border-[#27272a] overflow-hidden shadow-2xl">
+                    <div class="h-8 bg-[#18181b] border-b border-[#27272a] flex items-center px-4 gap-2">
+                        <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                        <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                        <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                    </div>
+                    <div class="relative overflow-hidden cursor-pointer"
+                        onclick="document.getElementById('startNowBtn').click()">
+                        <!-- صورة معاينة بدلاً من الفيديو -->
+                        <img src="img/img.webp" alt="معاينة"
+                            class="w-full h-auto aspect-video object-cover opacity-90 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700 transform-gpu will-change-transform">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div
+                                class="w-20 h-20 bg-[#007AFF] rounded-full flex items-center justify-center text-white shadow-[0_0_30px_rgba(0,122,255,0.6)] transform scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500">
+                                <i data-lucide="play" class="w-8 h-8 ml-1 fill-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="examples" class="mt-16 pb-12 w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">أمثلة من إبداعات مستخدمينا</h2>
+                <div class="grid grid-cols-3 gap-3 md:gap-6 max-w-screen-md mx-auto">
+                    <div class="rounded-xl md:rounded-2xl bg-zinc-800 overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300"
+                        style="aspect-ratio: 9/16;"><img src="img/users/1.webp" alt="مثال فيديو قرآني"
+                            class="object-cover w-full h-full"></div>
+                    <div class="rounded-xl md:rounded-2xl bg-zinc-800 overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300"
+                        style="aspect-ratio: 9/16;"><img src="img/users/2.webp" alt="مثال فيديو قرآني"
+                            class="object-cover w-full h-full"></div>
+                    <div class="rounded-xl md:rounded-2xl bg-zinc-800 overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300"
+                        style="aspect-ratio: 9/16;"><img src="img/users/3.webp" alt="مثال فيديو قرآني"
+                            class="object-cover w-full h-full"></div>
+                </div>
+            </section>
+
+
+            <section id="features" class="mt-12 pb-12 w-full max-w-5xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">مميزات Tarteel Studio</h2>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 text-right">
+
+                    <!-- الميزة الأساسية (Featured) -->
+                    <div
+                        class="md:col-span-7 p-8 rounded-3xl bg-[var(--panel-bg)]/50 backdrop-blur-sm border border-[var(--border-color)] hover:border-[#007AFF] shadow-[0_0_30px_rgba(0,122,255,0.05)] transition-all group relative overflow-hidden flex flex-col justify-center">
+                        <div
+                            class="absolute -top-20 -right-20 w-40 h-40 bg-[#007AFF]/20 blur-3xl rounded-full pointer-events-none">
+                        </div>
+
+                        <div
+                            class="w-14 h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform relative z-10">
+                            <i data-lucide="wand-2" class="text-[#007AFF] w-7 h-7"></i>
+                        </div>
+                        <h3 class="font-bold text-2xl mb-3 text-[var(--text-main)] relative z-10">مزامنة ذكية سحرية</h3>
+                        <p class="text-base text-zinc-400 leading-relaxed relative z-10 max-w-md">نظام ذكي يربط الصوت
+                            بالنص القرآني تلقائياً بدقة عالية مع إمكانية التعديل اليدوي السلس. وداعاً لساعات المونتاج
+                            الطويلة!</p>
+                    </div>
+
+                    <!-- الميزة الثانية -->
+                    <div
+                        class="md:col-span-5 p-8 rounded-3xl bg-[var(--panel-bg)]/50 backdrop-blur-sm border border-[var(--border-color)] hover:border-purple-500/40 transition-all group relative overflow-hidden flex flex-col justify-center">
+                        <div
+                            class="absolute -bottom-20 -left-20 w-40 h-40 bg-purple-500/10 blur-3xl rounded-full pointer-events-none">
+                        </div>
+
+                        <div
+                            class="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform relative z-10">
+                            <i data-lucide="layers" class="text-purple-500 w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3 relative z-10">تخصيص كامل للهوية</h3>
+                        <p class="text-sm text-zinc-500 leading-relaxed relative z-10">تحكم في الخطوط، الألوان،
+                            الخلفيات، والمؤثرات البصرية لتناسب هويتك وتتميز عن غيرك.</p>
+                    </div>
+
+                    <!-- الميزة الثالثة (Wide Card) -->
+                    <div
+                        class="md:col-span-12 p-8 rounded-3xl bg-[var(--panel-bg)]/50 backdrop-blur-sm border border-[var(--border-color)] hover:border-orange-500/40 transition-all group flex flex-col md:flex-row items-start md:items-center justify-between gap-6 overflow-hidden relative">
+                        <div
+                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-orange-500/5 blur-3xl rounded-full pointer-events-none">
+                        </div>
+
+                        <div class="flex-1 relative z-10">
+                            <div
+                                class="w-12 h-12 bg-orange-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="zap" class="text-orange-500 w-6 h-6"></i>
+                            </div>
+                            <h3 class="font-bold text-xl mb-3">تصدير فوري وسريع جداً</h3>
+                            <p class="text-sm text-zinc-500 leading-relaxed max-w-2xl">ريندر يدعم دقة 4K ومعدل إطارات
+                                60fps لنتائج سينمائية ترفع من جودة محتواك على منصات التواصل</p>
+                        </div>
+
+                        <!-- شارات بصرية للميزة الثالثة (تصدير) -->
+                        <div class="flex flex-wrap md:flex-nowrap gap-3 relative z-10 shrink-0 mt-4 md:mt-0">
+                            <div
+                                class="px-4 py-2.5 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-500 text-xs font-bold flex items-center gap-2">
+                                <i data-lucide="monitor-play" class="w-4 h-4"></i> 4K Quality
+                            </div>
+                            <div
+                                class="px-4 py-2.5 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-500 text-xs font-bold flex items-center gap-2">
+                                <i data-lucide="gauge" class="w-4 h-4"></i> 60 FPS
+                            </div>
+                            <div
+                                class="px-4 py-2.5 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-500 text-xs font-bold flex items-center gap-2">
+                                <i data-lucide="file-video" class="w-4 h-4"></i> MP4
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="pricing" class="mt-12 pb-12 w-full max-w-5xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">خطط الاشتراك</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-right px-4 pt-8">
+                    <!-- Free Plan -->
+                    <div
+                        class="p-8 rounded-3xl bg-gradient-to-b from-[var(--panel-bg)]/50 to-[#007AFF]/10 border border-[#007AFF]/50 hover:border-[#007AFF] flex flex-col h-full transition-all duration-[350ms] ease-in-out">
+                        <h3 class="font-bold text-2xl mb-2">الباقة المجانية</h3>
+                        <p class="text-sm text-zinc-500/70 mb-4">للبدء في تجربة إنشاء الفيديوهات القرآنية.</p>
+                        <div class="text-4xl font-black mb-6">مجاناً</div>
+                        <ul class="space-y-3 mb-6 flex-1">
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-green-500"></i><span class="text-sm">تصدير حتى 5 آيات
+                                    للمقطع</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-green-500"></i><span class="text-sm">وصول لجميع القراء المتاحين
+                                    أونلاين</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-green-500"></i><span class="text-sm">خلفيات وخطوط عثمانية عالية
+                                    الدقة</span></li>
+                            <li class="flex items-center gap-3 text-zinc-500/70"><i data-lucide="x"
+                                    class="w-5 h-5 text-red-500/50"></i><span class="text-sm">ظهور شعار Tarteel
+                                    Studio</span></li>
+                            <li class="flex items-center gap-3 text-zinc-500/70"><i data-lucide="x"
+                                    class="w-5 h-5 text-red-500/50"></i><span class="text-sm">الميزات الاحترافية غير
+                                    متاحة</span></li>
+                        </ul>
+                        <button id="pricingStartFreeBtn"
+                            class="w-full py-3.5 bg-transparent border border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/15 hover:ring-1 hover:ring-[#007AFF] rounded-xl font-bold transition-all text-base">ابدأ
+                            الآن مجاناً</button>
+                        <p class="text-[10px] text-zinc-500/70 text-center font-medium mt-2">بدون بطاقة ائتمانية للتجربة
+                            المجانية</p>
+                    </div>
+                    <!-- Pro Plan -->
+                    <div
+                        class="p-8 rounded-3xl bg-gradient-to-b from-[#007AFF]/10 to-purple-500/5 border border-[#007AFF]/30 hover:border-[#007AFF]/50 hover:shadow-[0_20px_40px_rgba(0,122,255,0.15)] hover:-translate-y-1.5 transition-all duration-[350ms] ease-in-out flex flex-col h-full relative group">
+                        <div
+                            class="absolute -top-4 left-1/2 -translate-x-1/2 z-10 px-4 py-1.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-[11px] font-bold rounded-full shadow-lg shadow-orange-500/30 flex items-center gap-1 whitespace-nowrap">
+                            فتح جميع الميزات الاحترافية
+                        </div>
+                        <div class="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#007AFF] to-purple-500">
+                            </div>
+                        </div>
+                        <h3
+                            class="font-bold text-2xl mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] to-purple-500">
+                            الباقة الاحترافية (Pro)</h3>
+                        <p class="text-sm text-zinc-500 mb-4">لصناع المحتوى القرآني والمهتمين بنشر القرآن.</p>
+                        <div class="mb-6 space-y-3">
+                            <div>
+                                <p class="text-4xl font-black">149 جنيه / شهر <span
+                                        class="text-lg font-medium text-zinc-400">(داخل مصر)</span></p>
+                                <p class="text-xs text-zinc-400 font-bold mt-1">أقل من 5 جنيه يوميًا</p>
+                                <p class="text-xs text-zinc-500 mt-1 flex items-center gap-1"><span>أو 999 جنيه
+                                        سنوياً</span> <span
+                                        class="text-green-500 font-bold text-[10px] bg-green-500/10 px-1.5 py-0.5 rounded-md">(وفر
+                                        44% - 789 جنيه)</span></p>
+                            </div>
+                            <div dir="rtl" class="text-right">
+                                <p class="text-3xl font-black text-[var(--text-main)]" dir="ltr">$6.99 / month <span
+                                        class="text-base font-medium text-zinc-400">(International)</span></p>
+                                <p class="text-xs text-zinc-500 flex items-center gap-1 justify-start -mt-0.5"><span
+                                        dir="ltr">or $59 / year</span> <span
+                                        class="text-green-500 font-bold text-[10px] bg-green-500/10 px-1.5 py-0.5 rounded-md">(وفر
+                                        30% - $25)</span></p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 mb-6 flex-1">
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-[#007AFF]"></i><span
+                                    class="text-sm font-bold text-[#007AFF]">جميع الميزات الاحترافية</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm">عدد لا محدود من
+                                    الآيات</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm">عدد لا محدود من
+                                    المقاطع</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm">إزالة شعار Tarteel
+                                    Studio</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm">رفع تلاواتك الخاصة
+                                    والمزامنة اليدوية</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm">إضافة شعارك الخاص (علامة
+                                    مائية)</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm">إضافة موجات صوتية
+                                    (Waveform)</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-[#007AFF]"></i><span class="text-sm">تقسيم الآيات الطويلة
+                                    بذكاء</span></li>
+                        </ul>
+                        <div class="text-xs text-zinc-500 mt-2 mb-3">
+                            <span class="block font-bold mb-1">الدفع متاح عبر:</span>
+                            <span>Vodafone Cash, InstaPay, Binance Pay, USDT, تحويل بنكي دولي</span>
+                        </div>
+                        <div class="flex flex-col gap-3 mt-1">
+                            <div class="w-full flex flex-col gap-2.5">
+                                <form class="paypal-form w-full"
+                                    action="https://www.paypal.com/ncp/payment/HUMFM9Y7QZLPN" method="post"
+                                    target="_blank">
+                                    <input type="hidden" name="custom" class="paypalCustomId" data-plan="monthly"
+                                        value="" />
+                                    <button type="submit"
+                                        class="w-full py-3.5 bg-[#FFD140] hover:bg-[#F4C430] text-black rounded-xl font-bold transition-all shadow-lg shadow-[#FFD140]/30 flex items-center justify-center gap-2 text-base">
+                                        <i data-lucide="calendar" class="w-5 h-5"></i>
+                                        <span>اشتراك شهري عبر PayPal</span>
+                                    </button>
+                                </form>
+                                <form class="paypal-form w-full mt-4"
+                                    action="https://www.paypal.com/ncp/payment/XX7LL6ST3KL7S" method="post"
+                                    target="_blank">
+                                    <input type="hidden" name="custom" class="paypalCustomId" data-plan="annual"
+                                        value="" />
+                                    <button type="submit"
+                                        class="w-full py-3.5 bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-600 ring-1 ring-green-500/30 hover:ring-green-500/50 rounded-xl font-bold transition-all shadow-lg flex items-center justify-center gap-2 text-base">
+                                        <i data-lucide="calendar-check" class="w-5 h-5 text-green-400"></i>
+                                        <span>اشتراك سنوي عبر PayPal (وفر 30%)</span>
+                                    </button>
+                                    <div class="flex items-center gap-1.5 justify-center opacity-70 mt-4">
+                                        <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards"
+                                            class="h-4" />
+                                        <span class="text-[10px] text-zinc-500 flex items-center gap-1">مدعوم من <img
+                                                src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg"
+                                                alt="paypal" class="h-3 inline-block paypal-logo"
+                                                style="vertical-align:middle;" /></span>
+                                    </div>
+                                </form>
+                                <div
+                                    class="flex items-center justify-center gap-1.5 text-green-500 text-[11px] font-bold bg-green-500/10 py-1.5 px-3 rounded-lg w-fit mx-auto mt-4 border border-green-500/20">
+                                    <i data-lucide="zap" class="w-3 h-3 fill-green-500"></i>
+                                    <span>يتم التفعيل تلقائيًا بعد الدفع</span>
+                                </div>
+                                <div
+                                    class="flex flex-wrap items-center justify-center gap-3 mt-2 text-[10px] text-zinc-500 font-medium">
+                                    <div class="flex items-center gap-1"><i data-lucide="shield-check"
+                                            class="w-3.5 h-3.5 text-green-500"></i><span>آمن عبر PayPal</span></div>
+                                    <div class="flex items-center gap-1"><i data-lucide="credit-card"
+                                            class="w-3.5 h-3.5 text-green-500"></i><span>لا يتم حفظ بيانات
+                                            البطاقة</span></div>
+                                </div>
+                            </div>
+                            <a href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية"
+                                target="_blank"
+                                class="w-full py-2.5 bg-[var(--input-bg)] border border-[var(--border-color)] text-zinc-500 hover:text-[#007AFF] hover:bg-[#007AFF]/5 hover:border-[#007AFF]/50 rounded-xl font-medium transition-all text-sm text-center flex justify-center items-center gap-2 mt-1"><i
+                                    data-lucide="message-circle" class="w-4 h-4"></i>طرق دفع أخرى (واتساب)</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="testimonials" class="mt-12 pb-12 w-full">
+                <div class="flex flex-col items-center mb-10">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">يثق بنا صناع المحتوى</h2>
+                    <button id="addReviewBtn"
+                        class="px-6 py-2.5 bg-[var(--panel-bg)] hover:bg-[var(--input-bg)] text-[var(--text-main)] text-sm font-bold rounded-xl border border-[var(--border-color)] transition-all flex items-center gap-2 shadow-sm">
+                        <i data-lucide="message-square-plus" class="w-4 h-4"></i>
+                        <span>أضف رأيك في الأداة</span>
+                    </button>
+                </div>
+                <div id="testimonialsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-right">
+                    <!-- سيتم إدراج التقييمات هنا ديناميكياً -->
+                </div>
+            </section>
+
+            <section id="faq" class="mt-12 pb-12 w-full max-w-3xl mx-auto text-right">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">الأسئلة الشائعة</h2>
+                <div class="space-y-4">
+                    <details
+                        class="bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-2xl p-5 group cursor-pointer hover:border-[#007AFF]/50 transition-colors">
+                        <summary class="font-bold text-lg outline-none list-none flex justify-between items-center">
+                            هل موقع Tarteel Studio مجاني؟
+                            <i data-lucide="chevron-down"
+                                class="w-5 h-5 text-[#007AFF] group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-sm text-zinc-400 mt-4 leading-relaxed">
+                            نعم، يوفر Tarteel Studio باقة مجانية تتيح لك تصميم فيديوهات قرآنية وتصدير حتى 5 آيات للمقطع
+                            الواحد بخطوط عثمانية عالية الدقة. كما تتوفر باقة احترافية للميزات المتقدمة وتصدير مقاطع
+                            أطول.
+                        </p>
+                    </details>
+                    <details
+                        class="bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-2xl p-5 group cursor-pointer hover:border-[#007AFF]/50 transition-colors">
+                        <summary class="font-bold text-lg outline-none list-none flex justify-between items-center">
+                            كيف أقوم بتنزيل الفيديو بعد تصميمه؟
+                            <i data-lucide="chevron-down"
+                                class="w-5 h-5 text-[#007AFF] group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-sm text-zinc-400 mt-4 leading-relaxed">
+                            بعد الانتهاء من تخصيص الفيديو واختيار الآيات، اضغط على زر "تصدير المقطع". ستبدأ عملية
+                            المعالجة مباشرة في متصفحك، وبمجرد انتهائها سيظهر لك زر "تحميل الفيديو" لحفظه على جهازك بصيغة
+                            MP4.
+                        </p>
+                    </details>
+                    <details
+                        class="bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-2xl p-5 group cursor-pointer hover:border-[#007AFF]/50 transition-colors">
+                        <summary class="font-bold text-lg outline-none list-none flex justify-between items-center">
+                            هل يمكنني رفع تلاوة صوتية خاصة بي؟
+                            <i data-lucide="chevron-down"
+                                class="w-5 h-5 text-[#007AFF] group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-sm text-zinc-400 mt-4 leading-relaxed">
+                            نعم، تتيح لك النسخة الاحترافية (Pro) رفع ملفاتك الصوتية (MP3/WAV) واستخدام أداة المزامنة
+                            اليدوية الذكية لربط الصوت بالآيات بكل سهولة ودقة.
+                        </p>
+                    </details>
+                    <details
+                        class="bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-2xl p-5 group cursor-pointer hover:border-[#007AFF]/50 transition-colors">
+                        <summary class="font-bold text-lg outline-none list-none flex justify-between items-center">
+                            ما هي المنصات المدعومة لمشاركة الفيديوهات؟
+                            <i data-lucide="chevron-down"
+                                class="w-5 h-5 text-[#007AFF] group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-sm text-zinc-400 mt-4 leading-relaxed">
+                            يدعم الاستوديو تصدير الفيديوهات بمقاسات متعددة لتناسب جميع المنصات مثل: الطولي 9:16 (Reels،
+                            TikTok، YouTube Shorts)، المربع 1:1 أو البورتريه 4:5 (Instagram Post)، والعرضي 16:9 (يوتيوب
+                            العادي).
+                        </p>
+                    </details>
+                    <details
+                        class="bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-2xl p-5 group cursor-pointer hover:border-[#007AFF]/50 transition-colors">
+                        <summary class="font-bold text-lg outline-none list-none flex justify-between items-center">
+                            هل أحتاج إلى تحميل أي برامج لاستخدام Tarteel Studio؟
+                            <i data-lucide="chevron-down"
+                                class="w-5 h-5 text-[#007AFF] group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-sm text-zinc-400 mt-4 leading-relaxed">
+                            لا، Tarteel Studio يعمل بالكامل عبر المتصفح (أونلاين). لست بحاجة لتحميل أو تثبيت أي برامج،
+                            فقط سجل دخولك وابدأ التصميم مباشرة من أي جهاز.
+                        </p>
+                    </details>
+                    <details
+                        class="bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-2xl p-5 group cursor-pointer hover:border-[#007AFF]/50 transition-colors">
+                        <summary class="font-bold text-lg outline-none list-none flex justify-between items-center">
+                            ما هي جودة الفيديوهات التي يمكنني تصديرها؟
+                            <i data-lucide="chevron-down"
+                                class="w-5 h-5 text-[#007AFF] group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-sm text-zinc-400 mt-4 leading-relaxed">
+                            يمكنك تصدير الفيديوهات بجودات متعددة تبدأ من 480p وحتى 4K، مع دعم معدل إطارات يصل إلى 60
+                            إطاراً في الثانية (60fps) لضمان أعلى دقة وسلاسة في الفيديو النهائي.
+                        </p>
+                    </details>
+                    <details
+                        class="bg-[var(--panel-bg)] border border-[var(--border-color)] rounded-2xl p-5 group cursor-pointer hover:border-[#007AFF]/50 transition-colors">
+                        <summary class="font-bold text-lg outline-none list-none flex justify-between items-center">
+                            هل أستطيع تغيير ألوان الخطوط والخلفيات؟
+                            <i data-lucide="chevron-down"
+                                class="w-5 h-5 text-[#007AFF] group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="text-sm text-zinc-400 mt-4 leading-relaxed">
+                            بالتأكيد! يوفر لك الاستوديو تحكماً كاملاً في ألوان النصوص، والظلال، واختيار خلفيات جاهزة
+                            عالية الدقة أو رفع خلفياتك الخاصة (صور أو فيديوهات).
+                        </p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="max-w-5xl mx-auto mb-16 text-center">
+                <h2 class="text-3xl font-bold mb-8 text-[var(--text-main)]">
+                    أدوات الفيديوهات القرآنية
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-lg text-zinc-400">
+                    <a href="/quran-video-maker" class="hover:text-[#007AFF] transition-colors">
+                        صانع الفيديوهات القرآنية
+                    </a>
+                    <a href="/islamic-video-maker" class="hover:text-[#007AFF] transition-colors">
+                        صانع الفيديوهات الإسلامية
+                    </a>
+                    <a href="/quran-reels-maker" class="hover:text-[#007AFF] transition-colors">
+                        صانع ريلز قرآني
+                    </a>
+                    <a href="/create-quran-video" class="hover:text-[#007AFF] transition-colors">
+                        إنشاء فيديو قرآني
+                    </a>
+                </div>
+            </section>
+
+            <footer class="text-zinc-500 text-sm pb-6">
+                <div class="flex flex-wrap justify-center gap-4 mb-4">
+                    <a href="/terms.html" class="hover:text-[#007AFF] transition-colors">شروط الاستخدام</a>
+                    <a href="/privacy.html" class="hover:text-[#007AFF] transition-colors">سياسة الخصوصية</a>
+                    <a href="/refund.html" class="hover:text-[#007AFF] transition-colors">سياسة الاسترجاع</a>
+                </div>
+                <p>© 2026 Tarteel Studio. جميع الحقوق محفوظة.</p>
+            </footer>
+        </div>
+    </main>
+
+    <!-- Authentication & Modals -->
+    <div id="authScreen"
+        class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-[2000] flex items-center justify-center p-4 transition-all duration-500">
+        <div
+            class="bg-[var(--panel-bg)] border border-[var(--border-color)] w-full max-w-md p-8 rounded-3xl shadow-2xl text-center relative">
+            <button id="closeAuthBtn"
+                class="absolute top-4 left-4 p-2 hover:bg-[var(--input-bg)] rounded-full transition-colors"><i
+                    data-lucide="x" class="w-5 h-5 text-zinc-500"></i></button>
+            <img src="img/logo/tarteel-studio-quran-logo2.webp" alt="Tarteel Studio Logo" class="w-40 mx-auto mb-4">
+            <p class="text-zinc-500 text-sm mb-8 mt-2">أنشئ محتوى قرآني احترافي في ثوانٍ</p>
+            <div class="space-y-4">
+                <button id="google-login"
+                    class="w-full py-4 bg-[var(--panel-bg)] text-[var(--text-main)] border border-[var(--border-color)] hover:bg-[var(--input-bg)] rounded-xl font-bold shadow-sm transition-all flex items-center justify-center gap-3">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#4285F4"
+                            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                        <path fill="#34A853"
+                            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                        <path fill="#FBBC05"
+                            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                        <path fill="#EA4335"
+                            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                    </svg>
+                    <span>المتابعة باستخدام Google</span>
                 </button>
             </div>
         </div>
+    </div>
+
+    <div id="profileModal" class="confirm-modal">
+        <div class="modal-card relative">
+            <button id="closeProfileBtn"
+                class="absolute top-4 left-4 p-2 hover:bg-[var(--input-bg)] rounded-full transition-colors"><i
+                    data-lucide="x" class="w-5 h-5 text-zinc-500"></i></button>
+            <div class="w-24 h-24 bg-gradient-to-tr from-[#007AFF] to-cyan-400 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl font-bold text-white shadow-xl"
+                id="profileAvatar">A</div>
+            <h3 class="text-2xl font-bold mb-1" id="profileName">User Name</h3>
+            <p class="text-zinc-500 text-sm mb-8" id="profileEmail">user@example.com</p>
+            <div class="space-y-3">
+                <div
+                    class="p-4 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-orange-500/10 rounded-lg"><i data-lucide="crown"
+                                class="w-5 h-5 text-orange-500"></i></div>
+                        <div class="text-right"><span class="block font-bold text-sm">الخطة الحالية</span><span
+                                id="planName" class="block text-[10px] text-zinc-500">مجانية (Free)</span></div>
+                    </div>
+                    <span id="planStatus"
+                        class="px-3 py-1 bg-zinc-500/10 text-zinc-500 text-xs font-bold rounded-full">نشط</span>
+                </div>
+                <a id="upgradeBtn" href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية"
+                    target="_blank"
+                    class="w-full py-3 bg-gradient-to-r from-orange-500 to-pink-500 hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-orange-500/20 hidden flex items-center justify-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>ترقية للنسخة الاحترافية
+                </a>
+                <button id="logoutBtn"
+                    class="w-full py-3.5 bg-red-500/10 hover:bg-red-500/20 text-red-600 dark:text-red-400 rounded-xl font-bold transition-all border border-red-500/10 flex items-center justify-center gap-2"><i
+                        data-lucide="log-out" class="w-4 h-4"></i>تسجيل الخروج</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="confirm-modal">
+        <div class="modal-card">
+            <div class="bg-[#007AFF]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="video" class="text-[#007AFF] w-8 h-8"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">تأكيد التصدير</h3>
+            <p class="text-zinc-500 text-sm mb-6 leading-relaxed">هل انت متأكد من بدأ تصدير الفيديو</p>
+            <div class="space-y-3">
+                <button id="startExportBtn"
+                    class="w-full py-3 bg-[#007AFF] hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-[#007AFF]/20 flex items-center justify-center gap-2">
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                    <span>تصدير الفيديو</span>
+                </button>
+                <button id="confirmNo" class="text-zinc-500 text-xs hover:text-zinc-700 mt-2">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="limitModal" class="confirm-modal">
+        <div class="modal-card">
+            <div class="bg-orange-500/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="alert-triangle" class="text-orange-500 w-8 h-8"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">تجاوزت حد الخطة المجانية</h3>
+            <p class="text-zinc-500 text-sm mb-6 leading-relaxed">عذراً، النسخة المجانية تتيح لك تصدير 5 آيات فقط للمقطع
+                الواحد. انشر سورة كاملة بضغطة واحدة وفك قيود الـ 5 آيات بالترقية للنسخة الاحترافية.</p>
+            <div class="space-y-3">
+                <a href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية" target="_blank"
+                    class="w-full py-3.5 bg-[#25D366] hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-[#25D366]/20 flex items-center justify-center gap-2">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                    <span>ترقية للنسخة الاحترافية</span>
+                </a>
+                <button id="confirmLimit"
+                    class="w-full py-3.5 bg-orange-500 hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-orange-500/20">الاستمرار
+                    بالنسخة المجانية (5 آيات)</button>
+                <button id="viewPricingBtnLimit"
+                    class="w-full py-3 bg-transparent border border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/10 rounded-xl font-bold transition-all">عرض
+                    خطط الأسعار</button>
+                <button id="cancelLimit" class="text-zinc-500 text-xs hover:text-zinc-700 mt-2">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="proFeatureModal" class="confirm-modal">
+        <div class="modal-card">
+            <div
+                class="bg-gradient-to-tr from-orange-500 to-pink-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-orange-500/20">
+                <i data-lucide="crown" class="text-white w-8 h-8"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">ميزة للمحترفين فقط</h3>
+            <p class="text-zinc-500 text-sm mb-6 leading-relaxed" id="proFeatureMsg">هذه الميزة متاحة فقط في النسخة
+                الاحترافية.</p>
+            <div class="space-y-3">
+                <a href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية" target="_blank"
+                    class="w-full py-3.5 bg-gradient-to-r from-orange-500 to-pink-500 hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                    <span>ترقية للنسخة الاحترافية</span>
+                </a>
+                <button id="viewPricingBtn"
+                    class="w-full py-3 bg-transparent border border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/10 rounded-xl font-bold transition-all">عرض
+                    خطط الأسعار</button>
+                <button id="closeProModal" class="text-zinc-500 text-xs hover:text-zinc-700">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="deleteAudioConfirmModal" class="confirm-modal">
+        <div class="modal-card">
+            <div class="bg-red-500/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="trash-2" class="text-red-500 w-8 h-8"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">تأكيد الحذف</h3>
+            <p class="text-zinc-500 text-sm mb-6 leading-relaxed">هل أنت متأكد من حذف الملف الصوتي؟ سيتم حذف جميع
+                توقيتات المزامنة اليدوية التي قمت بها.</p>
+            <div class="space-y-3">
+                <button id="confirmDeleteAudio"
+                    class="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-red-500/20">نعم،
+                    احذف الملف</button>
+                <button id="cancelDeleteAudio" class="text-zinc-500 text-xs hover:text-zinc-700 mt-2">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="reviewModal" class="confirm-modal">
+        <div class="modal-card relative text-right">
+            <button id="closeReviewModal"
+                class="absolute top-4 left-4 p-2 hover:bg-[var(--input-bg)] rounded-full transition-colors"><i
+                    data-lucide="x" class="w-5 h-5 text-zinc-500"></i></button>
+            <h3 class="text-xl font-bold mb-2 text-[var(--text-main)]">شاركنا رأيك</h3>
+            <p class="text-zinc-500 text-sm mb-6">رأيك يهمنا ويساعدنا على تطوير Tarteel Studio</p>
+            <div class="space-y-4">
+                <div>
+                    <textarea id="reviewContent" rows="4" placeholder="اكتب رأيك هنا بحرية..."
+                        class="w-full p-4 rounded-xl text-sm border border-[var(--border-color)] bg-[var(--input-bg)] text-[var(--text-main)] focus:border-[#007AFF] outline-none resize-none custom-scroll"></textarea>
+                </div>
+                <button id="submitReviewBtn"
+                    class="w-full py-3 bg-[#007AFF] hover:bg-[#0060c9] text-white rounded-xl font-bold transition-all shadow-lg shadow-[#007AFF]/20 flex items-center justify-center gap-2">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    <span>إرسال التقييم</span>
+                </button>
+                <p id="reviewFeedback" class="text-xs text-center hidden"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة التحديثات -->
+    <div id="updatesModal" class="confirm-modal" style="display: none;">
+        <div class="modal-card">
+            <div class="bg-[#007AFF]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="bell-ring" class="text-[#007AFF] w-8 h-8"></i>
+            </div>
+            <h3 id="updateTitle" class="text-2xl font-bold mb-4 text-[var(--text-main)]"></h3>
+            <div id="updateContent"
+                class="text-sm text-[var(--text-muted)] mb-8 leading-relaxed text-right space-y-3 max-h-60 overflow-y-auto custom-scroll pr-2 whitespace-pre-line">
+                <!-- محتوى التحديث سيتم جلبه هنا -->
+            </div>
+            <button id="closeUpdateBtn"
+                class="w-full py-3 bg-[#007AFF] hover:bg-[#0060c9] text-white font-bold rounded-xl transition-all shadow-lg shadow-[#007AFF]/30">
+                تمام
+            </button>
+        </div>
+    </div>
+
+    <!-- Export Progress Modal (Full Screen) -->
+    <div id="exportOverlay"
+        class="fixed inset-0 bg-black/90 backdrop-blur-sm z-[3000] items-center justify-center p-4 transition-all duration-500"
+        style="display: none;">
+        <div id="exportProcessingUI"
+            class="w-full max-w-sm bg-[var(--panel-bg)] border border-[var(--border-color)] p-6 md:p-8 rounded-3xl shadow-2xl flex flex-col items-center text-center">
+            <div class="bg-[#007AFF]/10 p-4 rounded-full mb-4 border border-[#007AFF]/20 animate-pulse">
+                <i data-lucide="video" class="text-[#007AFF] w-8 h-8"></i>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold mb-2">جاري المعالجة والتصدير</h3>
+            <p class="text-zinc-500 text-xs mb-6">يرجى عدم إغلاق هذه الصفحة</p>
+            <div
+                class="w-full bg-[var(--input-bg)] rounded-full h-3 mb-2 overflow-hidden border border-[var(--border-color)]">
+                <div id="exportProgressBar"
+                    class="bg-gradient-to-r from-[#007AFF] to-cyan-400 h-full rounded-full transition-all duration-300"
+                    style="width: 0%"></div>
+            </div>
+            <div class="flex justify-between w-full px-2 mt-1">
+                <span id="exportPercent" class="text-[#007AFF] font-bold text-sm">0%</span>
+                <span id="exportCounter" class="text-zinc-400 text-xs">0 / 0</span>
+            </div>
+        </div>
+
+        <div id="exportFinishedUI"
+            class="w-full max-w-sm bg-[var(--panel-bg)] border border-[var(--border-color)] p-6 md:p-8 rounded-3xl shadow-2xl flex flex-col items-center text-center hidden">
+            <div class="bg-green-500/10 p-4 rounded-full mb-4 border border-green-500/20">
+                <i data-lucide="check" class="text-green-500 w-10 h-10"></i>
+            </div>
+            <h3 class="text-lg md:text-2xl font-black mb-2">اكتمل التصدير بنجاح!</h3>
+            <p class="text-zinc-500 text-sm mb-6">المقطع جاهز للتحميل الآن</p>
+            <div class="space-y-3 w-full">
+                <button id="downloadFinalBtn"
+                    class="w-full py-3.5 bg-[#007AFF] hover:opacity-90 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg transition-all"><i
+                        data-lucide="download" class="w-5 h-5"></i>تحميل الفيديو</button>
+                <button id="downloadThumbBtn"
+                    class="w-full py-3 bg-[var(--input-bg)] border border-[var(--border-color)] text-zinc-400 hover:text-[#007AFF] rounded-xl flex items-center justify-center gap-2 transition-all"><i
+                        data-lucide="image" class="w-5 h-5"></i>تحميل الصورة المصغرة</button>
+                <button id="backToEditorBtn"
+                    class="w-full py-3 bg-[var(--input-bg)] border border-[var(--border-color)] text-zinc-400 hover:text-[#007AFF] rounded-xl text-sm transition-all">العودة
+                    للمحرر</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Studio Layout -->
+    <div class="studio-grid">
+        <aside id="mainSidebar" class="sidebar">
+            <!-- Sidebar Header with Logo, Auth and Tabs -->
+            <div class="flex flex-col gap-4 p-4 lg:p-5 border-b border-[var(--border-color)] shrink-0 z-20">
+                <div class="flex items-center justify-between">
+                    <img src="img/logo/tarteel-studio-quran-logo2.webp" id="studioLogoBtn" alt="Tarteel Studio Logo"
+                        class="h-8 lg:h-10 cursor-pointer hover:opacity-80 transition-opacity shrink-0"
+                        title="العودة للصفحة الرئيسية">
+                    <div class="flex items-center gap-2 shrink-0">
+                        <button id="loginBtn"
+                            class="hidden text-xs font-bold text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 px-4 py-2 rounded-xl transition-all">تسجيل
+                            الدخول</button>
+                        <button id="openProfileBtn"
+                            class="hidden text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 p-2 rounded-xl transition-all">
+                            <i data-lucide="user" class="w-5 h-5 block"></i>
+                        </button>
+                        <button id="themeToggle"
+                            class="text-[#007AFF] border border-[#007AFF]/50 hover:border-[#007AFF] hover:bg-[#007AFF]/10 p-2 rounded-xl transition-all"
+                            title="تغيير المظهر"><i data-lucide="moon" class="w-5 h-5 block"></i></button>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-1 bg-[var(--input-bg)] p-1 rounded-xl border border-[var(--border-color)] overflow-x-auto custom-scroll"
+                    id="mainSettingsTabs">
+                    <button class="settings-tab-btn active flex-1 justify-center" data-step="batch"><i
+                            data-lucide="sliders-horizontal" class="w-4 h-4"></i><span
+                            class="text-[11px] font-bold">النطاق والصوت</span></button>
+                    <button class="settings-tab-btn flex-1 justify-center" data-step="bg">
+                        <i data-lucide="image" class="w-4 h-4"></i><span class="text-[11px] font-bold">الخلفية</span>
+                    </button>
+                    <button class="settings-tab-btn flex-1 justify-center" data-step="design">
+                        <i data-lucide="type" class="w-4 h-4"></i><span class="text-[11px] font-bold">النص</span>
+                    </button>
+                    <button class="settings-tab-btn flex-1 justify-center" data-step="addons">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i><span class="text-[11px] font-bold">إضافات</span>
+                    </button>
+                </div>
+            </div>
 
             <div class="sidebar-content custom-scroll">
                 <div class="space-y-4">
@@ -699,20 +943,24 @@
                             <div id="templateSection" class="mb-4">
                                 <!-- سيتم إنشاء محدد القوالب هنا بواسطة JavaScript -->
                             </div>
-                            <select id="surahSelect" data-tab="ayahs" class="w-full rounded-xl outline-none focus:border-[#007AFF] text-sm"></select>
+                            <select id="surahSelect" data-tab="ayahs"
+                                class="w-full rounded-xl outline-none focus:border-[#007AFF] text-sm"></select>
                             <div class="grid grid-cols-2 gap-3 font-sans">
                                 <div class="relative">
                                     <span class="absolute right-3 top-2 text-[10px] text-zinc-600">من آية</span>
-                                    <input type="number" id="vStart" value="1" class="w-full pt-5 pb-2 px-3 rounded-xl text-center focus:border-[#007AFF] outline-none text-sm">
+                                    <input type="number" id="vStart" value="1"
+                                        class="w-full pt-5 pb-2 px-3 rounded-xl text-center focus:border-[#007AFF] outline-none text-sm">
                                 </div>
                                 <div class="relative">
                                     <span class="absolute right-3 top-2 text-[10px] text-zinc-600">إلى آية</span>
-                                    <input type="number" id="vEnd" value="5" class="w-full pt-5 pb-2 px-3 rounded-xl text-center focus:border-[#007AFF] outline-none text-sm">
+                                    <input type="number" id="vEnd" value="5"
+                                        class="w-full pt-5 pb-2 px-3 rounded-xl text-center focus:border-[#007AFF] outline-none text-sm">
                                 </div>
                             </div>
                             <div>
                                 <span class="text-[10px] text-zinc-500 mb-2 block">مقاس الفيديو</span>
-                                <select id="canvasSize" class="w-full rounded-xl outline-none focus:border-[#007AFF] text-sm">
+                                <select id="canvasSize"
+                                    class="w-full rounded-xl outline-none focus:border-[#007AFF] text-sm">
                                     <option value="9:16">طولي (Reels/TikTok) - 9:16</option>
                                     <option value="1:1">مربع (Instagram/Post) - 1:1</option>
                                     <option value="16:9" selected>عرضي (YouTube/TV) - 16:9</option>
@@ -727,7 +975,8 @@
                                 <button class="tab-btn active" id="tabOnline" data-tab="audio">قارئ أونلاين</button>
                                 <button class="tab-btn flex items-center justify-center gap-1.5" id="tabLocal">
                                     <span>ارفع صوتك</span>
-                                    <span class="pro-badge px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-[9px] font-bold rounded-md shadow-sm">PRO</span>
+                                    <span
+                                        class="pro-badge px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-[9px] font-bold rounded-md shadow-sm">PRO</span>
                                 </button>
                             </div>
 
@@ -738,70 +987,100 @@
                                     <span>اختر ملف صوتي (MP3/WAV)</span>
                                     <input type="file" id="localAudioInput" accept="audio/*" class="hidden">
                                 </label>
-                                <div id="localFilePreview" class="hidden p-3 bg-[var(--input-bg)] border border-[var(--border-color)] rounded-xl">
-                                <div class="flex items-center justify-between mb-2 overflow-hidden gap-2">
-                                    <span class="text-[10px] text-zinc-500 font-bold truncate flex-1 min-w-0">معاينة الملف: <span id="localFileName" class="text-[var(--text-main)]"></span></span>
-                                    <button id="clearLocalFile" class="text-red-500 hover:bg-red-500/10 p-1 rounded transition-colors shrink-0"><i data-lucide="trash-2" class="w-3 h-3"></i></button>
+                                <div id="localFilePreview"
+                                    class="hidden p-3 bg-[var(--input-bg)] border border-[var(--border-color)] rounded-xl">
+                                    <div class="flex items-center justify-between mb-2 overflow-hidden gap-2">
+                                        <span class="text-[10px] text-zinc-500 font-bold truncate flex-1 min-w-0">معاينة
+                                            الملف: <span id="localFileName"
+                                                class="text-[var(--text-main)]"></span></span>
+                                        <button id="clearLocalFile"
+                                            class="text-red-500 hover:bg-red-500/10 p-1 rounded transition-colors shrink-0"><i
+                                                data-lucide="trash-2" class="w-3 h-3"></i></button>
                                     </div>
                                     <audio id="localAudioPlayer" controls class="w-full h-8 rounded-lg"></audio>
                                 </div>
-                                <div id="syncControls" class="hidden p-3 bg-[#007AFF]/5 border border-[#007AFF]/20 rounded-xl text-center space-y-2">
+                                <div id="syncControls"
+                                    class="hidden p-3 bg-[#007AFF]/5 border border-[#007AFF]/20 rounded-xl text-center space-y-2">
                                     <p class="text-[10px] text-[#007AFF] font-bold">وضع المزامنة اليدوية</p>
-                                    <button id="startSyncBtn" class="w-full py-2 bg-[#007AFF] text-white rounded-lg text-xs font-bold flex items-center justify-center gap-2">
+                                    <button id="startSyncBtn"
+                                        class="w-full py-2 bg-[#007AFF] text-white rounded-lg text-xs font-bold flex items-center justify-center gap-2">
                                         <i data-lucide="mic" class="w-3 h-3"></i> ابدأ تسجيل التوقيت
                                     </button>
-                                    <button id="tapSyncBtn" class="hidden w-full py-6 bg-[#007AFF] hover:bg-[#0060c9] text-white rounded-xl text-lg font-black shadow-lg active:scale-95 transition-transform">
+                                    <button id="tapSyncBtn"
+                                        class="hidden w-full py-6 bg-[#007AFF] hover:bg-[#0060c9] text-white rounded-xl text-lg font-black shadow-lg active:scale-95 transition-transform">
                                         اضغط هنا عند بداية الآية التالية
                                     </button>
-                                    <button id="stopSyncBtn" class="hidden w-full py-2 bg-red-500/10 hover:bg-red-500/20 text-red-600 rounded-lg text-xs font-bold flex items-center justify-center gap-2 mt-2">
+                                    <button id="stopSyncBtn"
+                                        class="hidden w-full py-2 bg-red-500/10 hover:bg-red-500/20 text-red-600 rounded-lg text-xs font-bold flex items-center justify-center gap-2 mt-2">
                                         <i data-lucide="square" class="w-3 h-3"></i> إيقاف وحفظ
                                     </button>
-                                    <p class="text-[9px] text-zinc-500">شغل الصوت واضغط الزر (أو المسافة) مع بداية كل آية</p>
+                                    <p class="text-[9px] text-zinc-500">شغل الصوت واضغط الزر (أو المسافة) مع بداية كل
+                                        آية</p>
                                 </div>
                             </div>
 
                             <div class="relative" id="onlineReciterSearch">
-                                <input type="text" id="reciterSearch" placeholder="بحث عن قارئ..." class="w-full p-3 pr-10 rounded-xl text-sm outline-none focus:border-[#007AFF]">
+                                <input type="text" id="reciterSearch" placeholder="بحث عن قارئ..."
+                                    class="w-full p-3 pr-10 rounded-xl text-sm outline-none focus:border-[#007AFF]">
                                 <i data-lucide="search" class="absolute right-3 top-3.5 w-4 h-4 text-zinc-500"></i>
                             </div>
-                            <div id="recitersList" class="grid grid-cols-1 gap-1 max-h-[150px] overflow-y-auto custom-scroll p-1 border border-[var(--border-color)] rounded-xl bg-[var(--input-bg)]"></div>
-                            <div class="flex items-center justify-between p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)]">
-                                <div><span class="text-xs font-bold block">صدى المسجد (Reverb)</span><span class="text-[9px] text-zinc-500 block">محاكاة صوت المساجد الواسعة</span></div>
-                                <label class="toggle-switch"><input type="checkbox" id="reverbToggle"><span class="slider"></span></label>
+                            <div id="recitersList"
+                                class="grid grid-cols-1 gap-1 max-h-[150px] overflow-y-auto custom-scroll p-1 border border-[var(--border-color)] rounded-xl bg-[var(--input-bg)]">
+                            </div>
+                            <div
+                                class="flex items-center justify-between p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)]">
+                                <div><span class="text-xs font-bold block">صدى المسجد (Reverb)</span><span
+                                        class="text-[9px] text-zinc-500 block">محاكاة صوت المساجد الواسعة</span></div>
+                                <label class="toggle-switch"><input type="checkbox" id="reverbToggle"><span
+                                        class="slider"></span></label>
                             </div>
                             <div>
-                                <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">قوة الصدى (Intensity)</span><span id="reverbIntensityVal" class="text-[10px] text-[#007AFF] font-bold">40%</span></div>
-                                <input type="range" id="reverbRange" min="0" max="1" step="0.05" value="0.4" class="w-full">
+                                <div class="flex justify-between items-center mb-1"><span
+                                        class="text-[10px] text-zinc-500">قوة الصدى (Intensity)</span><span
+                                        id="reverbIntensityVal" class="text-[10px] text-[#007AFF] font-bold">40%</span>
+                                </div>
+                                <input type="range" id="reverbRange" min="0" max="1" step="0.05" value="0.4"
+                                    class="w-full">
                             </div>
-                            
+
                             <!-- SEO Content Inside Studio -->
                             <div id="surahNavigation" class="hidden mt-6 pt-4 border-t border-[var(--border-color)]">
-                                <div class="flex justify-between items-center bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] p-3">
-                                    <a id="prevSurahLink" href="#" class="flex items-center gap-2 text-zinc-400 hover:text-[#007AFF] transition-colors" title="السورة السابقة">
+                                <div
+                                    class="flex justify-between items-center bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] p-3">
+                                    <a id="prevSurahLink" href="#"
+                                        class="flex items-center gap-2 text-zinc-400 hover:text-[#007AFF] transition-colors"
+                                        title="السورة السابقة">
                                         <i data-lucide="arrow-right" class="w-4 h-4 shrink-0"></i>
                                         <div class="text-right">
                                             <span class="block text-[9px] text-zinc-500 font-sans">السورة السابقة</span>
-                                            <span id="prevSurahName" class="font-bold text-xs text-[var(--text-main)] line-clamp-1">سورة الفاتحة</span>
+                                            <span id="prevSurahName"
+                                                class="font-bold text-xs text-[var(--text-main)] line-clamp-1">سورة
+                                                الفاتحة</span>
                                         </div>
                                     </a>
                                     <div class="w-px h-6 bg-[var(--border-color)] shrink-0 mx-1"></div>
-                                    <a id="nextSurahLink" href="#" class="flex items-center gap-2 text-zinc-400 hover:text-[#007AFF] transition-colors flex-row-reverse" title="السورة التالية">
+                                    <a id="nextSurahLink" href="#"
+                                        class="flex items-center gap-2 text-zinc-400 hover:text-[#007AFF] transition-colors flex-row-reverse"
+                                        title="السورة التالية">
                                         <i data-lucide="arrow-left" class="w-4 h-4 shrink-0"></i>
                                         <div class="text-left">
                                             <span class="block text-[9px] text-zinc-500 font-sans">السورة التالية</span>
-                                            <span id="nextSurahName" class="font-bold text-xs text-[var(--text-main)] line-clamp-1">سورة البقرة</span>
+                                            <span id="nextSurahName"
+                                                class="font-bold text-xs text-[var(--text-main)] line-clamp-1">سورة
+                                                البقرة</span>
                                         </div>
                                     </a>
                                 </div>
                             </div>
                             <div id="dynamicSeoSection" class="hidden mt-3"></div>
-                        </div></section>
+                        </div>
+                    </section>
 
-                <!-- 2. Reciter (Merged) -->
+                    <!-- 2. Reciter (Merged) -->
 
-                <!-- 3. Background Media Settings -->
-                <section id="step-bg" class="step">
-                    <div class="space-y-4 pt-2">
+                    <!-- 3. Background Media Settings -->
+                    <section id="step-bg" class="step">
+                        <div class="space-y-4 pt-2">
                             <div class="grid grid-cols-2 gap-2">
                                 <label class="file-upload-btn">
                                     <i data-lucide="image" class="w-4 h-4"></i>
@@ -815,48 +1094,69 @@
                                 </label>
                             </div>
 
-                            <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
+                            <div
+                                class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
                                 <div class="flex items-center justify-between">
-                                    <span class="text-[10px] text-[#007AFF] font-bold block">مكتبة الخلفيات الجاهزة</span>
+                                    <span class="text-[10px] text-[#007AFF] font-bold block">مكتبة الخلفيات
+                                        الجاهزة</span>
                                     <span class="text-[9px] text-zinc-500">جودة 4K</span>
                                 </div>
                                 <div class="grid grid-cols-3 gap-2" id="stockImages">
-                                <img src="img/backgrounds/bg1.webp" class="asset-thumb" onerror="this.style.display='none'">
-                                <img src="img/backgrounds/bg2.webp" class="asset-thumb" onerror="this.style.display='none'">
-                                <img src="img/backgrounds/bg3.webp" class="asset-thumb" onerror="this.style.display='none'">
-                                <img src="img/backgrounds/bg4.webp" class="asset-thumb" onerror="this.style.display='none'">
-                                <img src="img/backgrounds/bg5.webp" class="asset-thumb" onerror="this.style.display='none'">
-                                <img src="img/backgrounds/bg6.webp" class="asset-thumb" onerror="this.style.display='none'">
-                                <img src="img/backgrounds/bg7.webp" class="asset-thumb" onerror="this.style.display='none'">
+                                    <img src="img/backgrounds/bg1.webp" class="asset-thumb"
+                                        onerror="this.style.display='none'">
+                                    <img src="img/backgrounds/bg2.webp" class="asset-thumb"
+                                        onerror="this.style.display='none'">
+                                    <img src="img/backgrounds/bg3.webp" class="asset-thumb"
+                                        onerror="this.style.display='none'">
+                                    <img src="img/backgrounds/bg4.webp" class="asset-thumb"
+                                        onerror="this.style.display='none'">
+                                    <img src="img/backgrounds/bg5.webp" class="asset-thumb"
+                                        onerror="this.style.display='none'">
+                                    <img src="img/backgrounds/bg6.webp" class="asset-thumb"
+                                        onerror="this.style.display='none'">
+                                    <img src="img/backgrounds/bg7.webp" class="asset-thumb"
+                                        onerror="this.style.display='none'">
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">التغبيش</span><span id="bgBlurVal" class="text-[10px] text-[#007AFF] font-bold">0px</span></div>
+                                    <div class="flex justify-between items-center mb-1"><span
+                                            class="text-[10px] text-zinc-500">التغبيش</span><span id="bgBlurVal"
+                                            class="text-[10px] text-[#007AFF] font-bold">0px</span></div>
                                     <input type="range" id="bgBlur" min="0" max="40" value="0" class="w-full">
                                 </div>
                                 <div>
-                                    <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">التحجيم</span><span id="bgZoomVal" class="text-[10px] text-[#007AFF] font-bold">100%</span></div>
+                                    <div class="flex justify-between items-center mb-1"><span
+                                            class="text-[10px] text-zinc-500">التحجيم</span><span id="bgZoomVal"
+                                            class="text-[10px] text-[#007AFF] font-bold">100%</span></div>
                                     <input type="range" id="bgZoom" min="10" max="500" value="100" class="w-full">
                                 </div>
                             </div>
 
-                            <button id="resetBgPos" class="w-full py-2 bg-[var(--input-bg)] hover:opacity-80 text-[10px] rounded-lg border border-[var(--border-color)] transition-colors">إعادة ضبط الموضع</button>
+                            <button id="resetBgPos"
+                                class="w-full py-2 bg-[var(--input-bg)] hover:opacity-80 text-[10px] rounded-lg border border-[var(--border-color)] transition-colors">إعادة
+                                ضبط الموضع</button>
 
                             <div>
-                                <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">تعتيم الخلفية (Overlay)</span><span id="opacityDisplay" class="text-[10px] text-[#007AFF] font-bold">50%</span></div>
-                                <input type="range" id="opacityRange" min="0" max="1" step="0.05" value="0.5" class="w-full">
+                                <div class="flex justify-between items-center mb-1"><span
+                                        class="text-[10px] text-zinc-500">تعتيم الخلفية (Overlay)</span><span
+                                        id="opacityDisplay" class="text-[10px] text-[#007AFF] font-bold">50%</span>
+                                </div>
+                                <input type="range" id="opacityRange" min="0" max="1" step="0.05" value="0.5"
+                                    class="w-full">
                             </div>
                         </div>
-                </section>
+                    </section>
 
-                <!-- 4. The Design -->
-                <section id="step-design" class="step">
-                    <div class="space-y-4 pt-2">
-                            <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-2">
+                    <!-- 4. The Design -->
+                    <section id="step-design" class="step">
+                        <div class="space-y-4 pt-2">
+                            <div
+                                class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-2">
                                 <span class="text-[10px] text-[#007AFF] font-bold block">إصدار الخط</span>
-                                <select id="fontVersion" class="w-full rounded-lg outline-none focus:border-[#007AFF] text-xs">
+                                <select id="fontVersion"
+                                    class="w-full rounded-lg outline-none focus:border-[#007AFF] text-xs">
                                     <option value="v1" selected>عثماني كلاسيكي</option>
                                     <option value="v2">عثماني حديث</option>
                                     <option value="mushaf">المصحف الذهبي</option>
@@ -864,71 +1164,98 @@
                             </div>
 
                             <div>
-                                <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">حجم الخط الأساسي</span><span id="fsDisplay" class="text-[10px] text-[#007AFF] font-bold">75</span></div>
+                                <div class="flex justify-between items-center mb-1"><span
+                                        class="text-[10px] text-zinc-500">حجم الخط الأساسي</span><span id="fsDisplay"
+                                        class="text-[10px] text-[#007AFF] font-bold">75</span></div>
                                 <input type="range" id="fsRange" min="30" max="180" value="75" class="w-full">
                             </div>
-                            
+
                             <div>
-                                <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">موقع النص عمودياً (Y)</span><span id="textYVal" class="text-[10px] text-[#007AFF] font-bold">50%</span></div>
+                                <div class="flex justify-between items-center mb-1"><span
+                                        class="text-[10px] text-zinc-500">موقع النص عمودياً (Y)</span><span
+                                        id="textYVal" class="text-[10px] text-[#007AFF] font-bold">50%</span></div>
                                 <input type="range" id="textY" min="5" max="95" value="50" class="w-full">
                             </div>
-                            
+
                             <div>
-                                <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">موقع النص أفقياً (X)</span><span id="textXVal" class="text-[10px] text-[#007AFF] font-bold">50%</span></div>
+                                <div class="flex justify-between items-center mb-1"><span
+                                        class="text-[10px] text-zinc-500">موقع النص أفقياً (X)</span><span id="textXVal"
+                                        class="text-[10px] text-[#007AFF] font-bold">50%</span></div>
                                 <input type="range" id="textX" min="5" max="95" value="50" class="w-full">
                             </div>
 
-                            <div class="flex items-center justify-between p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)]">
+                            <div
+                                class="flex items-center justify-between p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)]">
                                 <div><span class="text-xs font-bold block">إظهار الترجمة</span></div>
-                                <label class="toggle-switch"><input type="checkbox" id="showTranslation" checked><span class="slider"></span></label>
+                                <label class="toggle-switch"><input type="checkbox" id="showTranslation" checked><span
+                                        class="slider"></span></label>
                             </div>
 
-                            <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-2">
+                            <div
+                                class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-2">
                                 <div class="flex items-center gap-2 mb-1">
                                     <i data-lucide="languages" class="w-3 h-3 text-[#007AFF]"></i>
-                                    <span class="text-[10px] text-[#007AFF] font-bold block">لغة ومترجم النص الدعوي</span>
+                                    <span class="text-[10px] text-[#007AFF] font-bold block">لغة ومترجم النص
+                                        الدعوي</span>
                                 </div>
-                                <select id="translationSelect" class="w-full rounded-lg outline-none focus:border-[#007AFF] text-[11px] custom-scroll">
+                                <select id="translationSelect"
+                                    class="w-full rounded-lg outline-none focus:border-[#007AFF] text-[11px] custom-scroll">
                                     <option value="20">English - Saheeh International</option>
                                 </select>
                             </div>
 
-                            <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
+                            <div
+                                class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
                                 <span class="text-[10px] text-[#007AFF] font-bold block">ألوان النص القرآني</span>
                                 <div class="flex items-center justify-between">
                                     <span class="text-[10px] text-zinc-500">لون النص</span>
-                                    <div class="w-10 h-8"><input type="color" id="textColor" value="#ffffff" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
+                                    <div class="w-10 h-8"><input type="color" id="textColor" value="#ffffff"
+                                            class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
                                 </div>
-                                <div class="flex items-center justify-between pt-2 border-t border-[var(--border-color)]">
+                                <div
+                                    class="flex items-center justify-between pt-2 border-t border-[var(--border-color)]">
                                     <span class="text-[10px] text-zinc-500">لون الظل</span>
-                                    <div class="w-10 h-8"><input type="color" id="shadowColor" value="#000000" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
+                                    <div class="w-10 h-8"><input type="color" id="shadowColor" value="#000000"
+                                            class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
                                 </div>
                                 <div class="pt-2 border-t border-[var(--border-color)]">
-                                    <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">قوة ظل الآيات</span><span id="shadowBlurDisplay" class="text-[10px] text-[#007AFF] font-bold">15</span></div>
+                                    <div class="flex justify-between items-center mb-1"><span
+                                            class="text-[10px] text-zinc-500">قوة ظل الآيات</span><span
+                                            id="shadowBlurDisplay"
+                                            class="text-[10px] text-[#007AFF] font-bold">15</span></div>
                                     <input type="range" id="shadowBlur" min="0" max="60" value="15" class="w-full">
                                 </div>
                             </div>
 
-                            <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
+                            <div
+                                class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
                                 <span class="text-[10px] text-[#007AFF] font-bold block">ألوان الترجمة</span>
                                 <div class="flex items-center justify-between">
                                     <span class="text-[10px] text-zinc-500">لون الترجمة</span>
-                                    <div class="w-10 h-8"><input type="color" id="transTextColor" value="#d4d4d8" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
+                                    <div class="w-10 h-8"><input type="color" id="transTextColor" value="#d4d4d8"
+                                            class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
                                 </div>
-                                <div class="flex items-center justify-between pt-2 border-t border-[var(--border-color)]">
+                                <div
+                                    class="flex items-center justify-between pt-2 border-t border-[var(--border-color)]">
                                     <span class="text-[10px] text-zinc-500">لون ظل الترجمة</span>
-                                    <div class="w-10 h-8"><input type="color" id="transShadowColor" value="#000000" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
+                                    <div class="w-10 h-8"><input type="color" id="transShadowColor" value="#000000"
+                                            class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
                                 </div>
                                 <div class="pt-2 border-t border-[var(--border-color)]">
-                                    <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">قوة ظل الترجمة</span><span id="transShadowBlurDisplay" class="text-[10px] text-[#007AFF] font-bold">0</span></div>
+                                    <div class="flex justify-between items-center mb-1"><span
+                                            class="text-[10px] text-zinc-500">قوة ظل الترجمة</span><span
+                                            id="transShadowBlurDisplay"
+                                            class="text-[10px] text-[#007AFF] font-bold">0</span></div>
                                     <input type="range" id="transShadowBlur" min="0" max="60" value="0" class="w-full">
                                 </div>
                             </div>
 
-                            <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-4">
+                            <div
+                                class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-4">
                                 <span class="text-[10px] text-[#007AFF] font-bold block">إعدادات الحركة</span>
                                 <div>
-                                    <select id="animType" class="w-full rounded-xl outline-none focus:border-[#007AFF] text-xs">
+                                    <select id="animType"
+                                        class="w-full rounded-xl outline-none focus:border-[#007AFF] text-xs">
                                         <option value="none">بدون حركة</option>
                                         <option value="fade" selected>تلاشي (Fade)</option>
                                         <option value="slide">انزلاق (Slide Up)</option>
@@ -940,187 +1267,261 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">قوة الحركة (Intensity)</span><span id="animIntensityVal" class="text-[10px] text-[#007AFF] font-bold">30%</span></div>
+                                    <div class="flex justify-between items-center mb-1"><span
+                                            class="text-[10px] text-zinc-500">قوة الحركة (Intensity)</span><span
+                                            id="animIntensityVal"
+                                            class="text-[10px] text-[#007AFF] font-bold">30%</span></div>
                                     <input type="range" id="animIntensity" min="0" max="100" value="30" class="w-full">
                                 </div>
                             </div>
                         </div>
-                </section>
+                    </section>
 
-                <!-- 5. Add-ons -->
-                <section id="step-addons" class="step">
-                    <div class="space-y-4 pt-2">
-                                <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
-                                    <div class="flex items-center justify-between">
-                                        <div><span class="text-xs font-bold block">إظهار اسم السورة</span></div>
-                                        <label class="toggle-switch"><input type="checkbox" id="showSurahName"><span class="slider"></span></label>
-                                    </div>
-                                    <div>
-                                        <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">موقع اسم السورة (Y)</span><span id="surahYVal" class="text-[10px] text-[#007AFF] font-bold">95%</span></div>
-                                        <input type="range" id="surahY" min="5" max="98" value="95" class="w-full">
-                                    </div>
-                                    <div>
-                                    <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">موقع اسم السورة أفقي (X)</span><span id="surahXVal" class="text-[10px] text-[#007AFF] font-bold">50%</span></div>
+                    <!-- 5. Add-ons -->
+                    <section id="step-addons" class="step">
+                        <div class="space-y-4 pt-2">
+                            <div
+                                class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div><span class="text-xs font-bold block">إظهار اسم السورة</span></div>
+                                    <label class="toggle-switch"><input type="checkbox" id="showSurahName"><span
+                                            class="slider"></span></label>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1"><span
+                                            class="text-[10px] text-zinc-500">موقع اسم السورة (Y)</span><span
+                                            id="surahYVal" class="text-[10px] text-[#007AFF] font-bold">95%</span></div>
+                                    <input type="range" id="surahY" min="5" max="98" value="95" class="w-full">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1"><span
+                                            class="text-[10px] text-zinc-500">موقع اسم السورة أفقي (X)</span><span
+                                            id="surahXVal" class="text-[10px] text-[#007AFF] font-bold">50%</span></div>
                                     <input type="range" id="surahX" min="5" max="95" value="50" class="w-full">
                                 </div>
                                 <div>
-                                        <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">حجم اسم السورة</span><span id="surahFontSizeVal" class="text-[10px] text-[#007AFF] font-bold">70</span></div>
-                                        <input type="range" id="surahFontSize" min="30" max="200" value="70" class="w-full">
+                                    <div class="flex justify-between items-center mb-1"><span
+                                            class="text-[10px] text-zinc-500">حجم اسم السورة</span><span
+                                            id="surahFontSizeVal" class="text-[10px] text-[#007AFF] font-bold">70</span>
+                                    </div>
+                                    <input type="range" id="surahFontSize" min="30" max="200" value="70" class="w-full">
+                                </div>
+                            </div>
+                            <div
+                                class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs font-bold block">بسم الله الرحمن الرحيم</span>
+                                    </div>
+                                    <label class="toggle-switch"><input type="checkbox" id="showBasmala"><span
+                                            class="slider"></span></label>
+                                </div>
+                                <div id="basmalaControls" class="space-y-3 pt-2 border-t border-[var(--border-color)]">
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1"><span
+                                                class="text-[10px] text-zinc-500">شكل البسملة</span><span
+                                                id="basmalaNumberVal"
+                                                class="text-[10px] text-[#007AFF] font-bold">6</span></div>
+                                        <input type="range" id="basmalaNumber" min="1" max="122" value="6"
+                                            class="w-full">
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1"><span
+                                                class="text-[10px] text-zinc-500">موقع بسم الله (Y)</span><span
+                                                id="basmalaYVal" class="text-[10px] text-[#007AFF] font-bold">15%</span>
+                                        </div>
+                                        <input type="range" id="basmalaY" min="5" max="50" value="15" class="w-full">
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1"><span
+                                                class="text-[10px] text-zinc-500">موقع بسم الله أفقي (X)</span><span
+                                                id="basmalaXVal" class="text-[10px] text-[#007AFF] font-bold">50%</span>
+                                        </div>
+                                        <input type="range" id="basmalaX" min="5" max="95" value="50" class="w-full">
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1"><span
+                                                class="text-[10px] text-zinc-500">حجم بسم الله</span><span
+                                                id="basmalaSizeVal"
+                                                class="text-[10px] text-[#007AFF] font-bold">90</span></div>
+                                        <input type="range" id="basmalaSize" min="20" max="150" value="90"
+                                            class="w-full">
+                                    </div>
+                                    <div
+                                        class="flex items-center justify-between pt-2 border-t border-[var(--border-color)]">
+                                        <span class="text-[10px] text-zinc-500">لون النص</span>
+                                        <div class="w-10 h-8"><input type="color" id="basmalaColor" value="#ffffff"
+                                                class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1"><span
+                                                class="text-[10px] text-zinc-500">قوة الظل</span><span
+                                                id="basmalaShadowBlurVal"
+                                                class="text-[10px] text-[#007AFF] font-bold">10</span></div>
+                                        <input type="range" id="basmalaShadowBlur" min="0" max="30" value="10"
+                                            class="w-full">
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[10px] text-zinc-500">لون الظل</span>
+                                        <div class="w-10 h-8"><input type="color" id="basmalaShadowColor"
+                                                value="#000000"
+                                                class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
                                     </div>
                                 </div>
-                                <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center gap-2">
-                                            <span class="text-xs font-bold block">بسم الله الرحمن الرحيم</span>
-                                        </div>
-                                        <label class="toggle-switch"><input type="checkbox" id="showBasmala"><span class="slider"></span></label>
+                            </div>
+
+                            <div
+                                class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs font-bold block">موجة صوتية (Waveform)</span>
+                                        <span
+                                            class="pro-badge px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-[9px] font-bold rounded-md shadow-sm">PRO</span>
                                     </div>
-                                    <div id="basmalaControls" class="space-y-3 pt-2 border-t border-[var(--border-color)]">
-                                    <div>
-                                        <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">شكل البسملة</span><span id="basmalaNumberVal" class="text-[10px] text-[#007AFF] font-bold">6</span></div>
-                                        <input type="range" id="basmalaNumber" min="1" max="122" value="6" class="w-full">
+                                    <label class="toggle-switch"><input type="checkbox" id="showWaveform"><span
+                                            class="slider"></span></label>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1"><span
+                                            class="text-[10px] text-zinc-500">موقع الموجة (Y)</span><span
+                                            id="waveformYVal" class="text-[10px] text-[#007AFF] font-bold">85%</span>
                                     </div>
-                                        <div>
-                                            <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">موقع بسم الله (Y)</span><span id="basmalaYVal" class="text-[10px] text-[#007AFF] font-bold">15%</span></div>
-                                            <input type="range" id="basmalaY" min="5" max="50" value="15" class="w-full">
-                                        </div>
-                                        <div>
-                                            <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">موقع بسم الله أفقي (X)</span><span id="basmalaXVal" class="text-[10px] text-[#007AFF] font-bold">50%</span></div>
-                                            <input type="range" id="basmalaX" min="5" max="95" value="50" class="w-full">
-                                        </div>
-                                        <div>
-                                            <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">حجم بسم الله</span><span id="basmalaSizeVal" class="text-[10px] text-[#007AFF] font-bold">90</span></div>
-                                            <input type="range" id="basmalaSize" min="20" max="150" value="90" class="w-full">
-                                        </div>
-                                        <div class="flex items-center justify-between pt-2 border-t border-[var(--border-color)]">
-                                            <span class="text-[10px] text-zinc-500">لون النص</span>
-                                            <div class="w-10 h-8"><input type="color" id="basmalaColor" value="#ffffff" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
-                                        </div>
-                                        <div>
-                                            <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">قوة الظل</span><span id="basmalaShadowBlurVal" class="text-[10px] text-[#007AFF] font-bold">10</span></div>
-                                            <input type="range" id="basmalaShadowBlur" min="0" max="30" value="10" class="w-full">
-                                        </div>
+                                    <input type="range" id="waveformY" min="5" max="98" value="85" class="w-full">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1"><span
+                                            class="text-[10px] text-zinc-500">ارتفاع الموجة</span><span
+                                            id="waveformHeightVal"
+                                            class="text-[10px] text-[#007AFF] font-bold">120</span></div>
+                                    <input type="range" id="waveformHeight" min="20" max="300" value="120"
+                                        class="w-full">
+                                </div>
+                                <div
+                                    class="flex items-center justify-between pt-2 border-t border-[var(--border-color)]">
+                                    <span class="text-[10px] text-zinc-500">لون الموجة</span>
+                                    <div class="w-10 h-8"><input type="color" id="waveformColor" value="#ffffff"
+                                            class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
+                                </div>
+                            </div>
+
+                            <!-- Watermark Section -->
+                            <div
+                                class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs font-bold block">علامة مائية (Logo)</span>
+                                        <span
+                                            class="pro-badge px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-[9px] font-bold rounded-md shadow-sm">PRO</span>
+                                    </div>
+                                    <label class="toggle-switch"><input type="checkbox" id="showWatermark"><span
+                                            class="slider"></span></label>
+                                </div>
+                                <div id="watermarkControls"
+                                    class="space-y-3 pt-2 border-t border-[var(--border-color)]">
+                                    <div
+                                        class="flex p-1 bg-[var(--bg-dark)] rounded-lg border border-[var(--border-color)] mb-2">
+                                        <button id="wmTypeImage"
+                                            class="flex-1 py-1.5 text-[10px] font-bold rounded-md bg-[var(--panel-bg)] shadow-sm text-[#007AFF] transition-all">صورة</button>
+                                        <button id="wmTypeText"
+                                            class="flex-1 py-1.5 text-[10px] font-bold rounded-md text-zinc-500 hover:text-zinc-700 transition-all">نص</button>
+                                    </div>
+
+                                    <div id="wmImageSection">
+                                        <label class="file-upload-btn">
+                                            <i data-lucide="upload" class="w-3 h-3"></i>
+                                            <span>رفع الشعار (WebP)</span>
+                                            <input type="file" id="watermarkInput" accept="image/*" class="hidden">
+                                        </label>
+                                    </div>
+
+                                    <div id="wmTextSection" class="hidden space-y-2">
+                                        <input type="text" id="watermarkText" placeholder="اكتب النص هنا..."
+                                            class="w-full p-2 rounded-lg text-xs border border-[var(--border-color)] bg-[var(--input-bg)] focus:border-[#007AFF] outline-none text-right">
                                         <div class="flex items-center justify-between">
-                                            <span class="text-[10px] text-zinc-500">لون الظل</span>
-                                            <div class="w-10 h-8"><input type="color" id="basmalaShadowColor" value="#000000" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center gap-2">
-                                            <span class="text-xs font-bold block">موجة صوتية (Waveform)</span>
-                                            <span class="pro-badge px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-[9px] font-bold rounded-md shadow-sm">PRO</span>
-                                        </div>
-                                        <label class="toggle-switch"><input type="checkbox" id="showWaveform"><span class="slider"></span></label>
-                                    </div>
-                                    <div>
-                                        <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">موقع الموجة (Y)</span><span id="waveformYVal" class="text-[10px] text-[#007AFF] font-bold">85%</span></div>
-                                        <input type="range" id="waveformY" min="5" max="98" value="85" class="w-full">
-                                    </div>
-                                    <div>
-                                        <div class="flex justify-between items-center mb-1"><span class="text-[10px] text-zinc-500">ارتفاع الموجة</span><span id="waveformHeightVal" class="text-[10px] text-[#007AFF] font-bold">120</span></div>
-                                        <input type="range" id="waveformHeight" min="20" max="300" value="120" class="w-full">
-                                    </div>
-                                    <div class="flex items-center justify-between pt-2 border-t border-[var(--border-color)]">
-                                        <span class="text-[10px] text-zinc-500">لون الموجة</span>
-                                        <div class="w-10 h-8"><input type="color" id="waveformColor" value="#ffffff" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Watermark Section -->
-                                <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center gap-2">
-                                            <span class="text-xs font-bold block">علامة مائية (Logo)</span>
-                                            <span class="pro-badge px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-[9px] font-bold rounded-md shadow-sm">PRO</span>
-                                        </div>
-                                        <label class="toggle-switch"><input type="checkbox" id="showWatermark"><span class="slider"></span></label>
-                                    </div>
-                                    <div id="watermarkControls" class="space-y-3 pt-2 border-t border-[var(--border-color)]">
-                                        <div class="flex p-1 bg-[var(--bg-dark)] rounded-lg border border-[var(--border-color)] mb-2">
-                                            <button id="wmTypeImage" class="flex-1 py-1.5 text-[10px] font-bold rounded-md bg-[var(--panel-bg)] shadow-sm text-[#007AFF] transition-all">صورة</button>
-                                            <button id="wmTypeText" class="flex-1 py-1.5 text-[10px] font-bold rounded-md text-zinc-500 hover:text-zinc-700 transition-all">نص</button>
-                                        </div>
-
-                                        <div id="wmImageSection">
-                                            <label class="file-upload-btn">
-                                                <i data-lucide="upload" class="w-3 h-3"></i>
-                                                <span>رفع الشعار (WebP)</span>
-                                                <input type="file" id="watermarkInput" accept="image/*" class="hidden">
-                                            </label>
-                                        </div>
-
-                                        <div id="wmTextSection" class="hidden space-y-2">
-                                            <input type="text" id="watermarkText" placeholder="اكتب النص هنا..." class="w-full p-2 rounded-lg text-xs border border-[var(--border-color)] bg-[var(--input-bg)] focus:border-[#007AFF] outline-none text-right">
-                                            <div class="flex items-center justify-between">
-                                                <span class="text-[10px] text-zinc-500">لون النص</span>
-                                                <div class="w-8 h-8"><input type="color" id="watermarkColor" value="#ffffff" class="w-full h-full rounded-lg cursor-pointer border-none p-0"></div>
+                                            <span class="text-[10px] text-zinc-500">لون النص</span>
+                                            <div class="w-8 h-8"><input type="color" id="watermarkColor" value="#ffffff"
+                                                    class="w-full h-full rounded-lg cursor-pointer border-none p-0">
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="grid grid-cols-2 gap-3">
-                                            <div><span class="text-[10px] text-zinc-500 mb-1 block">الحجم</span><input type="range" id="watermarkSize" min="1" max="50" value="10" class="w-full"></div>
-                                            <div><span class="text-[10px] text-zinc-500 mb-1 block">الشفافية</span><input type="range" id="watermarkOpacity" min="0.1" max="1" step="0.1" value="0.8" class="w-full"></div>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div><span class="text-[10px] text-zinc-500 mb-1 block">الحجم</span><input
+                                                type="range" id="watermarkSize" min="1" max="50" value="10"
+                                                class="w-full"></div>
+                                        <div><span class="text-[10px] text-zinc-500 mb-1 block">الشفافية</span><input
+                                                type="range" id="watermarkOpacity" min="0.1" max="1" step="0.1"
+                                                value="0.8" class="w-full"></div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div><span class="text-[10px] text-zinc-500 mb-1 block">موقع X</span><input
+                                                type="range" id="watermarkX" min="0" max="95" value="45" class="w-full">
                                         </div>
-                                        <div class="grid grid-cols-2 gap-3">
-                                            <div><span class="text-[10px] text-zinc-500 mb-1 block">موقع X</span><input type="range" id="watermarkX" min="0" max="95" value="45" class="w-full"></div>
-                                            <div><span class="text-[10px] text-zinc-500 mb-1 block">موقع Y</span><input type="range" id="watermarkY" min="0" max="95" value="85" class="w-full"></div>
+                                        <div><span class="text-[10px] text-zinc-500 mb-1 block">موقع Y</span><input
+                                                type="range" id="watermarkY" min="0" max="95" value="85" class="w-full">
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
-                                    <div class="flex items-center justify-between">
+                            <div
+                                class="p-3 bg-[var(--input-bg)] rounded-xl border border-[var(--border-color)] space-y-3">
+                                <div class="flex items-center justify-between">
                                     <div class="flex items-center gap-2">
-                                    <span class="text-xs font-bold block">إظهار شعار Tarteel Studio</span>
-                                        <span class="pro-badge px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-[9px] font-bold rounded-md shadow-sm">PRO</span>
-                                        </div>
-                                        <label class="toggle-switch"><input type="checkbox" id="showTarteelLogo" checked><span class="slider"></span></label>
+                                        <span class="text-xs font-bold block">إظهار شعار Tarteel Studio</span>
+                                        <span
+                                            class="pro-badge px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-[9px] font-bold rounded-md shadow-sm">PRO</span>
                                     </div>
+                                    <label class="toggle-switch"><input type="checkbox" id="showTarteelLogo"
+                                            checked><span class="slider"></span></label>
                                 </div>
+                            </div>
                         </div>
-                </section>
+                    </section>
+                </div>
             </div>
-        </div>
 
-        <div class="p-4 lg:p-6 border-t border-[var(--border-color)] bg-[var(--panel-bg)]">
-            <button id="mainActionBtn" class="w-full py-3 lg:py-4 bg-[#007AFF] hover:opacity-90 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all shadow-xl shadow-[#007AFF]/20 disabled:opacity-50 text-white text-sm lg:text-base">
-                <i data-lucide="clapperboard" class="w-5 h-5"></i>
-                <span id="actionText">تصدير المقطع</span>
-            </button>
-        </div>
-    </aside>
+            <div class="p-4 lg:p-6 border-t border-[var(--border-color)] bg-[var(--panel-bg)]">
+                <button id="mainActionBtn"
+                    class="w-full py-3 lg:py-4 bg-[#007AFF] hover:opacity-90 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all shadow-xl shadow-[#007AFF]/20 disabled:opacity-50 text-white text-sm lg:text-base">
+                    <i data-lucide="clapperboard" class="w-5 h-5"></i>
+                    <span id="actionText">تصدير المقطع</span>
+                </button>
+            </div>
+        </aside>
 
-    <main class="canvas-wrapper">
-        <div id="mockup" class="phone-mockup group" style="aspect-ratio: 16/9;" ondragstart="return false;">
-            <canvas id="previewCanvas" width="1920" height="1080"></canvas>
-            <div id="loaderUI" class="loading-overlay hidden">
-                <div class="animate-spin rounded-full h-8 w-8 border-4 border-[#007AFF] border-t-transparent mb-2"></div>
-                <p id="loaderText" class="text-[10px] text-[#007AFF] font-bold">جاري التحميل...</p>
+        <main class="canvas-wrapper">
+            <div id="mockup" class="phone-mockup group" style="aspect-ratio: 16/9;" ondragstart="return false;">
+                <canvas id="previewCanvas" width="1920" height="1080"></canvas>
+                <div id="loaderUI" class="loading-overlay hidden">
+                    <div class="animate-spin rounded-full h-8 w-8 border-4 border-[#007AFF] border-t-transparent mb-2">
+                    </div>
+                    <p id="loaderText" class="text-[10px] text-[#007AFF] font-bold">جاري التحميل...</p>
+                </div>
+                <div id="syncOverlay" class="loading-overlay hidden flex-col text-center">
+                    <i data-lucide="mic" class="w-10 h-10 text-[#007AFF] mb-4"></i>
+                    <p class="text-base text-[#007AFF] font-bold">في انتظار بدء المزامنة اليدوية</p>
+                    <p class="text-xs text-zinc-500 mt-2 max-w-[80%] leading-relaxed">
+                        تأكد من تحديد نطاق الآيات الصحيح من الشريط الجانبي قبل البدء.
+                        <br>بعدها، اضغط على "ابدأ تسجيل التوقيت" لتفعيل المعاينة.
+                    </p>
+                </div>
+                <div
+                    class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button id="previewPlayBtn"
+                        class="pointer-events-auto p-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full hover:scale-110 transition-transform"><i
+                            data-lucide="play" id="playIcon" class="w-8 h-8 fill-white text-white"></i></button>
+                </div>
             </div>
-            <div id="syncOverlay" class="loading-overlay hidden flex-col text-center">
-                <i data-lucide="mic" class="w-10 h-10 text-[#007AFF] mb-4"></i>
-                <p class="text-base text-[#007AFF] font-bold">في انتظار بدء المزامنة اليدوية</p>
-                <p class="text-xs text-zinc-500 mt-2 max-w-[80%] leading-relaxed">
-                    تأكد من تحديد نطاق الآيات الصحيح من الشريط الجانبي قبل البدء.
-                    <br>بعدها، اضغط على "ابدأ تسجيل التوقيت" لتفعيل المعاينة.
-                </p>
-            </div>
-            <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
-                <button id="previewPlayBtn" class="pointer-events-auto p-5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full hover:scale-110 transition-transform"><i data-lucide="play" id="playIcon" class="w-8 h-8 fill-white text-white"></i></button>
-            </div>
-        </div>
-    </main>
-</div>
+        </main>
+    </div>
 
     <!-- Load external libraries synchronously at the end of the body to guarantee order before the module -->
     <script src="js/lib/lucide.min.js"></script>
     <script src="js/lib/supabase.min.js"></script>
     <script>
         // Cache-busting for module scripts
-        (function() {
+        (function () {
             const appScript = document.createElement('script');
             appScript.type = 'module';
             appScript.src = `js/app.js?v=${new Date().getTime()}`;
@@ -1128,4 +1529,5 @@
         })();
     </script>
 </body>
+
 </html>
