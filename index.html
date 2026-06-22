@@ -214,15 +214,16 @@
             <div class="w-full h-px bg-gradient-to-r from-transparent via-[#007AFF]/15 to-transparent"></div>
         </header>
 
-        <div class="relative z-10 max-w-5xl mx-auto my-auto w-full animate-fade-in-up">
+        <div class="relative z-10 max-w-none px-4 lg:px-8 mx-auto my-auto w-full animate-fade-in-up">
             <section id="hero" class="py-10 md:py-16 space-y-8">
                 <h1
                     class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[1.4] md:leading-[1.3] mb-6">
                     حوّل التلاوة إلى فيديو يخطف القلوب
-                    <br>
-                    <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] via-cyan-400 to-purple-500">في
-                        ثوانٍ معدودة</span>
+                    <div class="mt-2 md:mt-4">
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] via-cyan-400 to-purple-500">في
+                            ثوانٍ معدودة</span>
+                    </div>
                 </h1>
 
                 <div class="inline-flex items-center justify-center gap-2 px-8 py-2.5 rounded-full bg-[#007AFF]/10 border border-[#007AFF]/20 text-[#007AFF] font-bold text-sm md:text-base mb-8 animate-fade-in-up"
@@ -377,12 +378,12 @@
                 </div>
             </section>
 
-            <section id="pricing" class="mt-12 pb-12 w-full max-w-5xl mx-auto">
+            <section id="pricing" class="mt-12 pb-12 w-full mx-auto px-2 md:px-8 lg:px-16 xl:px-24">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">خطط الاشتراك</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-right px-4 pt-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8 text-right pt-8">
                     <!-- Free Plan -->
                     <div
-                        class="p-8 rounded-3xl bg-gradient-to-b from-[var(--panel-bg)]/50 to-[#007AFF]/10 border border-[#007AFF]/50 hover:border-[#007AFF] flex flex-col h-full transition-all duration-[350ms] ease-in-out">
+                        class="p-6 xl:p-8 rounded-3xl bg-gradient-to-b from-[var(--panel-bg)]/50 to-[#007AFF]/10 border border-[#007AFF]/50 hover:border-[#007AFF] flex flex-col h-full transition-all duration-[350ms] ease-in-out">
                         <h3 class="font-bold text-2xl mb-2">الباقة المجانية</h3>
                         <p class="text-sm text-zinc-500/70 mb-4">للبدء في تجربة إنشاء الفيديوهات القرآنية.</p>
                         <div class="text-4xl font-black mb-6">مجاناً</div>
@@ -409,38 +410,27 @@
                         <p class="text-[10px] text-zinc-500/70 text-center font-medium mt-2">بدون بطاقة ائتمانية للتجربة
                             المجانية</p>
                     </div>
-                    <!-- Pro Plan -->
+                    <!-- Pro Plan Monthly -->
                     <div
-                        class="p-8 rounded-3xl bg-gradient-to-b from-[#007AFF]/10 to-purple-500/5 border border-[#007AFF]/30 hover:border-[#007AFF]/50 hover:shadow-[0_20px_40px_rgba(0,122,255,0.15)] hover:-translate-y-1.5 transition-all duration-[350ms] ease-in-out flex flex-col h-full relative group">
-                        <div
-                            class="absolute -top-4 left-1/2 -translate-x-1/2 z-10 px-4 py-1.5 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-[11px] font-bold rounded-full shadow-lg shadow-orange-500/30 flex items-center gap-1 whitespace-nowrap">
-                            فتح جميع الميزات الاحترافية
-                        </div>
+                        class="p-6 xl:p-8 rounded-3xl bg-gradient-to-b from-[#007AFF]/10 to-purple-500/5 border border-[#007AFF]/30 hover:border-[#007AFF]/50 hover:shadow-[0_20px_40px_rgba(0,122,255,0.15)] hover:-translate-y-1.5 transition-all duration-[350ms] ease-in-out flex flex-col h-full relative group">
                         <div class="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
                             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#007AFF] to-purple-500">
                             </div>
                         </div>
                         <h3
                             class="font-bold text-2xl mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#007AFF] to-purple-500">
-                            الباقة الاحترافية (Pro)</h3>
+                            الباقة الاحترافية (شهري)</h3>
                         <p class="text-sm text-zinc-500 mb-4">لصناع المحتوى القرآني والمهتمين بنشر القرآن.</p>
                         <div class="mb-6 space-y-3">
                             <div>
-                                <p class="text-4xl font-black">149 جنيه / شهر <span
-                                        class="text-lg font-medium text-zinc-400">(داخل مصر)</span></p>
-                                <p class="text-xs text-zinc-400 font-bold mt-1">أقل من 5 جنيه يوميًا</p>
-                                <p class="text-xs text-zinc-500 mt-1 flex items-center gap-1"><span>أو 999 جنيه
-                                        سنوياً</span> <span
-                                        class="text-green-500 font-bold text-[10px] bg-green-500/10 px-1.5 py-0.5 rounded-md">(وفر
-                                        44% - 789 جنيه)</span></p>
+                                <p class="text-4xl font-black">149 جنيه <span
+                                        class="text-lg font-medium text-zinc-400">/ شهر</span></p>
+                                <p class="text-xs text-zinc-400 font-bold mt-1">أقل من 5 جنيه يوميًا (داخل مصر)</p>
                             </div>
-                            <div dir="rtl" class="text-right">
-                                <p class="text-3xl font-black text-[var(--text-main)]" dir="ltr">$6.99 / month <span
-                                        class="text-base font-medium text-zinc-400">(International)</span></p>
-                                <p class="text-xs text-zinc-500 flex items-center gap-1 justify-start -mt-0.5"><span
-                                        dir="ltr">or $59 / year</span> <span
-                                        class="text-green-500 font-bold text-[10px] bg-green-500/10 px-1.5 py-0.5 rounded-md">(وفر
-                                        30% - $25)</span></p>
+                            <div dir="rtl" class="text-right border-t border-zinc-800/50 pt-3 mt-3">
+                                <p class="text-3xl font-black text-[var(--text-main)]" dir="ltr">$6.99 <span
+                                        class="text-base font-medium text-zinc-400">/ month</span></p>
+                                <p class="text-[10px] text-zinc-500 font-bold mt-1 flex items-center justify-start gap-1">الدفع الدولي <i data-lucide="globe" class="w-3 h-3"></i></p>
                             </div>
                         </div>
                         <ul class="space-y-3 mb-6 flex-1">
@@ -475,53 +465,105 @@
                         </div>
                         <div class="flex flex-col gap-3 mt-1">
                             <div class="w-full flex flex-col gap-2.5">
-                                <form class="paypal-form w-full"
-                                    action="https://www.paypal.com/ncp/payment/HUMFM9Y7QZLPN" method="post"
-                                    target="_blank">
-                                    <input type="hidden" name="custom" class="paypalCustomId" data-plan="monthly"
-                                        value="" />
-                                    <button type="submit"
-                                        class="w-full py-3.5 bg-[#FFD140] hover:bg-[#F4C430] text-black rounded-xl font-bold transition-all shadow-lg shadow-[#FFD140]/30 flex items-center justify-center gap-2 text-base">
-                                        <i data-lucide="calendar" class="w-5 h-5"></i>
-                                        <span>اشتراك شهري عبر PayPal</span>
-                                    </button>
-                                </form>
-                                <form class="paypal-form w-full mt-4"
-                                    action="https://www.paypal.com/ncp/payment/XX7LL6ST3KL7S" method="post"
-                                    target="_blank">
-                                    <input type="hidden" name="custom" class="paypalCustomId" data-plan="annual"
-                                        value="" />
-                                    <button type="submit"
-                                        class="w-full py-3.5 bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-600 ring-1 ring-green-500/30 hover:ring-green-500/50 rounded-xl font-bold transition-all shadow-lg flex items-center justify-center gap-2 text-base">
-                                        <i data-lucide="calendar-check" class="w-5 h-5 text-green-400"></i>
-                                        <span>اشتراك سنوي عبر PayPal (وفر 30%)</span>
-                                    </button>
-                                    <div class="flex items-center gap-1.5 justify-center opacity-70 mt-4">
-                                        <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards"
-                                            class="h-4" />
-                                        <span class="text-[10px] text-zinc-500 flex items-center gap-1">مدعوم من <img
-                                                src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg"
-                                                alt="paypal" class="h-3 inline-block paypal-logo"
-                                                style="vertical-align:middle;" /></span>
-                                    </div>
-                                </form>
-                                <div
-                                    class="flex items-center justify-center gap-1.5 text-green-500 text-[11px] font-bold bg-green-500/10 py-1.5 px-3 rounded-lg w-fit mx-auto mt-4 border border-green-500/20">
-                                    <i data-lucide="zap" class="w-3 h-3 fill-green-500"></i>
-                                    <span>يتم التفعيل تلقائيًا بعد الدفع</span>
+                                <div id="paypal-button-container-P-2YV16388BD324051NNI4Z2NA"></div>
+                                <div class="flex items-center gap-1.5 justify-center opacity-70 mt-2">
+                                    <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards"
+                                        class="h-4" />
+                                    <span class="text-[10px] text-zinc-500 flex items-center gap-1">مدعوم من <img
+                                            src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg"
+                                            alt="paypal" class="h-3 inline-block paypal-logo"
+                                            style="vertical-align:middle;" /></span>
                                 </div>
                                 <div
-                                    class="flex flex-wrap items-center justify-center gap-3 mt-2 text-[10px] text-zinc-500 font-medium">
-                                    <div class="flex items-center gap-1"><i data-lucide="shield-check"
-                                            class="w-3.5 h-3.5 text-green-500"></i><span>آمن عبر PayPal</span></div>
-                                    <div class="flex items-center gap-1"><i data-lucide="credit-card"
-                                            class="w-3.5 h-3.5 text-green-500"></i><span>لا يتم حفظ بيانات
-                                            البطاقة</span></div>
+                                    class="flex items-center justify-center gap-1.5 text-green-500 text-[11px] font-bold bg-green-500/10 py-1.5 px-3 rounded-lg w-fit mx-auto mt-2 border border-green-500/20">
+                                    <i data-lucide="zap" class="w-3 h-3 fill-green-500"></i>
+                                    <span>تفعيل فوري</span>
                                 </div>
                             </div>
-                            <a href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية"
+                            <a href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية (شهري)"
                                 target="_blank"
                                 class="w-full py-2.5 bg-[var(--input-bg)] border border-[var(--border-color)] text-zinc-500 hover:text-[#007AFF] hover:bg-[#007AFF]/5 hover:border-[#007AFF]/50 rounded-xl font-medium transition-all text-sm text-center flex justify-center items-center gap-2 mt-1"><i
+                                    data-lucide="message-circle" class="w-4 h-4"></i>طرق دفع أخرى (واتساب)</a>
+                        </div>
+                    </div>
+
+                    <!-- Pro Plan Yearly -->
+                    <div
+                        class="p-6 xl:p-8 rounded-3xl bg-gradient-to-b from-green-500/10 to-teal-500/5 border border-green-500/30 hover:border-green-500/50 hover:shadow-[0_20px_40px_rgba(34,197,94,0.15)] hover:-translate-y-1.5 transition-all duration-[350ms] ease-in-out flex flex-col h-full relative group">
+                        <div
+                            class="absolute -top-4 left-1/2 -translate-x-1/2 z-10 px-4 py-1.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-[11px] font-bold rounded-full shadow-lg shadow-green-500/30 flex items-center gap-1 whitespace-nowrap">
+                            الأكثر توفيراً (وفر 30%)
+                        </div>
+                        <div class="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-teal-500">
+                            </div>
+                        </div>
+                        <h3
+                            class="font-bold text-2xl mb-2 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-teal-400">
+                            الباقة الاحترافية (سنوي)</h3>
+                        <p class="text-sm text-zinc-500 mb-4">لصناع المحتوى المستمرين ووفر أكثر من شهرين مجاناً.</p>
+                        <div class="mb-6 space-y-3">
+                            <div>
+                                <p class="text-4xl font-black">999 جنيه <span
+                                        class="text-lg font-medium text-zinc-400">/ سنة</span></p>
+                                <p class="text-xs text-green-500 font-bold mt-1">وفر 789 جنيه مقارنة بالشهري</p>
+                            </div>
+                            <div dir="rtl" class="text-right border-t border-zinc-800/50 pt-3 mt-3">
+                                <p class="text-3xl font-black text-[var(--text-main)]" dir="ltr">$59 <span
+                                        class="text-base font-medium text-zinc-400">/ year</span></p>
+                                <p class="text-[10px] text-green-500 font-bold mt-1 flex items-center justify-start gap-1">Save $25 (International) <i data-lucide="globe" class="w-3 h-3"></i></p>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 mb-6 flex-1">
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-green-500"></i><span
+                                    class="text-sm font-bold text-green-500">جميع الميزات الاحترافية</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-green-500"></i><span class="text-sm">عدد لا محدود من
+                                    الآيات</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-green-500"></i><span class="text-sm">عدد لا محدود من
+                                    المقاطع</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-green-500"></i><span class="text-sm">إزالة شعار Tarteel
+                                    Studio</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-green-500"></i><span class="text-sm">رفع تلاواتك الخاصة
+                                    والمزامنة اليدوية</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-green-500"></i><span class="text-sm">إضافة شعارك الخاص (علامة
+                                    مائية)</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-green-500"></i><span class="text-sm">إضافة موجات صوتية
+                                    (Waveform)</span></li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-5 h-5 text-green-500"></i><span class="text-sm">تقسيم الآيات الطويلة
+                                    بذكاء</span></li>
+                        </ul>
+                        <div class="text-xs text-zinc-500 mt-2 mb-3">
+                            <span class="block font-bold mb-1">الدفع متاح عبر:</span>
+                            <span>Vodafone Cash, InstaPay, Binance Pay, USDT, تحويل بنكي دولي</span>
+                        </div>
+                        <div class="flex flex-col gap-3 mt-1">
+                            <div class="w-full flex flex-col gap-2.5">
+                                <div id="paypal-button-container-P-0349011609406193YNI4Z3QI"></div>
+                                <div class="flex items-center gap-1.5 justify-center opacity-70 mt-2">
+                                    <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards"
+                                        class="h-4" />
+                                    <span class="text-[10px] text-zinc-500 flex items-center gap-1">مدعوم من <img
+                                            src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg"
+                                            alt="paypal" class="h-3 inline-block paypal-logo"
+                                            style="vertical-align:middle;" /></span>
+                                </div>
+                                <div
+                                    class="flex items-center justify-center gap-1.5 text-green-500 text-[11px] font-bold bg-green-500/10 py-1.5 px-3 rounded-lg w-fit mx-auto mt-2 border border-green-500/20">
+                                    <i data-lucide="zap" class="w-3 h-3 fill-green-500"></i>
+                                    <span>تفعيل فوري</span>
+                                </div>
+                            </div>
+                            <a href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية (سنوي)"
+                                target="_blank"
+                                class="w-full py-2.5 bg-green-500/5 border border-green-500/30 text-green-500 hover:bg-green-500/10 hover:border-green-500/50 rounded-xl font-medium transition-all text-sm text-center flex justify-center items-center gap-2 mt-1"><i
                                     data-lucide="message-circle" class="w-4 h-4"></i>طرق دفع أخرى (واتساب)</a>
                         </div>
                     </div>
@@ -716,11 +758,10 @@
                     <span id="planStatus"
                         class="px-3 py-1 bg-zinc-500/10 text-zinc-500 text-xs font-bold rounded-full">نشط</span>
                 </div>
-                <a id="upgradeBtn" href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية"
-                    target="_blank"
+                <button id="upgradeBtn"
                     class="w-full py-3 bg-gradient-to-r from-orange-500 to-pink-500 hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-orange-500/20 hidden flex items-center justify-center gap-2">
                     <i data-lucide="sparkles" class="w-4 h-4"></i>ترقية للنسخة الاحترافية
-                </a>
+                </button>
                 <button id="logoutBtn"
                     class="w-full py-3.5 bg-red-500/10 hover:bg-red-500/20 text-red-600 dark:text-red-400 rounded-xl font-bold transition-all border border-red-500/10 flex items-center justify-center gap-2"><i
                         data-lucide="log-out" class="w-4 h-4"></i>تسجيل الخروج</button>
@@ -755,11 +796,11 @@
             <p class="text-zinc-500 text-sm mb-6 leading-relaxed">عذراً، النسخة المجانية تتيح لك تصدير 5 آيات فقط للمقطع
                 الواحد. انشر سورة كاملة بضغطة واحدة وفك قيود الـ 5 آيات بالترقية للنسخة الاحترافية.</p>
             <div class="space-y-3">
-                <a href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية" target="_blank"
+                <button id="limitUpgradeBtn"
                     class="w-full py-3.5 bg-[#25D366] hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-[#25D366]/20 flex items-center justify-center gap-2">
                     <i data-lucide="sparkles" class="w-5 h-5"></i>
                     <span>ترقية للنسخة الاحترافية</span>
-                </a>
+                </button>
                 <button id="confirmLimit"
                     class="w-full py-3.5 bg-orange-500 hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-orange-500/20">الاستمرار
                     بالنسخة المجانية (5 آيات)</button>
@@ -781,11 +822,11 @@
             <p class="text-zinc-500 text-sm mb-6 leading-relaxed" id="proFeatureMsg">هذه الميزة متاحة فقط في النسخة
                 الاحترافية.</p>
             <div class="space-y-3">
-                <a href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية" target="_blank"
+                <button id="proFeatureUpgradeBtn"
                     class="w-full py-3.5 bg-gradient-to-r from-orange-500 to-pink-500 hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2">
                     <i data-lucide="sparkles" class="w-5 h-5"></i>
                     <span>ترقية للنسخة الاحترافية</span>
-                </a>
+                </button>
                 <button id="viewPricingBtn"
                     class="w-full py-3 bg-transparent border border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/10 rounded-xl font-bold transition-all">عرض
                     خطط الأسعار</button>
@@ -829,6 +870,28 @@
                     <span>إرسال التقييم</span>
                 </button>
                 <p id="reviewFeedback" class="text-xs text-center hidden"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة الدفع -->
+    <div id="paymentOptionsModal" class="confirm-modal">
+        <div class="modal-card">
+            <h3 class="text-xl font-bold mb-2">اختر طريقة الدفع</h3>
+            <p class="text-zinc-500 text-sm mb-6 leading-relaxed">بأي طريقة تفضل تفعيل اشتراكك الاحترافي؟</p>
+            <div class="space-y-3">
+                <button id="payInternationalBtn"
+                    class="w-full py-3.5 px-4 bg-[#007AFF] hover:bg-[#005bb5] text-white rounded-xl font-bold transition-all shadow-lg shadow-[#007AFF]/20 flex items-center justify-center gap-2">
+                    <i data-lucide="globe" class="w-5 h-5 flex-shrink-0"></i>
+                    <span class="text-[11px] sm:text-[13px] md:text-sm lg:text-base leading-tight">PayPal / Visa / Mastercard</span>
+                </button>
+                <a href="https://wa.me/201204746971?text=مرحباً، أرغب في الاشتراك في النسخة الاحترافية" target="_blank"
+                    class="w-full py-3.5 px-4 bg-[#25D366] hover:bg-[#1da851] text-white rounded-xl font-bold transition-all shadow-lg shadow-[#25D366]/20 flex items-center justify-center gap-2">
+                    <i data-lucide="wallet" class="w-5 h-5 flex-shrink-0"></i>
+                    <span class="text-[11px] sm:text-[13px] md:text-sm lg:text-base leading-tight">Vodafone Cash / InstaPay / USDT</span>
+                </a>
+                <p class="text-xs text-zinc-500 text-center font-bold mt-4 mb-2">يتم تفعيل الاشتراك خلال دقائق بعد الدفع.</p>
+                <button id="closePaymentOptionsBtn" class="text-zinc-500 text-xs hover:text-zinc-700 w-full mt-2">إلغاء</button>
             </div>
         </div>
     </div>
@@ -1528,6 +1591,7 @@
             document.body.appendChild(appScript);
         })();
     </script>
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAn9RqwQ6QZIfYlmc0QpRqksI4P0G0Ud_QJmFeapSuFQ8iGjqP8ykTCqs5r2t8I8thi-2a9-JqEQTYs9U&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
 </body>
 
 </html>
