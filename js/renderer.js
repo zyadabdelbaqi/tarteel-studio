@@ -40,7 +40,7 @@ export function initRenderer() {
         return;
     }
     
-    const WORKER_VERSION = '1.0.0'; // رقم إصدار ثابت لتفعيل الكاش، يتم تغييره يدوياً أو عبر الـ Build Tool عند التحديث
+    const WORKER_VERSION = '1.0.1'; // رقم إصدار ثابت لتفعيل الكاش، يتم تغييره يدوياً أو عبر الـ Build Tool عند التحديث
     state.worker = new Worker('js/worker.js?v=' + WORKER_VERSION);
     
     let offscreen;
@@ -76,7 +76,8 @@ export function initRenderer() {
     Promise.all([
         loadAndSendFont('surah_names', surahFontUrl),
         loadAndSendFont('Noto Sans Arabic', notoFontUrl),
-        loadAndSendFont('basmala', basmalaFontUrl)
+        loadAndSendFont('basmala', basmalaFontUrl),
+        loadAndSendFont('qari_font', 'https://cdn.jsdelivr.net/gh/zyadabdelbaqi/tarteel-assets@main/fonts/name/scheherazade-new-semibold.woff2')
     ]);
 
     // ابدأ الرندر فوراً لتجنب التأخير
@@ -142,7 +143,15 @@ function getPayloadChanges(prev, next) {
         prev.fontSize !== next.fontSize ||
         prev.textY !== next.textY ||
         prev.textX !== next.textX ||
-        prev.showTranslation !== next.showTranslation;
+        prev.showTranslation !== next.showTranslation ||
+        prev.showQariName !== next.showQariName ||
+        prev.qariName !== next.qariName ||
+        prev.qariFontSize !== next.qariFontSize ||
+        prev.qariY !== next.qariY ||
+        prev.qariX !== next.qariX ||
+        prev.qariColor !== next.qariColor ||
+        prev.qariShadowColor !== next.qariShadowColor ||
+        prev.qariShadowBlur !== next.qariShadowBlur;
 
     // 3. Text Styling (الألوان والظلال)
     const styleChanged =
@@ -159,7 +168,10 @@ function getPayloadChanges(prev, next) {
         prev.showSurahName !== next.showSurahName ||
         prev.surahY !== next.surahY ||
         prev.surahX !== next.surahX ||
-        prev.surahFontSize !== next.surahFontSize;
+        prev.surahFontSize !== next.surahFontSize ||
+        prev.surahColor !== next.surahColor ||
+        prev.surahShadowColor !== next.surahShadowColor ||
+        prev.surahShadowBlur !== next.surahShadowBlur;
 
     // 5. Animations (الحركة)
     const animChanged =
@@ -349,7 +361,7 @@ export function startMainSyncLoop() {
                 transTextColor: UI.transTextColor.value, transShadowColor: UI.transShadowColor.value, transShadowBlur: state.transShadowBlur,
                 animType: UI.animType.value, animIntensity: state.animIntensity,
                 isContinuation: isTextContinuation,
-                showTranslation: UI.showTranslation.checked, showSurahName: UI.showSurahName.checked, surahY: parseInt(UI.surahY.value), surahX: parseInt(UI.surahX.value), surahFontSize: parseInt(UI.surahFontSize.value),
+                showTranslation: UI.showTranslation.checked, showQariName: UI.showQariName.checked, qariName: UI.qariNameInput.value, qariFontSize: parseInt(UI.qariFontSize?.value || 35), qariY: parseInt(UI.qariY?.value || 85), qariX: parseInt(UI.qariX?.value || 50), qariColor: UI.qariColor?.value || '#ffffff', qariShadowColor: UI.qariShadowColor?.value || '#000000', qariShadowBlur: parseInt(UI.qariShadowBlur?.value || 10), showSurahName: UI.showSurahName.checked, surahY: parseInt(UI.surahY.value), surahX: parseInt(UI.surahX.value), surahFontSize: parseInt(UI.surahFontSize.value), surahColor: UI.surahColor?.value || '#ffffff', surahShadowColor: UI.surahShadowColor?.value || '#000000', surahShadowBlur: parseInt(UI.surahShadowBlur?.value || 15),
                 showWaveform: UI.showWaveform.checked, waveformY: parseInt(UI.waveformY.value), waveformHeight: parseInt(UI.waveformHeight.value), waveformColor: UI.waveformColor.value,
                 showWatermark: UI.showWatermark.checked, watermarkType: state.watermarkType, watermarkText: UI.watermarkText.value, watermarkColor: UI.watermarkColor.value, watermarkX: parseInt(UI.watermarkX.value), watermarkY: parseInt(UI.watermarkY.value), watermarkSize: parseInt(UI.watermarkSize.value), watermarkOpacity: parseFloat(UI.watermarkOpacity.value),
                 showTarteelLogo: UI.showTarteelLogo.checked,
@@ -369,7 +381,7 @@ export function startMainSyncLoop() {
                     batch.layout = { mediaType: renderPayload.mediaType, bgX: renderPayload.bgX, bgY: renderPayload.bgY, zoom: renderPayload.zoom, blur: renderPayload.blur, overlayOpacity: renderPayload.overlayOpacity, fitMode: renderPayload.fitMode };
                 }
                 if (changes.text) {
-                    batch.text = { ayahText: renderPayload.ayahText, translation: renderPayload.translation, fontName: renderPayload.fontName, fontUrl: renderPayload.fontUrl, fontSize: renderPayload.fontSize, textY: renderPayload.textY, textX: renderPayload.textX, showTranslation: renderPayload.showTranslation };
+                    batch.text = { ayahText: renderPayload.ayahText, translation: renderPayload.translation, fontName: renderPayload.fontName, fontUrl: renderPayload.fontUrl, fontSize: renderPayload.fontSize, textY: renderPayload.textY, textX: renderPayload.textX, showTranslation: renderPayload.showTranslation, showQariName: renderPayload.showQariName, qariName: renderPayload.qariName, qariFontSize: renderPayload.qariFontSize, qariY: renderPayload.qariY, qariX: renderPayload.qariX, qariColor: renderPayload.qariColor, qariShadowColor: renderPayload.qariShadowColor, qariShadowBlur: renderPayload.qariShadowBlur };
                     
                     if (renderPayload.fontName && renderPayload.fontUrl) {
                         loadAndSendFont(renderPayload.fontName, renderPayload.fontUrl);
@@ -379,7 +391,7 @@ export function startMainSyncLoop() {
                     batch.style = { textColor: renderPayload.textColor, shadowColor: renderPayload.shadowColor, shadowBlur: renderPayload.shadowBlur, transTextColor: renderPayload.transTextColor, transShadowColor: renderPayload.transShadowColor, transShadowBlur: renderPayload.transShadowBlur };
                 }
                 if (changes.surahInfo) {
-                    batch.surahInfo = { surahName: renderPayload.surahName, showSurahName: renderPayload.showSurahName, surahY: renderPayload.surahY, surahX: renderPayload.surahX, surahFontSize: renderPayload.surahFontSize };
+                    batch.surahInfo = { surahName: renderPayload.surahName, showSurahName: renderPayload.showSurahName, surahY: renderPayload.surahY, surahX: renderPayload.surahX, surahFontSize: renderPayload.surahFontSize, surahColor: renderPayload.surahColor, surahShadowColor: renderPayload.surahShadowColor, surahShadowBlur: renderPayload.surahShadowBlur };
                 }
                 if (changes.anim) {
                     batch.anim = { animType: renderPayload.animType, animIntensity: renderPayload.animIntensity, resetAnim: renderPayload.resetAnim, isContinuation: renderPayload.isContinuation };

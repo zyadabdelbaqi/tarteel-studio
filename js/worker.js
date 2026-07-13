@@ -29,10 +29,15 @@ let state = {
     animProgress: 1,
     isContinuation: false,
     showTranslation: true,
+    showQariName: false,
+    qariName: 'القارئ / أحمد العجمي',
     showSurahName: false,
     surahY: 95,
     surahX: 50,
     surahFontSize: 70,
+    surahColor: '#ffffff',
+    surahShadowColor: '#000000',
+    surahShadowBlur: 15,
     showWaveform: false,
     waveformHeight: 120,
     waveformColor: '#ffffff',
@@ -614,8 +619,19 @@ function draw() {
 
     // Surah Name
     if (state.showSurahName) {
+        ctx.save();
         ctx.textAlign = 'center';
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = state.surahColor || '#ffffff';
+        
+        if (state.surahShadowBlur > 0) {
+            ctx.shadowColor = state.surahShadowColor || '#000000';
+            ctx.shadowBlur = state.surahShadowBlur * scaleFactor;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+        } else {
+            ctx.shadowBlur = 0;
+        }
+
         const yPos = height * (state.surahY / 100);
         const xPos = width * (state.surahX / 100);
 
@@ -629,6 +645,7 @@ function draw() {
             ctx.direction = 'rtl';
             ctx.fillText(state.surahName, xPos, yPos);
         }
+        ctx.restore();
     }
 
     // Basmala Rendering
@@ -646,6 +663,30 @@ function draw() {
         ctx.font = basmalaFontSize + 'px "basmala"';
         ctx.direction = 'ltr'; // تغيير الاتجاه إلى ltr لأن الخط يستخدم أرقاماً إنجليزية
         ctx.fillText(state.basmalaNumber.toString(), basmalaX, basmalaY);
+        ctx.restore();
+    }
+
+    // Qari Name Rendering
+    if (state.showQariName && state.qariName) {
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = state.qariColor || '#ffffff';
+        ctx.shadowColor = state.qariShadowColor || '#000000';
+        ctx.shadowBlur = (state.qariShadowBlur !== undefined ? state.qariShadowBlur : 10) * scaleFactor;
+        
+        // Dynamic position from UI sliders
+        const qariY = height * ((state.qariY || 85) / 100);
+        const qariX = width * ((state.qariX || 50) / 100);
+        const qariFontSize = (state.qariFontSize || 35) * scaleFactor;
+        
+        if (state.loadedFonts.has('qari_font')) {
+            ctx.font = 'normal ' + qariFontSize + 'px "qari_font"';
+        } else {
+            ctx.font = 'bold ' + qariFontSize + 'px "Noto Sans Arabic", sans-serif';
+        }
+        
+        ctx.direction = 'rtl';
+        ctx.fillText(state.qariName, qariX, qariY);
         ctx.restore();
     }
 
