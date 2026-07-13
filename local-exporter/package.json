@@ -1,0 +1,24 @@
+{
+  "name": "tarteel-local-exporter",
+  "version": "1.0.0",
+  "description": "Local FFmpeg Exporter for Tarteel Studio",
+  "main": "server.js",
+  "bin": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1",
+    "png2icons": "^2.0.1",
+    "resedit": "^3.0.2"
+  },
+  "pkg": {
+    "assets": [
+      "icon.png"
+    ]
+  }
+}
