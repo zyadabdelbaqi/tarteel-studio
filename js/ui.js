@@ -172,6 +172,7 @@ export const UI = {
     get exportOverlay() { return getEl('exportOverlay', true); },
     get exportProcessingUI() { return getEl('exportProcessingUI', true); },
     get exportFinishedUI() { return getEl('exportFinishedUI', true); },
+    get exportFinishedMsg() { return getEl('exportFinishedMsg', true); },
     get exportProgressBar() { return getEl('exportProgressBar', true); },
     get exportPercent() { return getEl('exportPercent', true); },
     get exportCounter() { return getEl('exportCounter', true); },

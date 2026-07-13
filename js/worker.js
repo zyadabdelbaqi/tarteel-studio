@@ -357,6 +357,7 @@ self.onmessage = async (e) => {
             return;
         }
 
+
         // --- Frame Deduplication (Zero-Render / Zero-Encode) ---
         const frameDurationUs = Math.round(1_000_000 / FPS); // مدة الإطار الواحد بالمايكروثانية
 

@@ -22,7 +22,7 @@ function setupQueueCallback() {
     exportQueue.onQueueEnd = () => {
         updateExportButtonState();
     };
-    
+
     // ربط الإلغاء الحقيقي للطابور بالعمليات الفعلية (Worker & FFmpeg)
     exportQueue.notifyCancelled = () => {
         cancelActiveFFmpeg();
@@ -42,10 +42,10 @@ let progressRaf = null;
 
 export function setExportProgress(percent) {
     const newTarget = Math.max(0, Math.min(100, percent));
-    
+
     // منع تراجع المؤشر للخلف للحفاظ على تجربة مستخدم سلسة (إلا في حالة التصفير للبدء من جديد)
     if (newTarget < targetProgress && newTarget !== 0) return;
-    
+
     targetProgress = newTarget;
     if (!progressRaf) {
         const loop = () => {
@@ -110,19 +110,19 @@ async function downloadWithProgress(url) {
 
             const contentLength = response.headers.get('content-length');
             const total = contentLength ? parseInt(contentLength, 10) : 0;
-            
+
             if (response.body) {
                 const reader = response.body.getReader();
                 const chunks = [];
                 let loaded = 0;
-                
+
                 while (true) {
                     const { done, value } = await reader.read();
                     if (done) break;
                     if (value) {
                         chunks.push(value);
                         loaded += value.byteLength;
-                        
+
                         // تحديث الواجهة والنسبة المئوية فوراً لو المستخدم فتح شاشة التصدير
                         if (url.includes('.wasm') && UI.exportOverlay && UI.exportOverlay.style.display !== 'none') {
                             // 🔴 منع الرعشة: تحديث الواجهة فقط إذا كان التصدير الحالي يحتاج المكتبة (التصدير القياسي)
@@ -138,7 +138,7 @@ async function downloadWithProgress(url) {
                         }
                     }
                 }
-                
+
                 const uint8Array = new Uint8Array(loaded);
                 let offset = 0;
                 for (const chunk of chunks) {
@@ -158,14 +158,14 @@ async function downloadWithProgress(url) {
             throw e;
         }
     })();
-    
+
     activeDownloads.set(url, promise);
     return promise;
 }
 
 export function preloadFFmpegAssets() {
     if (typeof window === 'undefined') return;
-    
+
     const preload = async () => {
         try {
             const isSABSupported = typeof SharedArrayBuffer !== 'undefined';
@@ -184,9 +184,9 @@ export function preloadFFmpegAssets() {
             for (const url of urls) {
                 try {
                     await downloadWithProgress(url);
-                } catch (e) {} // الصمت عند الخطأ لتجنب إزعاج المستخدم
+                } catch (e) { } // الصمت عند الخطأ لتجنب إزعاج المستخدم
             }
-        } catch (e) {}
+        } catch (e) { }
     };
 
     // تأخير التحميل 3 ثوانٍ لعدم التأثير على سرعة الاستوديو عند الدخول
@@ -218,7 +218,7 @@ async function ensureFFmpegReady() {
                         s.onload = resolve;
                         s.onerror = reject;
                         document.head.appendChild(s);
-                    } catch(e) { reject(e); }
+                    } catch (e) { reject(e); }
                 });
             }
 
@@ -232,7 +232,7 @@ async function ensureFFmpegReady() {
                         s.onload = resolve;
                         s.onerror = reject;
                         document.head.appendChild(s);
-                    } catch(e) { reject(e); }
+                    } catch (e) { reject(e); }
                 });
             }
 
@@ -240,7 +240,7 @@ async function ensureFFmpegReady() {
             const { fetchFile } = window.FFmpegUtil;
 
             const ffmpeg = new FFmpeg();
-            
+
             // التحقق من دعم SharedArrayBuffer لتفعيل النسخة متعددة المسارات (Multi-threaded)
             const isSABSupported = typeof SharedArrayBuffer !== 'undefined';
             const corePrefix = isSABSupported ? 'https://raw.githubusercontent.com/zyadabdelbaqi/tarteel-assets/main/ffmpeg/ffmpeg-core-mt' : 'https://raw.githubusercontent.com/zyadabdelbaqi/tarteel-assets/main/ffmpeg/ffmpeg-core';
@@ -268,7 +268,7 @@ async function ensureFFmpegReady() {
 
 function cancelActiveFFmpeg() {
     if (!state.ffmpeg) return;
-    try { state.ffmpeg.terminate(); } catch (e) {}
+    try { state.ffmpeg.terminate(); } catch (e) { }
     state.ffmpeg = null;
     ffmpegInstance = null;
     ffmpegFetchFile = null;
@@ -289,15 +289,18 @@ async function seekFrame(video, time) {
 
         const waitForRender = () => {
             if (isResolved) return;
-            
-            // مهلة قصيرة جداً (10ms) لتقليل الـ Bottleneck في حال عدم دعم requestVideoFrameCallback
-            const renderTimeout = setTimeout(finish, 10);
 
             if ('requestVideoFrameCallback' in video && !document.hidden) {
+                // مهلة أمان قصوى للـ 4K (لن تحدث إلا نادراً)
+                const renderTimeout = setTimeout(finish, 250);
                 video.requestVideoFrameCallback(() => {
                     clearTimeout(renderTimeout);
                     finish();
                 });
+            } else {
+                // في حالة التصدير في الخلفية، الكول باك لا يعمل
+                // لذا نعتمد على أن حدث seeked كافي ونعطيه مهلة صغيرة للـ Decode
+                setTimeout(finish, 15);
             }
         };
 
@@ -315,7 +318,7 @@ async function seekFrame(video, time) {
 
         video.addEventListener('seeked', onSeeked);
         video.currentTime = time;
-        
+
         timeoutId = setTimeout(() => {
             if (!isResolved) {
                 video.removeEventListener('seeked', onSeeked);
@@ -355,7 +358,7 @@ export async function audioBufferToWavBytes(audioBuffer, onProgress) {
 
     const left = audioBuffer.getChannelData(0);
     const right = audioBuffer.numberOfChannels > 1 ? audioBuffer.getChannelData(1) : left;
-    
+
     const int16View = new Int16Array(buffer, 44);
     let offset = 0;
 
@@ -370,8 +373,8 @@ export async function audioBufferToWavBytes(audioBuffer, onProgress) {
             int16View[offset++] = r < 0 ? r * 0x8000 : r * 0x7FFF;
         }
         if (onProgress) onProgress(end / frameCount);
-            // استخدام setTimeout بدلاً من rAF لمنع توقف التصدير عند تصغير المتصفح أو فتح تبويب آخر
-            await new Promise(res => setTimeout(res, 0));
+        // استخدام setTimeout بدلاً من rAF لمنع توقف التصدير عند تصغير المتصفح أو فتح تبويب آخر
+        await new Promise(res => setTimeout(res, 0));
     }
 
     return new Uint8Array(buffer);
@@ -379,7 +382,7 @@ export async function audioBufferToWavBytes(audioBuffer, onProgress) {
 
 async function cleanupFFmpegFiles(ffmpeg, files) {
     for (const file of files) {
-        try { await ffmpeg.deleteFile(file); } catch (e) {}
+        try { await ffmpeg.deleteFile(file); } catch (e) { }
     }
 }
 
@@ -482,12 +485,12 @@ function createOfflineAudioGraph(context, audioConfig = DEFAULT_AUDIO_CONFIG) {
     const makeup = reverbEnabled ? makeupConf.withReverb : makeupConf.withoutReverb;
 
     graph.makeupGain.gain.setValueAtTime(makeup, currentTime);
-    
+
     // استخدام منحنى غير خطي (Non-linear) لواقعية الصوت (Audio Engineering Standard)
     const wetLevel = Math.pow(intensity, 2) * 2.0;
     // تقليل الصوت الأصلي (Dry) تدريجياً مع زيادة الصدى للحفاظ على التوازن
     const dryLevel = reverbEnabled ? 1 - (intensity * 0.5) : 1;
-    
+
     graph.dryGain.gain.setValueAtTime(dryLevel, currentTime);
     graph.wetGain.gain.setValueAtTime(reverbEnabled ? wetLevel : 0, currentTime);
 
@@ -495,7 +498,7 @@ function createOfflineAudioGraph(context, audioConfig = DEFAULT_AUDIO_CONFIG) {
         const nodes = [graph.effectEntry, graph.dryGain, graph.wetGain, graph.convolver, graph.audioGain, graph.compressor, graph.makeupGain, graph.limiter];
         nodes.forEach(node => {
             if (node) {
-                try { node.disconnect(); } catch (e) {}
+                try { node.disconnect(); } catch (e) { }
             }
         });
     };
@@ -548,7 +551,7 @@ function validateExport(caps, config) {
     if (config.wantsWatermark && (isStrictFree || !caps.canShowWatermark)) return { type: 'watermark' };
     if (config.wantsNoBranding && (isStrictFree || !caps.canRemoveBranding)) return { type: 'branding' };
     if (config.hasSplitVerses && (isStrictFree || !caps.canSplitVerses)) return { type: 'split' };
-    
+
     const { end: allowedEnd } = getAllowedRange(config.startIdx, config.endIdx, caps);
     if (config.endIdx > allowedEnd) return { type: 'limit', allowedEnd };
 
@@ -597,7 +600,7 @@ export async function secureExport(label = 'تصدير') {
 // النسخة الداخلية التي تُنفذ داخل الـ Queue
 async function _secureExportImpl() {
     const originalBtnHTML = UI.startExportBtn.innerHTML;
-    
+
     // دالة مساعدة لإرجاع حالة الأزرار لطبيعتها
     const restoreUI = () => {
         UI.startExportBtn.disabled = false;
@@ -641,20 +644,20 @@ async function _secureExportImpl() {
 
     // إيقاف أي مصدر صوتي فعال وتدمير AudioContext بالكامل لضمان بيئة نظيفة خالية من التداخلات أو التكرار
     if (state.activeSource) {
-        try { state.activeSource.stop(); } catch(e) {}
+        try { state.activeSource.stop(); } catch (e) { }
         state.activeSource = null;
     }
 
     // تفريغ الكاش الصوتي تماماً قبل التصدير لضمان عدم استخدام أي بقايا صوتية
     clearAudioCache();
-    
+
     // 💡 إنهاء أي جلسة صوتية معلقة فوراً لمنع التداخل مع التصدير
     state.audioSessionId = Date.now() + Math.random();
 
     if (state.audioContext) {
         try {
             state.audioContext.close();
-        } catch(e) {}
+        } catch (e) { }
         state.audioContext = null;
     }
 
@@ -719,7 +722,7 @@ async function _secureExportImpl() {
         const ayah = state.ayahs[i];
         if (ayah && ayah.verse_key) uniqueVersesCount.add(ayah.verse_key);
         else uniqueVersesCount.add(`unknown_${i}`);
-        
+
         if (ayah && ayah.isSplit) hasSplitVerses = true;
     }
     const realVerseCount = uniqueVersesCount.size;
@@ -736,13 +739,13 @@ async function _secureExportImpl() {
     };
 
     let serverVerified = false;
-    
+
     // فلتر ذكي: إذا كان التصدير ضمن الحدود المجانية بالكامل، فلا داعي لاستهلاك السيرفر
-    const isBasicFreeRequest = !exportConfig.wantsLocalAudio && 
-                               !exportConfig.wantsWaveform && 
-                               !exportConfig.wantsWatermark && 
-                               !exportConfig.wantsNoBranding &&
-                               !exportConfig.hasSplitVerses;
+    const isBasicFreeRequest = !exportConfig.wantsLocalAudio &&
+        !exportConfig.wantsWaveform &&
+        !exportConfig.wantsWatermark &&
+        !exportConfig.wantsNoBranding &&
+        !exportConfig.hasSplitVerses;
 
     if (state.user && supabaseClient && !isBasicFreeRequest) {
         // ⏳ زيادة المهلة لمنع الـ Timeout مع الشبكات البطيئة (الـ Cold Start يأخذ وقتاً)
@@ -753,7 +756,7 @@ async function _secureExportImpl() {
                 user_id: state.user.id,
                 config: { ...exportConfig, uniqueVersesCount: 1 } // تخطي فحص السيرفر لعدد الآيات
             });
-            
+
             const { data, error: rpcError } = await Promise.race([
                 rpcPromise,
                 new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), timeoutDuration))
@@ -767,7 +770,7 @@ async function _secureExportImpl() {
                 showProModal(data.reason || 'limit', data);
                 throw new Error(EXPORT_ERRORS.CANCELLED);
             }
-            
+
             state.exportMode = data?.exportMode || 'free';
             serverVerified = true;
         } catch (e) {
@@ -777,7 +780,7 @@ async function _secureExportImpl() {
     }
 
     if (!serverVerified) {
-        
+
         // للحسابات الاحترافية (Pro) أو الميزات المجانية، نعتمد على الفحص المحلي (Fallback) في حال فشل السيرفر
 
         const error = validateExport(caps, exportConfig);
@@ -798,7 +801,7 @@ async function _secureExportImpl() {
 
     // تفريغ الفيديو القديم من الذاكرة فقط بعد اجتياز جميع الفحوصات وقبل البدء الفعلي
     if (state.exportBlobUrl) {
-        try { URL.revokeObjectURL(state.exportBlobUrl); } catch(e) {}
+        try { URL.revokeObjectURL(state.exportBlobUrl); } catch (e) { }
         state.exportBlobUrl = null;
     }
 
@@ -816,9 +819,117 @@ async function _secureExportImpl() {
     }
 }
 
+export async function connectLocalExporter() {
+    return new Promise((resolve, reject) => {
+        const ws = new WebSocket('ws://127.0.0.1:8181');
+        ws.binaryType = 'arraybuffer';
+
+        const timeout = setTimeout(() => {
+            if (ws.readyState !== WebSocket.OPEN) {
+                ws.close();
+                reject(new Error("لم نتمكن من الاتصال ببرنامج التصدير المحلي. يرجى التأكد من تشغيل الأداة أولاً."));
+            }
+        }, 3000);
+
+        ws.onopen = () => {
+            clearTimeout(timeout);
+            resolve(ws);
+        };
+        ws.onerror = (err) => {
+            clearTimeout(timeout);
+            reject(new Error("لم نتمكن من الاتصال ببرنامج التصدير المحلي. يرجى التأكد من تشغيل الأداة أولاً."));
+        };
+    });
+}
+
+function showLocalExporterModal() {
+    let modal = document.getElementById('localExporterModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'localExporterModal';
+        modal.className = 'fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] hidden flex items-center justify-center p-4 opacity-0 transition-all duration-300';
+        modal.innerHTML = `
+            <div class="bg-zinc-900 border border-white/10 p-6 md:p-8 rounded-2xl max-w-lg w-full text-center relative shadow-2xl">
+                <button id="closeLocalExporterModal" class="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+                <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-tr from-green-500/20 to-emerald-500/20 rounded-full flex items-center justify-center border border-green-500/30">
+                    <i data-lucide="rocket" class="w-10 h-10 text-green-400"></i>
+                </div>
+                <h2 class="text-2xl font-bold mb-4 text-white">تفعيل التصدير الخارق 🚀</h2>
+                <p class="text-zinc-400 text-sm md:text-base leading-relaxed mb-6">
+                    لكي تستمتع بسرعة التصدير الخارقة (التي تستغل موارد جهازك بنسبة 100%)، يجب عليك تثبيت أداة <strong>Tarteel Studio Exporter</strong> المجانية على جهازك.
+                </p>
+                <div class="bg-black/40 border border-white/5 p-4 rounded-xl text-right mb-8">
+                    <p class="text-sm font-bold text-orange-400 mb-4 text-center">قم بتحميل الأداة لنظامك (التحميل مباشر):</p>
+                    <div class="flex flex-wrap gap-3 justify-center">
+                        <a href="https://github.com/zyadabdelbaqi/tarteel-assets/releases/latest/download/tarteel-local-exporter-win.exe?utm_source=chatgpt.com" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm font-bold">
+                            <i data-lucide="monitor" class="w-4 h-4"></i> Windows
+                        </a>
+                        <a href="https://github.com/zyadabdelbaqi/tarteel-assets/releases/latest/download/Tarteel_Exporter_macOS.zip?utm_source=chatgpt.com" class="bg-zinc-700 hover:bg-zinc-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm font-bold">
+                            <i data-lucide="apple" class="w-4 h-4"></i> Mac
+                        </a>
+                        <a href="https://github.com/zyadabdelbaqi/tarteel-assets/releases/latest/download/tarteel-local-exporter-linux?utm_source=chatgpt.com" class="bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm font-bold">
+                            <i data-lucide="terminal" class="w-4 h-4"></i> Linux
+                        </a>
+                    </div>
+                    <p class="text-xs text-zinc-500 mt-4 text-center">بعد تحميل وتثبيت الأداة، اضغط على الزر بالأسفل لتوصيلها بالموقع تلقائياً.</p>
+                </div>
+                <button id="retryLocalExporterBtn" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white font-bold py-4 rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-green-500/20 flex items-center justify-center gap-2">
+                    <i data-lucide="link" class="w-5 h-5"></i>
+                    لقد قمت بتشغيل الأداة، اتصل الآن
+                </button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        document.getElementById('closeLocalExporterModal').onclick = () => {
+            modal.style.opacity = '0';
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        };
+
+        document.getElementById('retryLocalExporterBtn').onclick = () => {
+            modal.style.opacity = '0';
+            setTimeout(() => modal.classList.add('hidden'), 300);
+            UI.startExportBtn?.click();
+        };
+
+        if (window.lucide) window.lucide.createIcons();
+    }
+
+    modal.classList.remove('hidden');
+    void modal.offsetWidth;
+    modal.style.opacity = '1';
+}
+
 export async function realExport(validatedCaps) {
     const caps = validatedCaps || getUserCapabilities();
     window.onbeforeunload = null; // إزالة الرسالة التحذيرية المزعجة للمتصفح
+
+    let localWs = null;
+    if (state.exportModeLocal) {
+        updateExportStatus("جاري الاتصال بالأداة المحلية...");
+        try {
+            localWs = await connectLocalExporter();
+        } catch (err) {
+            updateExportStatus("جاري إيقاظ أداة التصدير في الخلفية...");
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = 'tarteel://start';
+            document.body.appendChild(iframe);
+
+            await new Promise(r => setTimeout(r, 3000));
+            document.body.removeChild(iframe);
+
+            try {
+                localWs = await connectLocalExporter();
+            } catch (err2) {
+                resetExportUI();
+                showLocalExporterModal();
+                return;
+            }
+        }
+    }
 
     // إضافة زر إنهاء التصدير ديناميكياً لتجنب تعديل الـ HTML
     let cancelBtn = document.getElementById('cancelExportBtnDynamic');
@@ -839,19 +950,23 @@ export async function realExport(validatedCaps) {
         cancelBtn.disabled = false;
         cancelBtn.style.display = 'block';
     }
-    
+
     if (exportQueue.isCancelled) return; // التوقف إذا تم الإلغاء أثناء التحميل
 
     resetExportProgress();
     updateExportStatus("جاري تجهيز الصوت والخطوط...");
 
     UI.sidebar.classList.add('sidebar-disabled'); UI.playBtn.disabled = true; UI.playBtn.style.opacity = "0";
-    UI.exportOverlay.style.display = "flex"; UI.exportProcessingUI.classList.remove('hidden'); UI.exportFinishedUI.classList.add('hidden');
+    UI.exportOverlay.style.display = "flex";
+    UI.exportProcessingUI.classList.remove('hidden');
+    UI.exportFinishedUI.classList.add('hidden');
+    if (UI.exportFinishedMsg) UI.exportFinishedMsg.textContent = 'المقطع جاهز للتحميل الآن';
+    if (UI.downloadFinalBtn) UI.downloadFinalBtn.style.display = 'flex';
 
     // إيقاف تشغيل الفيديو التلقائي للتحكم اليدوي الدقيق في الوقت والإطارات (Manual Frame Extraction)
     if (state.mediaType === 'video' && state.bgVideo) {
         if (!state.bgVideo.paused) state.bgVideo.pause();
-        
+
         // 🔴 الحل السحري لمشكلة تجميد الفيديو على جوجل كروم للأجهزة العادية:
         // كروم يقوم بتجميد الفيديوهات الشفافة جداً أو متناهية الصغر لتوفير الموارد.
         // لنجبره على معالجة الإطارات بدقة، نرفع الشفافية والحجم أثناء التصدير.
@@ -921,132 +1036,164 @@ export async function realExport(validatedCaps) {
     const sampleRate = 44100;
     const audioConfig = getAudioConfigFromUI();
     const audioResult = await processOfflineAudio(offlineDuration, onlineVerseTimings, startIdx, endIdx, sampleRate, audioConfig);
-    
+
     if (!audioResult) return;
     const { wavBuffer, totalSamples } = audioResult;
-    
+
     if (exportQueue.isCancelled) return;
     const totalFrames = Math.floor(offlineDuration * FPS);
-    
-    const precomputedWaveData = UI.showWaveform.checked 
+
+    const precomputedWaveData = UI.showWaveform.checked
         ? precomputeAllWaveData(wavBuffer, totalFrames, FPS, sampleRate, totalSamples)
         : null;
 
-    const useFFmpegEncoder = state.fastExport ? false : true;
+    const useFFmpegEncoder = (!state.fastExport && !localWs) ? true : false;
     let useNativeAudio = false;
 
     try {
         // --- Step 2: Initialize video-only MP4 muxer ---
-        let Muxer, ArrayBufferTarget, muxerTarget, muxer, videoCodecConfig;
+        let Muxer, ArrayBufferTarget, StreamTarget, muxerTarget, muxer, videoCodecConfig;
 
         if (!useFFmpegEncoder) {
-        videoCodecConfig = finalVideoCodecConfig;
+            videoCodecConfig = finalVideoCodecConfig;
 
-        const MP4Muxer = await import('./lib/mp4-muxer.js');
-        if (exportQueue.isCancelled) return;
-        Muxer = MP4Muxer.Muxer;
-        ArrayBufferTarget = MP4Muxer.ArrayBufferTarget;
-        muxerTarget = new ArrayBufferTarget();
+            const MP4Muxer = await import('./lib/mp4-muxer.js');
+            if (exportQueue.isCancelled) return;
+            Muxer = MP4Muxer.Muxer;
 
-        let audioCodecName = 'mp4a.40.2';
-        let muxerAudioCodec = 'aac';
+            if (localWs) {
+                const sObj = state.surahs.find(s => s.id == state.selectedSurah);
+                const sName = sObj ? sObj.name_arabic : 'Surah';
+                const fName = `سورة ${sName} ${UI.vStart.value}-${UI.vEnd.value}.mp4`;
 
-        if (window.AudioEncoder) {
-            useNativeAudio = true;
-            try {
-                const supportAAC = await AudioEncoder.isConfigSupported({ codec: 'mp4a.40.2', sampleRate: sampleRate, numberOfChannels: 2, bitrate: 128000 });
-                if (!supportAAC.supported) {
-                    const supportOpus = await AudioEncoder.isConfigSupported({ codec: 'opus', sampleRate: sampleRate, numberOfChannels: 2, bitrate: 128000 });
-                    if (supportOpus.supported) {
-                        audioCodecName = 'opus';
-                        muxerAudioCodec = 'opus';
-                    }
-                }
-            } catch (e) {
-                console.warn("Audio check fallback.", e);
+                localWs.send(JSON.stringify({
+                    type: 'init',
+                    fps: FPS,
+                    width: exportW,
+                    height: exportH,
+                    filename: fName
+                }));
+                localWs.send(wavBuffer);
+                localWs.send(JSON.stringify({ type: 'audioDone' }));
+
+                StreamTarget = MP4Muxer.StreamTarget;
+                muxerTarget = new StreamTarget({
+                    onData: (data, position) => {
+                        const payload = new Uint8Array(8 + data.byteLength);
+                        const view = new DataView(payload.buffer);
+                        view.setFloat64(0, position, true); // true for little-endian
+                        payload.set(data, 8);
+                        localWs.send(payload.buffer);
+                    },
+                    chunked: true,
+                    chunkSize: 1048576 // 1MB chunks
+                });
+            } else {
+                ArrayBufferTarget = MP4Muxer.ArrayBufferTarget;
+                muxerTarget = new ArrayBufferTarget();
             }
-        } else {
-            console.warn("AudioEncoder not supported natively, falling back to alternative encoder.");
-        }
 
-        muxer = new Muxer({
-            target: muxerTarget,
-            video: { codec: 'avc', width: exportW, height: exportH },
-            audio: useNativeAudio ? { codec: muxerAudioCodec, numberOfChannels: 2, sampleRate: sampleRate } : undefined,
-            fastStart: 'in-memory'
-        });
+            let audioCodecName = 'mp4a.40.2';
+            let muxerAudioCodec = 'aac';
 
-        if (useNativeAudio) {
-            updateExportStatus("جاري ترميز الصوت...");
-            const audioEncoder = new AudioEncoder({
-                output: (chunk, meta) => muxer.addAudioChunk(chunk, meta),
-                error: e => console.error("Audio encode error:", e)
-            });
-            audioEncoder.configure({
-                codec: audioCodecName,
-                sampleRate: sampleRate,
-                numberOfChannels: 2,
-                bitrate: 128000
-            });
-
-            const int16View = new Int16Array(wavBuffer);
-            const headerOffsetInt16 = 22;
-
-            const chunkSize = sampleRate; // 1 second chunks
-            const length = totalSamples;
-            for (let start = 0; start < length; start += chunkSize) {
-                if (exportQueue.isCancelled) break;
-                const end = Math.min(start + chunkSize, length);
-                const frameCount = end - start;
-                const planarData = new Float32Array(frameCount * 2);
-                
-                let offset = headerOffsetInt16 + (start * 2);
-                for (let i = 0; i < frameCount; i++) {
-                    planarData[i] = int16View[offset] / 32768.0;
-                    planarData[frameCount + i] = int16View[offset + 1] / 32768.0;
-                    offset += 2;
+            if (!localWs && window.AudioEncoder) {
+                useNativeAudio = true;
+                try {
+                    const supportAAC = await AudioEncoder.isConfigSupported({ codec: 'mp4a.40.2', sampleRate: sampleRate, numberOfChannels: 2, bitrate: 128000 });
+                    if (!supportAAC.supported) {
+                        const supportOpus = await AudioEncoder.isConfigSupported({ codec: 'opus', sampleRate: sampleRate, numberOfChannels: 2, bitrate: 128000 });
+                        if (supportOpus.supported) {
+                            audioCodecName = 'opus';
+                            muxerAudioCodec = 'opus';
+                        }
+                    }
+                } catch (e) {
+                    console.warn("Audio check fallback.", e);
                 }
+            } else if (!localWs) {
+                console.warn("AudioEncoder not supported natively, falling back to alternative encoder.");
+            }
 
-                const audioData = new AudioData({
-                    format: 'f32-planar',
+            muxer = new Muxer({
+                target: muxerTarget,
+                video: { codec: 'avc', width: exportW, height: exportH },
+                audio: useNativeAudio ? { codec: muxerAudioCodec, numberOfChannels: 2, sampleRate: sampleRate } : undefined,
+                fastStart: localWs ? false : 'in-memory'
+            });
+
+            if (useNativeAudio) {
+                updateExportStatus("جاري ترميز الصوت...");
+                const audioEncoder = new AudioEncoder({
+                    output: (chunk, meta) => muxer.addAudioChunk(chunk, meta),
+                    error: e => console.error("Audio encode error:", e)
+                });
+                audioEncoder.configure({
+                    codec: audioCodecName,
                     sampleRate: sampleRate,
-                    numberOfFrames: frameCount,
                     numberOfChannels: 2,
-                    timestamp: Math.round((start / sampleRate) * 1_000_000),
-                    data: planarData
+                    bitrate: 128000
                 });
 
-                audioEncoder.encode(audioData);
-                audioData.close();
-                
-                // تحديث المؤشر أثناء الترميز لمنع تجميد الواجهة
-                const encProgress = 25 + ((start / length) * 5);
-                setExportProgress(encProgress);
+                const int16View = new Int16Array(wavBuffer);
+                const headerOffsetInt16 = 22;
 
-                if (start % (sampleRate * 5) === 0) await new Promise(r => setTimeout(r, 0));
-            }
-            if (!exportQueue.isCancelled) {
-                await audioEncoder.flush();
-                setExportProgress(30);
-            }
-            if (audioEncoder.state !== 'closed') {
-                try { audioEncoder.close(); } catch(e) {}
-            }
-        }
+                const chunkSize = sampleRate; // 1 second chunks
+                const length = totalSamples;
+                for (let start = 0; start < length; start += chunkSize) {
+                    if (exportQueue.isCancelled) break;
+                    const end = Math.min(start + chunkSize, length);
+                    const frameCount = end - start;
+                    const planarData = new Float32Array(frameCount * 2);
 
-        // --- Step 3: Initialize VideoEncoder (in worker) ---
-        state.worker.postMessage({
-            type: 'initExport',
-            config: videoCodecConfig,
-            fps: FPS
-        });
+                    let offset = headerOffsetInt16 + (start * 2);
+                    for (let i = 0; i < frameCount; i++) {
+                        planarData[i] = int16View[offset] / 32768.0;
+                        planarData[frameCount + i] = int16View[offset + 1] / 32768.0;
+                        offset += 2;
+                    }
+
+                    const audioData = new AudioData({
+                        format: 'f32-planar',
+                        sampleRate: sampleRate,
+                        numberOfFrames: frameCount,
+                        numberOfChannels: 2,
+                        timestamp: Math.round((start / sampleRate) * 1_000_000),
+                        data: planarData
+                    });
+
+                    audioEncoder.encode(audioData);
+                    audioData.close();
+
+                    // تحديث المؤشر أثناء الترميز لمنع تجميد الواجهة
+                    const encProgress = 25 + ((start / length) * 5);
+                    setExportProgress(encProgress);
+
+                    if (start % (sampleRate * 5) === 0) await new Promise(r => setTimeout(r, 0));
+                }
+                if (!exportQueue.isCancelled) {
+                    await audioEncoder.flush();
+                    setExportProgress(30);
+                }
+                if (audioEncoder.state !== 'closed') {
+                    try { audioEncoder.close(); } catch (e) { }
+                }
+            }
+
+            // --- Step 3: Initialize VideoEncoder (in worker) ---
+            state.worker.postMessage({
+                type: 'initExport',
+                config: videoCodecConfig,
+                fps: FPS
+            });
         } else {
             updateExportStatus("جاري تهيئة بيئة التصدير...");
             await ensureFFmpegReady();
-            state.worker.postMessage({
-                type: 'initFFmpegExport',
-                fps: FPS
-            });
+            if (useFFmpegEncoder) {
+                state.worker.postMessage({
+                    type: 'initFFmpegExport',
+                    fps: FPS
+                });
+            }
         }
 
         // 💡 التزامن الذكي بالـ MB مع الـ Worker لمنع عدم تطابق الكاش (Cache Mismatch)
@@ -1063,7 +1210,7 @@ export async function realExport(validatedCaps) {
             }
             bgFrameCacheKeys.set(key, size);
             currentBgCacheSize += size;
-            
+
             while (currentBgCacheSize > MAX_BG_CACHE_MB * 1024 * 1024) {
                 const firstKey = bgFrameCacheKeys.keys().next().value;
                 currentBgCacheSize -= bgFrameCacheKeys.get(firstKey);
@@ -1112,14 +1259,14 @@ export async function realExport(validatedCaps) {
             if (state.mediaType === 'video' && state.bgVideo && state.bgVideo.readyState >= 2) {
                 let vidDuration = state.bgVideo.duration;
                 if (!isFinite(vidDuration) || isNaN(vidDuration) || vidDuration === 0) vidDuration = 10;
-                
+
                 // 💡 التكرار السليم (Loop) مع تجنب آخر 0.1 ثانية لمنع تجميد الفريم الأخير الذي يسبب المشكلة
                 const safeDuration = Math.max(0.1, vidDuration - 0.1);
                 const targetTime = timestampSec % safeDuration;
-                
+
                 // 💡 الحل الاحترافي: مفتاح دقيق وثابت برمجياً لمنع التكرار الناتج عن التقريب العشري
                 const cacheKey = `bg_frame_${frameIdx}`;
-                
+
                 if (state.mediaType !== 'video' && bgFrameCacheKeys.has(cacheKey)) {
                     // ✅ الفريم موجود! متعيدش Decode، ارسم مباشرة
                     const size = bgFrameCacheKeys.get(cacheKey);
@@ -1127,57 +1274,52 @@ export async function realExport(validatedCaps) {
                     bgFrameCacheKeys.set(cacheKey, size); // إضافته في النهاية ليكون الأحدث
                     state.worker.postMessage({ type: 'useCachedBg', cacheKey: cacheKey, timestamp: timestampUs });
                 } else {
-                // 🔴 استخدام الدالة المخصصة لانتظار الـ Decoding 
-                await seekFrame(state.bgVideo, targetTime);
-                
-                // إجبار المتصفح يرسم الفريم الحقيقي قبل السحب
-                await new Promise(r => requestAnimationFrame(r));
-                await new Promise(r => requestAnimationFrame(r));
-                await new Promise(r => setTimeout(r, 0));
-
-                if (Math.abs(state.bgVideo.currentTime - targetTime) > 0.05) {
+                    // الانتظار الحقيقي والمثالي: الدالة seekFrame أصبحت تنتظر فك التشفير كاملاً الآن
                     await seekFrame(state.bgVideo, targetTime);
-                    await new Promise(r => requestAnimationFrame(r));
-                }
 
-                if (exportQueue.isCancelled) return; // 🛑 الخروج فوراً لتجنب إكمال معالجة الإطار بعد الإلغاء
-                try {
-                    let frameSent = false;
-                    
-                    // 🔴 الحل القاطع لمشكلة تجميد الفيديو كصورة على الموبايل (سفاري/أندرويد)
-                    // هو إجبار المتصفح على رسم الإطار على Canvas بدلاً من أخذه من المشغل مباشرة،
-                    // لأن بعض المتصفحات تحتفظ بأول فريم فقط إذا كان الفيديو متوقفاً (Paused)
-                    if (!fallbackCanvas) {
-                        fallbackCanvas = document.createElement('canvas');
-                        fallbackCtx = fallbackCanvas.getContext('2d', { alpha: false, willReadFrequently: true });
+                    // في حالة وجود قصور أو عدم دقة في الوصول للوقت المستهدف، نقوم بالمحاولة مرة أخرى بدقة أكبر
+                    if (Math.abs(state.bgVideo.currentTime - targetTime) > 0.05) {
+                        await seekFrame(state.bgVideo, targetTime);
                     }
-                    fallbackCanvas.width = state.bgVideo.videoWidth || exportW;
-                    fallbackCanvas.height = state.bgVideo.videoHeight || exportH;
-                    fallbackCtx.drawImage(state.bgVideo, 0, 0, fallbackCanvas.width, fallbackCanvas.height);
 
-                    if (window.VideoFrame) {
-                        try {
-                            const frame = new VideoFrame(fallbackCanvas, { timestamp: timestampUs });
-                            state.worker.postMessage({ type: 'bgFrame', bitmap: frame, timestamp: timestampUs, cacheKey: cacheKey }, [frame]);
-                            frameSent = true;
-                        } catch (err) {
-                            console.warn("VideoFrame extraction failed, falling back to ImageBitmap");
+                    if (exportQueue.isCancelled) return; // 🛑 الخروج فوراً لتجنب إكمال معالجة الإطار بعد الإلغاء
+                    try {
+                        let frameSent = false;
+
+                        // 🔴 تسريع عتادي (Hardware Acceleration - Zero Copy) باستخدام VideoFrame مباشرة من الفيديو
+                        if (window.VideoFrame) {
+                            try {
+                                const frame = new VideoFrame(state.bgVideo, { timestamp: timestampUs });
+                                state.worker.postMessage({ type: 'bgFrame', bitmap: frame, timestamp: timestampUs, cacheKey: cacheKey }, [frame]);
+                                frameSent = true;
+                            } catch (err) {
+                                // سفاري على الموبايل قد يفشل إذا كان الفيديو متوقفاً، لذا نتجاهل الخطأ ونستخدم الـ Canvas الاحتياطي
+                            }
                         }
-                    }
-                    if (!frameSent) {
-                        let bmp = await createImageBitmap(fallbackCanvas);
-                        if (bmp) {
-                            state.worker.postMessage({ type: 'bgFrame', bitmap: bmp, timestamp: timestampUs, cacheKey: cacheKey }, [bmp]);
-                            frameSent = true;
+
+                        if (!frameSent) {
+                            // الحل البديل (Fallback) للمتصفحات التي لا تدعم السحب المباشر (Safari/Android)
+                            if (!fallbackCanvas) {
+                                fallbackCanvas = document.createElement('canvas');
+                                fallbackCtx = fallbackCanvas.getContext('2d', { alpha: false, willReadFrequently: true });
+                            }
+                            fallbackCanvas.width = state.bgVideo.videoWidth || exportW;
+                            fallbackCanvas.height = state.bgVideo.videoHeight || exportH;
+                            fallbackCtx.drawImage(state.bgVideo, 0, 0, fallbackCanvas.width, fallbackCanvas.height);
+
+                            let bmp = await createImageBitmap(fallbackCanvas);
+                            if (bmp) {
+                                state.worker.postMessage({ type: 'bgFrame', bitmap: bmp, timestamp: timestampUs, cacheKey: cacheKey }, [bmp]);
+                                frameSent = true;
+                            }
                         }
+                        if (frameSent && state.mediaType !== 'video') {
+                            addBgFrameToCacheKeys(cacheKey, fallbackCanvas.width, fallbackCanvas.height);
+                        }
+                    } catch (e) {
+                        console.warn("Background frame extraction error:", e);
                     }
-                    if (frameSent && state.mediaType !== 'video') {
-                        addBgFrameToCacheKeys(cacheKey, fallbackCanvas.width, fallbackCanvas.height);
-                    }
-                } catch (e) {
-                    console.warn("Background frame extraction error:", e);
                 }
-              }
             }
             // ----------------------------------------------------
 
@@ -1187,8 +1329,8 @@ export async function realExport(validatedCaps) {
                 const relativeTimings = state.timings.slice(startIdx, endIdx + 1).map(t => t - (state.timings[startIdx] || 0));
                 let found = false;
                 for (let i = 0; i < relativeTimings.length - 1; i++) {
-                    if (timestampSec >= relativeTimings[i] && (relativeTimings[i+1] === undefined || timestampSec < relativeTimings[i+1])) {
-                        currentAyahGlobalIndex = startIdx + i; timeIntoAyah = timestampSec - relativeTimings[i]; 
+                    if (timestampSec >= relativeTimings[i] && (relativeTimings[i + 1] === undefined || timestampSec < relativeTimings[i + 1])) {
+                        currentAyahGlobalIndex = startIdx + i; timeIntoAyah = timestampSec - relativeTimings[i];
                         found = true;
                         break;
                     }
@@ -1200,8 +1342,8 @@ export async function realExport(validatedCaps) {
                 }
             } else {
                 let found = false;
-                for(let j = 0; j < onlineVerseTimings.length - 1; j++) {
-                    if (timestampSec >= onlineVerseTimings[j].start && timestampSec < onlineVerseTimings[j+1].start) {
+                for (let j = 0; j < onlineVerseTimings.length - 1; j++) {
+                    if (timestampSec >= onlineVerseTimings[j].start && timestampSec < onlineVerseTimings[j + 1].start) {
                         currentAyahGlobalIndex = onlineVerseTimings[j].index;
                         timeIntoAyah = timestampSec - onlineVerseTimings[j].start;
                         found = true;
@@ -1217,9 +1359,9 @@ export async function realExport(validatedCaps) {
 
             // تقسيم شريط التقدم بمرونة بناءً على استخدام الترميز الصوتي أو عدمه
             const baseProgress = useNativeAudio ? 30 : 25;
-            const progressRange = useNativeAudio ? (100 - baseProgress) : (85 - baseProgress);
+            const progressRange = (useNativeAudio || localWs) ? (100 - baseProgress) : (85 - baseProgress);
             const progress = baseProgress + ((frameIdx / totalFrames) * progressRange);
-            
+
             // تحسين: تحديث شريط التقدم كل 3 إطارات ليتزامن مع دورة إرسال البيانات (Batch)
             if (frameIdx % 3 === 0 || frameIdx === totalFrames - 1) {
                 const currentRealVerse = realVerseCountMap[currentAyahGlobalIndex] || 1;
@@ -1259,7 +1401,7 @@ export async function realExport(validatedCaps) {
                 fontUrl = new URL('fonts/AlMushaf/AlMushaf.woff2', window.location.href).href;
                 if (ayah) {
                     const ayahNum = ayah.verse_key ? ayah.verse_key.split(':')[1] : '';
-                    const arabicNumbers = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+                    const arabicNumbers = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
                     const ayahNumAr = ayahNum.split('').map(d => arabicNumbers[parseInt(d)]).join('');
                     rawText = `${ayah.text_uthmani} ﴿${ayahNumAr}﴾`;
                 } else { rawText = ''; }
@@ -1285,7 +1427,7 @@ export async function realExport(validatedCaps) {
                 showWaveform: UI.showWaveform.checked, waveformY: parseInt(UI.waveformY.value), waveformHeight: parseInt(UI.waveformHeight.value), waveformColor: UI.waveformColor.value,
                 showWatermark: UI.showWatermark.checked, watermarkType: state.watermarkType, watermarkText: UI.watermarkText.value, watermarkColor: UI.watermarkColor.value, watermarkX: parseInt(UI.watermarkX.value), watermarkY: parseInt(UI.watermarkY.value), watermarkSize: parseInt(UI.watermarkSize.value), watermarkOpacity: parseFloat(UI.watermarkOpacity.value),
                 showTarteelLogo: UI.showTarteelLogo.checked,
-            showBasmala: UI.showBasmala.checked, basmalaNumber: parseInt(UI.basmalaNumber.value) || 1, basmalaX: parseInt(UI.basmalaX.value), basmalaY: parseInt(UI.basmalaY.value), basmalaSize: parseInt(UI.basmalaSize.value), basmalaColor: UI.basmalaColor.value, basmalaShadowColor: UI.basmalaShadowColor.value, basmalaShadowBlur: parseInt(UI.basmalaShadowBlur.value),
+                showBasmala: UI.showBasmala.checked, basmalaNumber: parseInt(UI.basmalaNumber.value) || 1, basmalaX: parseInt(UI.basmalaX.value), basmalaY: parseInt(UI.basmalaY.value), basmalaSize: parseInt(UI.basmalaSize.value), basmalaColor: UI.basmalaColor.value, basmalaShadowColor: UI.basmalaShadowColor.value, basmalaShadowBlur: parseInt(UI.basmalaShadowBlur.value),
                 isFreePlan: !caps.canRemoveBranding, isExporting: true,
                 animProgress: animProgress, resetAnim: false
             };
@@ -1316,7 +1458,7 @@ export async function realExport(validatedCaps) {
 
                 const frameIdx = currentFrame++;
                 pendingFrames++;
-                
+
                 // إرسال الإطار للتحضير (وهو دالة غير متزامنة لكننا ننتظر استخراج صورة الفيديو فقط)
                 await processFrame(frameIdx);
             }
@@ -1327,66 +1469,244 @@ export async function realExport(validatedCaps) {
         // --- Step 6: Listen for worker messages and drive the loop ---
         return new Promise((resolveExport, rejectExport) => {
             const onWorkerMessage = async (e) => {
-            const { type, ...data } = e.data;
-            switch (type) {
-                case 'encoderReady': pumpFrames(); break;
-                case 'frameEncoded': 
-                    pendingFrames--; 
-                    if (pendingFramesResolver) { pendingFramesResolver(); pendingFramesResolver = null; }
-                    checkFinish(); 
-                    break;
-                case 'ffmpegFrame':
-                    if (exportQueue.isCancelled) return;
-                    ensureFFmpegReady().then(({ ffmpeg }) => {
-                        ffmpeg.writeFile(`frame_${data.frameNumber}.jpg`, new Uint8Array(data.buffer)).then(() => {
-                            pendingFrames--; 
+                const { type, ...data } = e.data;
+                switch (type) {
+                    case 'encoderReady': pumpFrames(); break;
+                    case 'frameEncoded':
+                        pendingFrames--;
+                        if (pendingFramesResolver) { pendingFramesResolver(); pendingFramesResolver = null; }
+                        checkFinish();
+                        break;
+                    case 'ffmpegFrame':
+                        if (exportQueue.isCancelled) return;
+                        if (localWs) {
+                            localWs.send(data.buffer);
+                            pendingFrames--;
                             if (pendingFramesResolver) { pendingFramesResolver(); pendingFramesResolver = null; }
                             checkFinish();
+                        } else {
+                            ensureFFmpegReady().then(({ ffmpeg }) => {
+                                ffmpeg.writeFile(`frame_${data.frameNumber}.jpg`, new Uint8Array(data.buffer)).then(() => {
+                                    pendingFrames--;
+                                    if (pendingFramesResolver) { pendingFramesResolver(); pendingFramesResolver = null; }
+                                    checkFinish();
+                                });
+                            });
+                        }
+                        break;
+                    case 'ffmpegFinished':
+                        if (localWs) {
+                            UI.loader.classList.remove('hidden');
+                            UI.loaderText.textContent = "جاري تجميع الفيديو على الأداة المحلية...";
+                            updateExportStatus("جاري التجميع النهائي...");
+                            localWs.send(JSON.stringify({ type: 'finish' }));
+
+                            localWs.onmessage = async (msg) => {
+                                try {
+                                    const response = JSON.parse(msg.data);
+                                    if (response.type === 'progress') {
+                                        // تم تجاهل مؤشر السيرفر لأن شريط المتصفح وصل بالفعل لـ 100% بسلاسة
+                                    } else if (response.type === 'success') {
+                                        setExportProgress(100);
+                                        state.exportFormat = 'mp4_local';
+
+                                        try {
+                                            const thumbCanvas = document.createElement('canvas');
+                                            thumbCanvas.width = 1280; thumbCanvas.height = 720;
+                                            const ctx = thumbCanvas.getContext('2d');
+                                            ctx.drawImage(UI.canvas || document.getElementById('previewCanvas'), 0, 0, thumbCanvas.width, thumbCanvas.height);
+                                            const thumbBlob = await new Promise(resolve => thumbCanvas.toBlob(resolve, 'image/jpeg', 0.95));
+                                            if (state.thumbnailUrl) URL.revokeObjectURL(state.thumbnailUrl);
+                                            state.thumbnailBlob = thumbBlob;
+                                            state.thumbnailUrl = URL.createObjectURL(thumbBlob);
+                                        } catch (e) { }
+
+                                        UI.loader.classList.add('hidden');
+                                        UI.exportProcessingUI.classList.add('hidden');
+
+                                        if (UI.exportFinishedMsg) UI.exportFinishedMsg.textContent = 'تم حفظ الفيديو بنجاح على سطح المكتب! 🚀';
+                                        if (UI.downloadFinalBtn) UI.downloadFinalBtn.style.display = 'none';
+
+                                        UI.exportFinishedUI.classList.remove('hidden');
+                                        if (window.lucide) window.lucide.createIcons();
+
+                                        updateExportButtonState();
+                                        resolveExport(response.filename);
+                                    } else if (response.type === 'error') {
+                                        rejectExport(new Error(response.message));
+                                    }
+                                } catch (e) { }
+                            };
+                            return;
+                        }
+
+                        (async () => {
+                            try {
+                                if (exportQueue.isCancelled) throw new Error(EXPORT_ERRORS.CANCELLED);
+                                UI.loader.classList.remove('hidden');
+                                UI.loaderText.textContent = "جاري تجميع الفيديو...";
+                                updateExportStatus("جاري الدمج النهائي...");
+
+                                const { ffmpeg } = await ensureFFmpegReady();
+                                await ffmpeg.writeFile('audio.wav', new Uint8Array(wavBuffer));
+
+                                const onFFmpegProgress = ({ progress }) => {
+                                    const p = Math.max(0, Math.min(1, Number(progress) || 0));
+                                    const percent = 85 + (p * 15);
+                                    setExportProgress(percent);
+                                };
+                                ffmpeg.on('progress', onFFmpegProgress);
+
+                                const exitCode = await ffmpeg.exec([
+                                    '-framerate', String(FPS),
+                                    '-i', 'frame_%d.jpg',
+                                    '-i', 'audio.wav',
+                                    '-c:v', 'libx264',
+                                    '-preset', 'ultrafast',
+                                    '-pix_fmt', 'yuv420p',
+                                    '-c:a', 'aac',
+                                    '-b:a', '192k',
+                                    '-shortest',
+                                    '-threads', '0',
+                                    'final_output.mp4'
+                                ]);
+
+                                ffmpeg.off('progress', onFFmpegProgress);
+
+                                if (exitCode !== 0) throw new Error('Failed to produce the final MP4 file.');
+
+                                const outData = await ffmpeg.readFile('final_output.mp4');
+                                const finalBlob = new Blob([outData], { type: 'video/mp4' });
+
+                                for (let i = 0; i < totalFrames; i++) ffmpeg.deleteFile(`frame_${i}.jpg`).catch(() => { });
+                                try { await ffmpeg.deleteFile('audio.wav'); } catch (e) { }
+                                try { await ffmpeg.deleteFile('final_output.mp4'); } catch (e) { }
+
+                                state.exportBlobUrl = URL.createObjectURL(finalBlob);
+                                state.exportFormat = 'mp4';
+
+                                // ================================
+                                // Smart Thumbnail Generator
+                                // ================================
+                                try {
+                                    const thumbCanvas = document.createElement('canvas');
+
+                                    thumbCanvas.width = 1280;
+                                    thumbCanvas.height = 720;
+
+                                    const ctx = thumbCanvas.getContext('2d');
+
+                                    ctx.drawImage(
+                                        UI.canvas || document.getElementById('previewCanvas'),
+                                        0,
+                                        0,
+                                        thumbCanvas.width,
+                                        thumbCanvas.height
+                                    );
+
+                                    const thumbBlob = await new Promise(resolve => {
+                                        thumbCanvas.toBlob(
+                                            resolve,
+                                            'image/jpeg',
+                                            0.95
+                                        );
+                                    });
+
+                                    if (state.thumbnailUrl) {
+                                        URL.revokeObjectURL(state.thumbnailUrl);
+                                    }
+
+                                    state.thumbnailBlob = thumbBlob;
+                                    state.thumbnailUrl = URL.createObjectURL(thumbBlob);
+
+                                } catch (e) {
+                                    console.warn(e);
+                                }
+
+                                updateExportButtonState();
+                                resolveExport(state.exportBlobUrl);
+
+                            } catch (err) {
+                                if (err.message === EXPORT_ERRORS.CANCELLED) return resolveExport(null);
+                                console.error("Encode Error:", err);
+                                if (!exportQueue.isCancelled) alert(`حدث خطأ أثناء إخراج الفيديو: ${err.message || err}`);
+                                rejectExport(err);
+                            } finally {
+                                UI.loader.classList.add('hidden');
+                                if (state.exportBlobUrl) { UI.exportProcessingUI.classList.add('hidden'); UI.exportFinishedUI.classList.remove('hidden'); if (window.lucide) window.lucide.createIcons(); }
+                                state.worker.removeEventListener('message', onWorkerMessage);
+                                window.onbeforeunload = null;
+                            }
+                        })();
+                        break;
+                    case 'videoChunk':
+                        const encodedChunk = new EncodedVideoChunk({
+                            type: data.chunkType,
+                            timestamp: data.timestamp,
+                            duration: data.duration,
+                            data: data.chunkData
                         });
-                    });
-                    break;
-                case 'ffmpegFinished':
-                    (async () => {
+                        muxer.addVideoChunk(encodedChunk, data.meta);
+                        break;
+                    case 'videoFinished':
                         try {
                             if (exportQueue.isCancelled) throw new Error(EXPORT_ERRORS.CANCELLED);
+
                             UI.loader.classList.remove('hidden');
-                            UI.loaderText.textContent = "جاري تجميع الفيديو...";
-                            updateExportStatus("جاري الدمج النهائي...");
+                            UI.loaderText.textContent = "جاري التحميل";
 
-                            const { ffmpeg } = await ensureFFmpegReady();
-                            await ffmpeg.writeFile('audio.wav', new Uint8Array(wavBuffer));
+                            muxer.finalize();
 
-                            const onFFmpegProgress = ({ progress }) => {
-                                const p = Math.max(0, Math.min(1, Number(progress) || 0));
-                                const percent = 85 + (p * 15);
-                                setExportProgress(percent);
-                            };
-                            ffmpeg.on('progress', onFFmpegProgress);
+                            if (localWs) {
+                                localWs.send(JSON.stringify({ type: 'finish' }));
+                                localWs.onmessage = async (msg) => {
+                                    try {
+                                        const response = JSON.parse(msg.data);
+                                        if (response.type === 'success') {
+                                            setExportProgress(100);
+                                            state.exportFormat = 'mp4_local';
 
-                            const exitCode = await ffmpeg.exec([
-                                '-framerate', String(FPS),
-                                '-i', 'frame_%d.jpg',
-                                '-i', 'audio.wav',
-                                '-c:v', 'libx264',
-                                '-preset', 'ultrafast',
-                                '-pix_fmt', 'yuv420p',
-                                '-c:a', 'aac',
-                                '-b:a', '192k',
-                                '-shortest',
-                                '-threads', '0',
-                                'final_output.mp4'
-                            ]);
+                                            UI.loader.classList.add('hidden');
+                                            UI.exportProcessingUI.classList.add('hidden');
+                                            UI.exportFinishedUI.classList.remove('hidden');
+                                            if (window.lucide) window.lucide.createIcons();
+                                            if (UI.exportFinishedMsg) UI.exportFinishedMsg.textContent = 'تم حفظ الفيديو بنجاح على سطح المكتب! 🚀';
+                                            if (UI.downloadFinalBtn) UI.downloadFinalBtn.style.display = 'none';
+                                            if (UI.restartExportBtn) UI.restartExportBtn.style.display = 'block';
 
-                            ffmpeg.off('progress', onFFmpegProgress);
+                                            // Generate Thumbnail since resolveExport doesn't do it automatically here
+                                            try {
+                                                const thumbCanvas = document.createElement('canvas');
+                                                thumbCanvas.width = 1280; thumbCanvas.height = 720;
+                                                const ctx = thumbCanvas.getContext('2d');
+                                                ctx.drawImage(UI.canvas || document.getElementById('previewCanvas'), 0, 0, thumbCanvas.width, thumbCanvas.height);
+                                                const thumbBlob = await new Promise(resolve => thumbCanvas.toBlob(resolve, 'image/jpeg', 0.95));
+                                                if (state.thumbnailUrl) URL.revokeObjectURL(state.thumbnailUrl);
+                                                state.thumbnailBlob = thumbBlob;
+                                                state.thumbnailUrl = URL.createObjectURL(thumbBlob);
+                                            } catch (e) { }
 
-                            if (exitCode !== 0) throw new Error('Failed to produce the final MP4 file.');
+                                            resolveExport();
+                                        } else if (response.type === 'error') {
+                                            rejectExport(new Error("Local FFmpeg Error: " + response.error));
+                                        }
+                                    } catch (e) { }
+                                };
+                                return; // Wait for localWs response before resolving
+                            }
 
-                            const outData = await ffmpeg.readFile('final_output.mp4');
-                            const finalBlob = new Blob([outData], { type: 'video/mp4' });
+                            const { buffer } = muxerTarget;
+                            const tempVideoBlob = new Blob([buffer], { type: 'video/mp4' });
 
-                            for(let i=0; i<totalFrames; i++) ffmpeg.deleteFile(`frame_${i}.jpg`).catch(()=>{});
-                            try { await ffmpeg.deleteFile('audio.wav'); } catch(e){}
-                            try { await ffmpeg.deleteFile('final_output.mp4'); } catch(e){}
+                            let finalBlob = tempVideoBlob;
+                            if (!useNativeAudio) {
+                                if (exportQueue.isCancelled) throw new Error(EXPORT_ERRORS.CANCELLED);
+                                finalBlob = await finalizeWithFFmpeg(tempVideoBlob, new Uint8Array(wavBuffer), sampleRate);
+                            } else {
+                                setExportProgress(100);
+                            }
+
+                            if (exportQueue.isCancelled) throw new Error(EXPORT_ERRORS.CANCELLED);
 
                             state.exportBlobUrl = URL.createObjectURL(finalBlob);
                             state.exportFormat = 'mp4';
@@ -1431,151 +1751,64 @@ export async function realExport(validatedCaps) {
 
                             updateExportButtonState();
                             resolveExport(state.exportBlobUrl);
-
                         } catch (err) {
-                            if (err.message === EXPORT_ERRORS.CANCELLED) return resolveExport(null);
-                            console.error("Encode Error:", err);
+                            if (err.message === EXPORT_ERRORS.CANCELLED) {
+                                resolveExport(null);
+                                return;
+                            }
+                            console.error("Muxing Error:", err);
                             if (!exportQueue.isCancelled) alert(`حدث خطأ أثناء إخراج الفيديو: ${err.message || err}`);
                             rejectExport(err);
                         } finally {
                             UI.loader.classList.add('hidden');
-                            if (state.exportBlobUrl) { UI.exportProcessingUI.classList.add('hidden'); UI.exportFinishedUI.classList.remove('hidden'); if (window.lucide) window.lucide.createIcons(); }
+                            // لا تظهر شاشة النجاح أبداً إذا تم الإلغاء
+                            if (state.exportBlobUrl) {
+                                UI.exportProcessingUI.classList.add('hidden');
+                                UI.exportFinishedUI.classList.remove('hidden');
+                                if (window.lucide) window.lucide.createIcons();
+                            }
+
                             state.worker.removeEventListener('message', onWorkerMessage);
                             window.onbeforeunload = null;
                         }
-                    })();
-                    break;
-                case 'videoChunk': 
-                    const encodedChunk = new EncodedVideoChunk({
-                        type: data.chunkType,
-                        timestamp: data.timestamp,
-                        duration: data.duration,
-                        data: data.chunkData
-                    });
-                    muxer.addVideoChunk(encodedChunk, data.meta); 
-                    break;
-                case 'videoFinished':
-                    try {
-                        if (exportQueue.isCancelled) throw new Error(EXPORT_ERRORS.CANCELLED);
-                        
-                        UI.loader.classList.remove('hidden');
-                        UI.loaderText.textContent = "جاري التحميل";
-                        
-                        muxer.finalize();
-                        const { buffer } = muxerTarget;
-                        const tempVideoBlob = new Blob([buffer], { type: 'video/mp4' });
-
-                        let finalBlob = tempVideoBlob;
-                        if (!useNativeAudio) {
-                            if (exportQueue.isCancelled) throw new Error(EXPORT_ERRORS.CANCELLED);
-                            finalBlob = await finalizeWithFFmpeg(tempVideoBlob, new Uint8Array(wavBuffer), sampleRate);
-                        } else {
-                            setExportProgress(100);
-                        }
-
-                        if (exportQueue.isCancelled) throw new Error(EXPORT_ERRORS.CANCELLED);
-
-                        state.exportBlobUrl = URL.createObjectURL(finalBlob);
-                        state.exportFormat = 'mp4';
-
-                        // ================================
-                        // Smart Thumbnail Generator
-                        // ================================
-                        try {
-                            const thumbCanvas = document.createElement('canvas');
-
-                            thumbCanvas.width = 1280;
-                            thumbCanvas.height = 720;
-
-                            const ctx = thumbCanvas.getContext('2d');
-
-                            ctx.drawImage(
-                                UI.canvas || document.getElementById('previewCanvas'),
-                                0,
-                                0,
-                                thumbCanvas.width,
-                                thumbCanvas.height
-                            );
-
-                            const thumbBlob = await new Promise(resolve => {
-                                thumbCanvas.toBlob(
-                                    resolve,
-                                    'image/jpeg',
-                                    0.95
-                                );
-                            });
-
-                            if (state.thumbnailUrl) {
-                                URL.revokeObjectURL(state.thumbnailUrl);
-                            }
-
-                            state.thumbnailBlob = thumbBlob;
-                            state.thumbnailUrl = URL.createObjectURL(thumbBlob);
-
-                        } catch (e) {
-                            console.warn(e);
-                        }
-
-                        updateExportButtonState();
-                        resolveExport(state.exportBlobUrl);
-                    } catch (err) {
-                        if (err.message === EXPORT_ERRORS.CANCELLED) {
-                            resolveExport(null);
-                            return;
-                        }
-                        console.error("Muxing Error:", err);
-                        if (!exportQueue.isCancelled) alert(`حدث خطأ أثناء إخراج الفيديو: ${err.message || err}`);
-                        rejectExport(err);
-                    } finally {
-                        UI.loader.classList.add('hidden');
-                        // لا تظهر شاشة النجاح أبداً إذا تم الإلغاء
-                        if (state.exportBlobUrl) {
-                            UI.exportProcessingUI.classList.add('hidden');
-                            UI.exportFinishedUI.classList.remove('hidden');
-                            if (window.lucide) window.lucide.createIcons();
-                        }
-
+                        break;
+                    case 'exportError':
                         state.worker.removeEventListener('message', onWorkerMessage);
-                        window.onbeforeunload = null;
-                    }
-                    break;
-                case 'exportError':
-                    state.worker.removeEventListener('message', onWorkerMessage);
-                    if (pendingFramesResolver) { pendingFramesResolver(); pendingFramesResolver = null; }
-                    
-                    // التحويل التدريجي (WebCodecs Software -> ثم FFmpeg)
-                    if (data.error && state.fastExport) {
-                        if (state.webCodecsFallbackLevel === 0) {
-                            console.warn("Hardware WebCodecs encoder failed. Retrying with Software WebCodecs...", data.error);
-                            state.webCodecsFallbackLevel = 1;
-                            rejectExport(new Error("WebCodecs Encoder fallback software"));
-                        } else {
-                            console.warn("Software WebCodecs encoder failed. Falling back to FFmpeg...", data.error);
-                            state.fastExport = false;
-                            state.webCodecsFallbackLevel = 0;
-                            if (document.getElementById('btnExportFast')) document.getElementById('btnExportFast').classList.remove('active');
-                            if (document.getElementById('btnExportFfmpeg')) document.getElementById('btnExportFfmpeg').classList.add('active');
-                            rejectExport(new Error("WebCodecs Encoder fallback ffmpeg"));
-                        }
-                    } else {
-                        resetExportUI();
-                        alert(`حدث خطأ أثناء التصدير: ${data.error}`);
-                        rejectExport(new Error(data.error));
-                    }
-                    break;
-                case 'exportAborted':
-                    // تنظيف الذاكرة بعد الإلغاء
-                    state.worker.removeEventListener('message', onWorkerMessage);
-                    if (useFFmpegEncoder) {
-                        ensureFFmpegReady().then(({ ffmpeg }) => {
-                            for(let i=0; i<=currentFrame; i++) ffmpeg.deleteFile(`frame_${i}.jpg`).catch(()=>{});
-                        });
-                    }
                         if (pendingFramesResolver) { pendingFramesResolver(); pendingFramesResolver = null; }
-                    resetExportUI();
-                    resolveExport(null);
-                    break;
-            }
+
+                        // التحويل التدريجي (WebCodecs Software -> ثم FFmpeg)
+                        if (data.error && state.fastExport) {
+                            if (state.webCodecsFallbackLevel === 0) {
+                                console.warn("Hardware WebCodecs encoder failed. Retrying with Software WebCodecs...", data.error);
+                                state.webCodecsFallbackLevel = 1;
+                                rejectExport(new Error("WebCodecs Encoder fallback software"));
+                            } else {
+                                console.warn("Software WebCodecs encoder failed. Falling back to FFmpeg...", data.error);
+                                state.fastExport = false;
+                                state.webCodecsFallbackLevel = 0;
+                                if (document.getElementById('btnExportFast')) document.getElementById('btnExportFast').classList.remove('active');
+                                if (document.getElementById('btnExportFfmpeg')) document.getElementById('btnExportFfmpeg').classList.add('active');
+                                rejectExport(new Error("WebCodecs Encoder fallback ffmpeg"));
+                            }
+                        } else {
+                            resetExportUI();
+                            alert(`حدث خطأ أثناء التصدير: ${data.error}`);
+                            rejectExport(new Error(data.error));
+                        }
+                        break;
+                    case 'exportAborted':
+                        // تنظيف الذاكرة بعد الإلغاء
+                        state.worker.removeEventListener('message', onWorkerMessage);
+                        if (useFFmpegEncoder) {
+                            ensureFFmpegReady().then(({ ffmpeg }) => {
+                                for (let i = 0; i <= currentFrame; i++) ffmpeg.deleteFile(`frame_${i}.jpg`).catch(() => { });
+                            });
+                        }
+                        if (pendingFramesResolver) { pendingFramesResolver(); pendingFramesResolver = null; }
+                        resetExportUI();
+                        resolveExport(null);
+                        break;
+                }
             };
             state.worker.addEventListener('message', onWorkerMessage);
         });
@@ -1599,34 +1832,34 @@ async function getExportVideoConfig(size, quality, initialFPS) {
     const effectiveQuality = (isMobileDevice && quality === '4k') ? '720p' : quality;
 
     if (effectiveQuality === '4k') {
-        switch(size) { case '9:16': exportW = 2160; exportH = 3840; break; case '1:1': exportW = 2160; exportH = 2160; break; case '16:9': exportW = 3840; exportH = 2160; break; case '4:5': exportW = 2160; exportH = 2700; break; }
+        switch (size) { case '9:16': exportW = 2160; exportH = 3840; break; case '1:1': exportW = 2160; exportH = 2160; break; case '16:9': exportW = 3840; exportH = 2160; break; case '4:5': exportW = 2160; exportH = 2700; break; }
     } else if (effectiveQuality === '720p') {
-        switch(size) { case '9:16': exportW = 720; exportH = 1280; break; case '1:1': exportW = 720; exportH = 720; break; case '16:9': exportW = 1280; exportH = 720; break; case '4:5': exportW = 720; exportH = 900; break; }
+        switch (size) { case '9:16': exportW = 720; exportH = 1280; break; case '1:1': exportW = 720; exportH = 720; break; case '16:9': exportW = 1280; exportH = 720; break; case '4:5': exportW = 720; exportH = 900; break; }
     } else if (effectiveQuality === '480p') {
-        switch(size) { case '9:16': exportW = 480; exportH = 854; break; case '1:1': exportW = 480; exportH = 480; break; case '16:9': exportW = 854; exportH = 480; break; case '4:5': exportW = 480; exportH = 600; break; }
+        switch (size) { case '9:16': exportW = 480; exportH = 854; break; case '1:1': exportW = 480; exportH = 480; break; case '16:9': exportW = 854; exportH = 480; break; case '4:5': exportW = 480; exportH = 600; break; }
     } else {
-        switch(size) { case '9:16': exportW = 1080; exportH = 1920; break; case '1:1': exportW = 1080; exportH = 1080; break; case '16:9': exportW = 1920; exportH = 1080; break; case '4:5': exportW = 1080; exportH = 1350; break; }
+        switch (size) { case '9:16': exportW = 1080; exportH = 1920; break; case '1:1': exportW = 1080; exportH = 1080; break; case '16:9': exportW = 1920; exportH = 1080; break; case '4:5': exportW = 1080; exportH = 1350; break; }
     }
 
     const format = state.exportFormat || 'mp4';
     let dynamicBitrate = Math.round((exportW * exportH * FPS) * 0.035);
     let finalVideoCodecConfig;
-    
+
     try {
         let vp9Codec = (exportW > 1920 && FPS > 30) ? 'vp09.00.51.08' : 'vp09.00.50.08';
         let h264Main = 'avc1.4d0034';
         let h264Baseline = 'avc1.42E01F';
-        
+
         let h264Codec = state.webCodecsFallbackLevel === 1 ? h264Baseline : h264Main;
         let hwAccel = state.webCodecsFallbackLevel === 1 ? "prefer-software" : "prefer-hardware";
-        
-        finalVideoCodecConfig = format === 'webm' ? 
-            { codec: vp9Codec, width: exportW, height: exportH, framerate: FPS, bitrate: dynamicBitrate, bitrateMode: "variable", hardwareAcceleration: hwAccel } : 
+
+        finalVideoCodecConfig = format === 'webm' ?
+            { codec: vp9Codec, width: exportW, height: exportH, framerate: FPS, bitrate: dynamicBitrate, bitrateMode: "variable", hardwareAcceleration: hwAccel } :
             { codec: h264Codec, width: exportW, height: exportH, framerate: FPS, bitrate: dynamicBitrate, bitrateMode: "variable", avc: { format: 'avc' }, hardwareAcceleration: hwAccel };
 
         if (window.VideoEncoder) {
             let support = await window.VideoEncoder.isConfigSupported(finalVideoCodecConfig);
-            
+
             if (!support.supported && format !== 'webm') {
                 finalVideoCodecConfig.codec = h264Baseline;
                 finalVideoCodecConfig.hardwareAcceleration = "prefer-software";
@@ -1642,7 +1875,7 @@ async function getExportVideoConfig(size, quality, initialFPS) {
                 finalVideoCodecConfig.codec = format === 'webm' ? 'vp09.00.50.08' : 'avc1.4d0033';
                 support = await window.VideoEncoder.isConfigSupported(finalVideoCodecConfig);
             }
-            
+
             if (!support.supported && effectiveQuality === '4k') {
                 console.warn("دقة 4K غير مدعومة للترميز، سيتم التخفيض إلى 1080p");
                 exportW = Math.round(exportW / 2);
@@ -1653,7 +1886,7 @@ async function getExportVideoConfig(size, quality, initialFPS) {
                 finalVideoCodecConfig.bitrate = dynamicBitrate;
             }
         }
-    } catch(e) { console.warn("تحذير دعم الهاردوير:", e); }
+    } catch (e) { console.warn("تحذير دعم الهاردوير:", e); }
 
     return { exportW, exportH, FPS, dynamicBitrate, finalVideoCodecConfig };
 }
@@ -1663,7 +1896,7 @@ async function preloadExportFonts(startIdx, endIdx) {
     const fontPromises = [];
     const vConfig = UI.fontVersion.value;
     const sConfig = state.surahs.find(x => x.id == state.selectedSurah);
-    
+
     for (let i = startIdx; i < endIdx; i++) {
         const ayah = state.ayahs[i];
         if (!ayah) continue;
@@ -1706,10 +1939,10 @@ async function calculateExportAudioTimings(startIdx, endIdx) {
     } else {
         let elapsed = 0;
         updateExportStatus("جاري التجهيز....");
-        
+
         let estimatedDuration = 15; // إضافة Safety Buffer
         for (let j = startIdx; j < endIdx; j++) estimatedDuration += state.ayahs[j]?.apiDuration || 15;
-        
+
         const isSmallCase = estimatedDuration <= 1800; // مسار التصدير العادي
 
         if (isSmallCase) {
@@ -1751,8 +1984,8 @@ async function calculateExportAudioTimings(startIdx, endIdx) {
             for (let j = startIdx; j < endIdx; j++) {
                 if (exportQueue.isCancelled) break;
                 onlineVerseTimings.push({ index: j, start: Math.max(0, elapsed) });
-                
-                const isNextContinuation = j + 1 < endIdx && state.ayahs[j+1] && state.ayahs[j+1].audioUrl === state.ayahs[j].audioUrl && state.ayahs[j+1].isSplit;
+
+                const isNextContinuation = j + 1 < endIdx && state.ayahs[j + 1] && state.ayahs[j + 1].audioUrl === state.ayahs[j].audioUrl && state.ayahs[j + 1].isSplit;
 
                 if (state.ayahs[j].exactDuration) {
                     const dur = state.ayahs[j].exactDuration;
@@ -1763,7 +1996,7 @@ async function calculateExportAudioTimings(startIdx, endIdx) {
                     }
                     elapsed += dur - overlap;
                 } else { elapsed += state.ayahs[j].apiDuration || 5; }
-                
+
                 const progress = 10 + (((j - startIdx + 1) / (endIdx - startIdx)) * 5);
                 setExportProgress(progress);
                 await new Promise(r => setTimeout(r, 20));
@@ -1806,7 +2039,7 @@ async function calculateExportAudioTimings(startIdx, endIdx) {
             for (let i = startIdx; i < endIdx; i += BATCH_SIZE) {
                 if (exportQueue.isCancelled) break;
                 const batchEnd = Math.min(i + BATCH_SIZE, endIdx);
-                
+
                 const fetchPromises = [];
                 for (let j = i; j < batchEnd; j++) {
                     const key = `${state.selectedReciter}_${j}`;
@@ -1819,8 +2052,8 @@ async function calculateExportAudioTimings(startIdx, endIdx) {
                 for (let j = i; j < batchEnd; j++) {
                     if (exportQueue.isCancelled) break;
                     onlineVerseTimings.push({ index: j, start: Math.max(0, elapsed) });
-                    const isNextContinuation = j + 1 < endIdx && state.ayahs[j+1] && state.ayahs[j+1].audioUrl === state.ayahs[j].audioUrl && state.ayahs[j+1].isSplit;
-                    
+                    const isNextContinuation = j + 1 < endIdx && state.ayahs[j + 1] && state.ayahs[j + 1].audioUrl === state.ayahs[j].audioUrl && state.ayahs[j + 1].isSplit;
+
                     const key = `${state.selectedReciter}_${j}`;
                     let buf = state.audioCache[key];
                     if (!buf && state.ayahs[j] && !state.ayahs[j].exactDuration) {
@@ -1835,8 +2068,8 @@ async function calculateExportAudioTimings(startIdx, endIdx) {
                         const playDuration = fullPlayDuration * durationRatio;
                         let overlap = 0;
                         if (!isNextContinuation) {
-                        overlap = Math.min(0.22, Math.max(0.04, fullPlayDuration * 0.065));
-                        overlap = Math.min(overlap, playDuration * 0.5);
+                            overlap = Math.min(0.22, Math.max(0.04, fullPlayDuration * 0.065));
+                            overlap = Math.min(overlap, playDuration * 0.5);
                         }
                         elapsed += playDuration - overlap;
                         state.ayahs[j].exactDuration = playDuration;
@@ -1864,7 +2097,7 @@ async function calculateExportAudioTimings(startIdx, endIdx) {
                 const globalPercent = 5 + (((batchEnd - startIdx) / (endIdx - startIdx)) * 10);
                 setExportProgress(globalPercent);
                 updateExportStatus(`تجهيز الصوتيات (${batchEnd - startIdx}/${endIdx - startIdx})...`);
-                
+
                 if (estimatedDuration > 1800) await new Promise(r => setTimeout(r, 30));
             }
         }
@@ -1885,7 +2118,7 @@ function precomputeAllWaveData(wavBuffer, totalFrames, FPS, sampleRate, totalSam
     const rangeScale = 255 / (maxDb - minDb);
     const alpha = 0.16;
     const a0 = 0.5 * (1 - alpha), a1 = 0.5, a2 = 0.5 * alpha;
-    
+
     const windowMultipliers = new Float32Array(N);
     for (let n = 0; n < N; n++) {
         windowMultipliers[n] = a0 - a1 * Math.cos((2 * Math.PI * n) / (N - 1)) + a2 * Math.cos((4 * Math.PI * n) / (N - 1));
@@ -1908,10 +2141,10 @@ function precomputeAllWaveData(wavBuffer, totalFrames, FPS, sampleRate, totalSam
     for (let frame = 0; frame < totalFrames; frame++) {
         const timestampSec = frame / FPS;
         const frameSampleIndex = Math.floor(timestampSec * sampleRate);
-        const startSample = Math.max(0, frameSampleIndex - Math.floor(N/2));
+        const startSample = Math.max(0, frameSampleIndex - Math.floor(N / 2));
         const endSample = Math.min(totalSamples, startSample + N);
         const actualN = endSample - startSample;
-        
+
         const channelData = new Float32Array(N);
         let offset = headerOffsetInt16 + (startSample * 2);
         for (let n = 0; n < actualN; n++) {
@@ -1919,9 +2152,9 @@ function precomputeAllWaveData(wavBuffer, totalFrames, FPS, sampleRate, totalSam
             channelData[n] = (int16View[offset] / 32768.0) * windowMultipliers[n];
             offset += 2; // تخطي القناة اليمنى وأخذ اليسرى فقط
         }
-        
+
         const waveData = new Uint8Array(bins);
-        
+
         for (let k = 0; k < bins; k++) {
             let sumR = 0, sumI = 0;
             // المرور فقط على العينات الحقيقية (تخطي الأصفار) للسرعة
@@ -1929,15 +2162,15 @@ function precomputeAllWaveData(wavBuffer, totalFrames, FPS, sampleRate, totalSam
                 const val = channelData[n];
                 // استخدام Bitwise AND كبديل فائق السرعة لـ Modulo (%) 
                 // لأن 127 = 128 - 1 (تعمل فقط مع مضاعفات 2)
-                const idx = (k * n) & 127; 
+                const idx = (k * n) & 127;
                 sumR += val * cosTable[idx];
                 sumI -= val * sinTable[idx];
             }
-            
+
             const magnitude = Math.sqrt(sumR * sumR + sumI * sumI) / (N / 2);
             const smoothedMag = (smoothedWaveData[k] * 0.85) + (magnitude * 0.15);
             smoothedWaveData[k] = smoothedMag;
-            
+
             let db = 20 * Math.log10(smoothedMag || 1e-10);
             let byteVal = (db - minDb) * rangeScale;
             waveData[k] = Math.max(0, Math.min(255, byteVal));
@@ -1953,30 +2186,30 @@ function executeMediaRecorderFallback(exportW, exportH, FPS, dynamicBitrate, off
         state.isRealtimeExport = true;
         state.worker.postMessage({ type: 'resize', width: exportW, height: exportH });
         state.worker.postMessage({ type: 'startRealtimeExport' });
-        
+
         await new Promise(r => setTimeout(r, 500));
         if (exportQueue.isCancelled) { resolve(null); return; }
-        
+
         let canvasStream;
         try {
             canvasStream = UI.canvas.captureStream(FPS);
             if (canvasStream.getVideoTracks().length === 0) throw new Error('No tracks');
-        } catch(e) {
+        } catch (e) {
             state.isRealtimeExport = false;
             state.worker.postMessage({ type: 'stopRealtimeExport' });
             reject(new Error("متصفحك لا يدعم التقاط الفيديو من الشاشة. يرجى استخدام متصفح حديث (Chrome/Edge)."));
             return;
         }
-        
+
         const audioStream = state.audioDestination.stream;
         const combinedStream = new MediaStream([...canvasStream.getVideoTracks(), ...audioStream.getAudioTracks()]);
-        
+
         const mimeType = getSupportedMimeType();
         const recorder = new MediaRecorder(combinedStream, { mimeType, videoBitsPerSecond: dynamicBitrate || 2500000 });
-        
+
         const chunks = [];
         recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
-        
+
         const finish = (result) => {
             state.isRealtimeExport = false;
             state.worker.postMessage({ type: 'stopRealtimeExport' });
@@ -1989,23 +2222,23 @@ function executeMediaRecorderFallback(exportW, exportH, FPS, dynamicBitrate, off
             state.exportBlobUrl = URL.createObjectURL(blob);
             state.exportFormat = mimeType.includes('mp4') ? 'mp4' : 'webm';
             updateExportButtonState();
-            
+
             UI.loader.classList.add('hidden');
             UI.exportProcessingUI.classList.add('hidden');
             UI.exportFinishedUI.classList.remove('hidden');
             if (window.lucide) window.lucide.createIcons();
             finish(state.exportBlobUrl);
         };
-        
+
         recorder.onerror = (e) => {
             state.isRealtimeExport = false;
             state.worker.postMessage({ type: 'stopRealtimeExport' });
             reject(new Error("فشل التصدير الفعلي: " + e.message));
         };
-        
+
         recorder.start(1000);
         state.isPlaying = true; playSeamless(startIdx);
-        
+
         const startTime = state.audioContext.currentTime;
         const checkInterval = setInterval(() => {
             if (exportQueue.isCancelled) {
@@ -2031,12 +2264,12 @@ async function processOfflineAudio(offlineDuration, onlineVerseTimings, startIdx
         const numberOfChannels = 2; const bytesPerSample = 2;
         const blockAlign = numberOfChannels * bytesPerSample;
         const byteRate = sampleRate * blockAlign;
-        
+
         const localWavBuffer = new ArrayBuffer(44 + (totalSamples * blockAlign));
         const wavView = new DataView(localWavBuffer);
-        
+
         const writeString = (offset, text) => { for (let i = 0; i < text.length; i++) wavView.setUint8(offset + i, text.charCodeAt(i)); };
-        
+
         writeString(0, 'RIFF'); wavView.setUint32(4, 36 + (totalSamples * blockAlign), true); writeString(8, 'WAVE'); writeString(12, 'fmt ');
         wavView.setUint32(16, 16, true); wavView.setUint16(20, 1, true); wavView.setUint16(22, numberOfChannels, true);
         wavView.setUint32(24, sampleRate, true); wavView.setUint32(28, byteRate, true); wavView.setUint16(32, blockAlign, true);
@@ -2050,32 +2283,32 @@ async function processOfflineAudio(offlineDuration, onlineVerseTimings, startIdx
 
         for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
             if (exportQueue.isCancelled) return null;
-            
+
             const chunkStart = chunkIndex * CHUNK_DURATION;
             const chunkEnd = Math.min((chunkIndex + 1) * CHUNK_DURATION, offlineDuration);
-            const renderDuration = chunkEnd - chunkStart; 
+            const renderDuration = chunkEnd - chunkStart;
             const chunkSamples = Math.ceil(renderDuration * sampleRate);
-            
+
             const chunkCtx = new (window.OfflineAudioContext || window.webkitOfflineAudioContext)(2, chunkSamples, sampleRate);
             const { entryNode, cleanupGraph } = createOfflineAudioGraph(chunkCtx, audioConfig);
-            const cleanupChunkCtx = () => { 
+            const cleanupChunkCtx = () => {
                 if (cleanupGraph) cleanupGraph();
-                if (chunkCtx && typeof chunkCtx.close === 'function' && chunkCtx.state !== 'closed') { try { chunkCtx.close(); } catch (e) {} } 
+                if (chunkCtx && typeof chunkCtx.close === 'function' && chunkCtx.state !== 'closed') { try { chunkCtx.close(); } catch (e) { } }
             };
 
             if (state.audioMode === 'local') {
                 const offset = state.timings[startIdx] || 0;
                 let localBuf = state.localAudioBuffer;
-                
+
                 if (!localBuf && state.localAudioFile) {
                     const decodeCtx = state.audioContext || new (window.AudioContext || window.webkitAudioContext)();
                     const arrayBuffer = await state.localAudioFile.arrayBuffer();
                     localBuf = await decodeCtx.decodeAudioData(arrayBuffer);
                     state.localAudioBuffer = localBuf;
-                    if (!state.audioContext && decodeCtx && typeof decodeCtx.close === 'function') { try { decodeCtx.close(); } catch(e) {} }
+                    if (!state.audioContext && decodeCtx && typeof decodeCtx.close === 'function') { try { decodeCtx.close(); } catch (e) { } }
                     if (exportQueue.isCancelled) { cleanupChunkCtx(); return null; }
                 }
-                
+
                 if (localBuf) {
                     const source = chunkCtx.createBufferSource();
                     source.buffer = localBuf; source.connect(entryNode);
@@ -2090,49 +2323,49 @@ async function processOfflineAudio(offlineDuration, onlineVerseTimings, startIdx
                     if (!buf) { buf = await fetchAudioBuffer(state.ayahs[index].audioUrl); if (buf) addToAudioCache(index, buf); }
                     if (exportQueue.isCancelled) { cleanupChunkCtx(); return null; }
                     if (buf) {
-                        const isContinuation = j > 0 && state.ayahs[index].audioUrl === state.ayahs[onlineVerseTimings[j-1].index]?.audioUrl && state.ayahs[index].isSplit;
-                        
+                        const isContinuation = j > 0 && state.ayahs[index].audioUrl === state.ayahs[onlineVerseTimings[j - 1].index]?.audioUrl && state.ayahs[index].isSplit;
+
                         if (!isContinuation) {
                             const { startSilence, endSilence } = calculateSilence(buf);
                             const fullPlayDuration = Math.max(0.1, buf.duration - startSilence - endSilence);
                             const offsetRatio = state.ayahs[index].splitStartRatio || 0;
                             const actualStartSilence = startSilence + (fullPlayDuration * offsetRatio);
-                            
+
                             const audioDurationToPlay = fullPlayDuration * (1 - offsetRatio);
                             const verseEnd = verseStart + audioDurationToPlay;
-                            
+
                             if (verseStart < chunkStart + renderDuration && verseEnd > chunkStart) {
                                 const source = chunkCtx.createBufferSource();
                                 const fadeGain = chunkCtx.createGain();
-                                source.buffer = buf; 
+                                source.buffer = buf;
                                 source.connect(fadeGain);
                                 fadeGain.connect(entryNode);
-                                
+
                                 const playStartGlobal = Math.max(verseStart, chunkStart);
                                 const playEndGlobal = Math.min(verseEnd, chunkStart + renderDuration);
-                                
+
                                 if (playStartGlobal < playEndGlobal) {
                                     const playTimeInChunk = playStartGlobal - chunkStart;
                                     const offsetInBuffer = (playStartGlobal - verseStart) + actualStartSilence;
                                     const playDurationInChunk = playEndGlobal - playStartGlobal;
 
-                                const fadeDur = Math.min(0.03, playDurationInChunk / 2);
-                                fadeGain.gain.setValueAtTime(0, playTimeInChunk);
-                                fadeGain.gain.linearRampToValueAtTime(1, playTimeInChunk + fadeDur);
-                                fadeGain.gain.setValueAtTime(1, Math.max(playTimeInChunk + fadeDur, playTimeInChunk + playDurationInChunk - fadeDur));
-                                fadeGain.gain.linearRampToValueAtTime(0, playTimeInChunk + playDurationInChunk);
+                                    const fadeDur = Math.min(0.03, playDurationInChunk / 2);
+                                    fadeGain.gain.setValueAtTime(0, playTimeInChunk);
+                                    fadeGain.gain.linearRampToValueAtTime(1, playTimeInChunk + fadeDur);
+                                    fadeGain.gain.setValueAtTime(1, Math.max(playTimeInChunk + fadeDur, playTimeInChunk + playDurationInChunk - fadeDur));
+                                    fadeGain.gain.linearRampToValueAtTime(0, playTimeInChunk + playDurationInChunk);
 
-                                source.start(playTimeInChunk, offsetInBuffer, playDurationInChunk);
+                                    source.start(playTimeInChunk, offsetInBuffer, playDurationInChunk);
+                                }
                             }
-                        }
                         }
                     }
                 }
             }
-            
+
             const chunkBuffer = await chunkCtx.startRendering();
             if (exportQueue.isCancelled) { cleanupChunkCtx(); return null; }
-            
+
             const left = chunkBuffer.getChannelData(0);
             const right = chunkBuffer.numberOfChannels > 1 ? chunkBuffer.getChannelData(1) : left;
             const int16View = new Int16Array(localWavBuffer);
@@ -2142,24 +2375,24 @@ async function processOfflineAudio(offlineDuration, onlineVerseTimings, startIdx
                 const globalSampleIdx = startSampleGlobal + i;
                 if (globalSampleIdx >= totalSamples) break;
                 const offset = 22 + (globalSampleIdx * 2);
-                
+
                 const mixedL = (left[i] || 0) + (int16View[offset] / 32768.0);
                 const mixedR = (right[i] || 0) + (int16View[offset + 1] / 32768.0);
-                
+
                 int16View[offset] = mixedL < 0 ? Math.max(-1, mixedL) * 0x8000 : Math.min(1, mixedL) * 0x7FFF;
                 int16View[offset + 1] = mixedR < 0 ? Math.max(-1, mixedR) * 0x8000 : Math.min(1, mixedR) * 0x7FFF;
             }
-            
+
             if (state.audioMode === 'online') {
                 for (let j = 0; j < onlineVerseTimings.length - 1; j++) {
-                    if (onlineVerseTimings[j+1].start < chunkStart - 5) {
+                    if (onlineVerseTimings[j + 1].start < chunkStart - 5) {
                         const idx = onlineVerseTimings[j].index;
                         const key = `${state.selectedReciter}_${idx}`;
                         if (state.audioCache[key]) delete state.audioCache[key];
                     }
                 }
             }
-            
+
             const progress = 15 + (((chunkIndex + 1) / totalChunks) * 10);
             setExportProgress(progress);
             updateExportStatus(`جاري معالجة الصوت (${chunkIndex + 1}/${totalChunks})...`);
@@ -2182,9 +2415,9 @@ async function processOfflineAudio(offlineDuration, onlineVerseTimings, startIdx
 
         const offlineCtx = new (window.OfflineAudioContext || window.webkitOfflineAudioContext)(2, totalSamples, sampleRate);
         const { entryNode, cleanupGraph } = createOfflineAudioGraph(offlineCtx, audioConfig);
-        const cleanupOfflineCtx = () => { 
+        const cleanupOfflineCtx = () => {
             if (cleanupGraph) cleanupGraph();
-            if (offlineCtx && typeof offlineCtx.close === 'function' && offlineCtx.state !== 'closed') { try { offlineCtx.close(); } catch (e) {} } 
+            if (offlineCtx && typeof offlineCtx.close === 'function' && offlineCtx.state !== 'closed') { try { offlineCtx.close(); } catch (e) { } }
         };
 
         if (state.audioMode === 'local') {
@@ -2209,9 +2442,9 @@ async function processOfflineAudio(offlineDuration, onlineVerseTimings, startIdx
                 let buf = state.audioCache[key];
                 if (!buf) { buf = await fetchAudioBuffer(state.ayahs[index].audioUrl); if (buf) addToAudioCache(index, buf); }
                 if (exportQueue.isCancelled) { cleanupOfflineCtx(); return null; }
-                
-                const isContinuation = j > 0 && state.ayahs[index].audioUrl === state.ayahs[onlineVerseTimings[j-1].index]?.audioUrl && state.ayahs[index].isSplit;
-                const isNextContinuation = j + 1 < onlineVerseTimings.length - 1 && state.ayahs[onlineVerseTimings[j+1].index].audioUrl === state.ayahs[index].audioUrl && state.ayahs[onlineVerseTimings[j+1].index].isSplit;
+
+                const isContinuation = j > 0 && state.ayahs[index].audioUrl === state.ayahs[onlineVerseTimings[j - 1].index]?.audioUrl && state.ayahs[index].isSplit;
+                const isNextContinuation = j + 1 < onlineVerseTimings.length - 1 && state.ayahs[onlineVerseTimings[j + 1].index].audioUrl === state.ayahs[index].audioUrl && state.ayahs[onlineVerseTimings[j + 1].index].isSplit;
 
                 if (buf) {
                     onlineVerseTimings[j].start = currentTime;
@@ -2221,7 +2454,7 @@ async function processOfflineAudio(offlineDuration, onlineVerseTimings, startIdx
                     const durationRatio = state.ayahs[index].splitDurationRatio || 1;
                     const actualStartSilence = startSilence + (fullPlayDuration * offsetRatio);
                     const playDuration = fullPlayDuration * durationRatio;
-                    
+
                     if (!isContinuation) {
                         const source = offlineCtx.createBufferSource();
                         const fadeGain = offlineCtx.createGain();
@@ -2232,14 +2465,14 @@ async function processOfflineAudio(offlineDuration, onlineVerseTimings, startIdx
                         fadeGain.gain.linearRampToValueAtTime(1, currentTime + fadeDur);
                         fadeGain.gain.setValueAtTime(1, currentTime + audioDurationToPlay - fadeDur);
                         fadeGain.gain.linearRampToValueAtTime(0, currentTime + audioDurationToPlay);
-                        source.connect(fadeGain); fadeGain.connect(entryNode); 
+                        source.connect(fadeGain); fadeGain.connect(entryNode);
                         source.start(currentTime, actualStartSilence, audioDurationToPlay);
                     }
 
                     let overlap = 0;
                     if (!isNextContinuation) {
-                    overlap = Math.min(0.22, Math.max(0.04, fullPlayDuration * 0.065));
-                    overlap = Math.min(overlap, playDuration * 0.5);
+                        overlap = Math.min(0.22, Math.max(0.04, fullPlayDuration * 0.065));
+                        overlap = Math.min(overlap, playDuration * 0.5);
                     }
                     currentTime += playDuration - overlap;
                 } else {
@@ -2286,15 +2519,15 @@ export function resetExportUI() {
     cancelActiveFFmpeg();
     state.lastRenderPayload = null; // إجبار التطبيق على إرسال تحديث شامل لإخراج المعالج من وضع السبات السريع
     // لا نعيد تفريغ exportBlobUrl هنا لأننا نريد إرجاعه كنتيجة
-    
+
     // تفريغ الرام بعد التصدير للموبايل لإبقاء المتصفح سريعاً (أما الديسكتوب فنحتفظ بالملف للتشغيل)
     if (state.audioMode === 'local' && state.useAudioElement) { state.localAudioBuffer = null; }
 
     const cancelBtn = document.getElementById('cancelExportBtnDynamic');
     if (cancelBtn) cancelBtn.style.display = 'none'; // إخفاء زر الإلغاء بعد الانتهاء
-    
+
     UI.sidebar.classList.remove('sidebar-disabled'); UI.playBtn.disabled = false; UI.playBtn.style.opacity = "1"; UI.exportOverlay.style.display = "none";
-    
+
     // إعادة ضبط أبعاد المعاينة بعد انتهاء أو إلغاء التصدير
     if (UI.canvasSize) UI.canvasSize.dispatchEvent(new Event('change'));
 
