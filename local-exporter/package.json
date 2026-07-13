@@ -9,16 +9,22 @@
     "build": "node build.js"
   },
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "ws": "^8.16.0"
   },
   "devDependencies": {
+    "@ffmpeg-installer/darwin-x64": "^4.1.0",
+    "@ffmpeg-installer/linux-x64": "^4.1.0",
+    "@ffmpeg-installer/win32-x64": "^4.1.0",
     "pkg": "^5.8.1",
     "png2icons": "^2.0.1",
     "resedit": "^3.0.2"
   },
   "pkg": {
     "assets": [
-      "icon.png"
+      "icon.png",
+      "build-assets/ffmpeg",
+      "build-assets/ffmpeg.exe"
     ]
   }
 }

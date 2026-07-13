@@ -174,11 +174,29 @@ wss.on('connection', (ws) => {
                     
                     function getFfmpegPath() {
                         const isPkg = typeof process.pkg !== 'undefined';
-                        const baseDir = isPkg ? path.dirname(process.execPath) : __dirname;
                         const ext = os.platform() === 'win32' ? '.exe' : '';
-                        const localFfmpeg = path.join(baseDir, `ffmpeg${ext}`);
-                        if (fs.existsSync(localFfmpeg)) return localFfmpeg;
-                        return 'ffmpeg';
+                        
+                        if (isPkg) {
+                            const bundledPath = path.join(__dirname, 'build-assets', `ffmpeg${ext}`);
+                            const tmpPath = path.join(os.tmpdir(), `tarteel-ffmpeg${ext}`);
+                            
+                            // Only extract if it doesn't exist to save time
+                            if (!fs.existsSync(tmpPath)) {
+                                try {
+                                    const binaryData = fs.readFileSync(bundledPath);
+                                    fs.writeFileSync(tmpPath, binaryData);
+                                    if (os.platform() !== 'win32') {
+                                        fs.chmodSync(tmpPath, 0o755); // Make executable on Mac/Linux
+                                    }
+                                } catch (e) {
+                                    console.error("[!] Failed to extract bundled FFmpeg:", e.message);
+                                }
+                            }
+                            return tmpPath;
+                        } else {
+                            // Local dev fallback
+                            return 'ffmpeg';
+                        }
                     }
                     const ffmpegPath = getFfmpegPath();
 

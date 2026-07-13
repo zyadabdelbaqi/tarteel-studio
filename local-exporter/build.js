@@ -12,7 +12,7 @@ const ICON_ICNS = path.join(ASSETS_DIR, 'icon.icns');
 
 console.log("🚀 Starting advanced build process for Tarteel Exporter...");
 
-// 1. Prepare directories & Copy icon for Linux pkg asset
+// 1. Prepare directories
 if (!fs.existsSync(BUILD_DIR)) fs.mkdirSync(BUILD_DIR, { recursive: true });
 if (!fs.existsSync(ASSETS_DIR)) fs.mkdirSync(ASSETS_DIR, { recursive: true });
 fs.copyFileSync(ICON_PNG, path.join(__dirname, 'icon.png'));
@@ -26,11 +26,34 @@ if (icoBuffer) fs.writeFileSync(ICON_ICO, icoBuffer);
 const icnsBuffer = png2icons.createICNS(pngBuffer, png2icons.BICUBIC2, 0);
 if (icnsBuffer) fs.writeFileSync(ICON_ICNS, icnsBuffer);
 
-// 3. Compile binaries using pkg
-console.log("📦 Compiling binaries with pkg...");
-execSync('npx pkg . --targets node18-win-x64,node18-linux-x64,node18-macos-x64 --out-path build', { stdio: 'inherit' });
+const FFMPEG_SOURCES = {
+    'win-x64': path.join(__dirname, 'node_modules', '@ffmpeg-installer', 'win32-x64', 'ffmpeg.exe'),
+    'macos-x64': path.join(__dirname, 'node_modules', '@ffmpeg-installer', 'darwin-x64', 'ffmpeg'),
+    'linux-x64': path.join(__dirname, 'node_modules', '@ffmpeg-installer', 'linux-x64', 'ffmpeg')
+};
 
-// 4. Windows: Inject Icon using resedit
+function copyFfmpeg(target) {
+    const src = FFMPEG_SOURCES[target];
+    const dest = path.join(ASSETS_DIR, target === 'win-x64' ? 'ffmpeg.exe' : 'ffmpeg');
+    if (fs.existsSync(dest)) fs.unlinkSync(dest);
+    
+    // Clean opposite named file to avoid duplicate bundling
+    const oppDest = path.join(ASSETS_DIR, target === 'win-x64' ? 'ffmpeg' : 'ffmpeg.exe');
+    if (fs.existsSync(oppDest)) fs.unlinkSync(oppDest);
+
+    if (fs.existsSync(src)) {
+        fs.copyFileSync(src, dest);
+        console.log(`[+] Copied FFmpeg for ${target}`);
+    } else {
+        console.error(`[!] FFmpeg for ${target} not found at ${src}!`);
+    }
+}
+
+// 3. Compile Windows
+console.log("\\n📦 Compiling Windows binary...");
+copyFfmpeg('win-x64');
+execSync('npx pkg . --targets node18-win-x64 --output build/tarteel-local-exporter-win.exe', { stdio: 'inherit' });
+
 console.log("🪟 Injecting icon into Windows executable...");
 const winExePath = path.join(BUILD_DIR, 'tarteel-local-exporter-win.exe');
 if (fs.existsSync(winExePath) && fs.existsSync(ICON_ICO)) {
@@ -44,7 +67,6 @@ if (fs.existsSync(winExePath) && fs.existsSync(ICON_ICO)) {
         iconFile.icons.map(item => item.data)
     );
     
-    // Set Version Info
     const vi = resedit.Resource.VersionInfo.createEmpty();
     vi.setStringValues(
         { lang: 1033, codepage: 1200 },
@@ -62,28 +84,36 @@ if (fs.existsSync(winExePath) && fs.existsSync(ICON_ICO)) {
     console.log("✅ Windows icon injected!");
 }
 
-// 5. macOS: Create App Bundle
+// 4. Compile Linux
+console.log("\\n📦 Compiling Linux binary...");
+copyFfmpeg('linux-x64');
+execSync('npx pkg . --targets node18-linux-x64 --output build/tarteel-local-exporter-linux', { stdio: 'inherit' });
+console.log("✅ Linux build complete!");
+
+// 5. Compile macOS
+console.log("\\n📦 Compiling macOS binary...");
+copyFfmpeg('macos-x64');
+execSync('npx pkg . --targets node18-macos-x64 --output build/tarteel-local-exporter-macos', { stdio: 'inherit' });
+
 console.log("🍏 Creating macOS App Bundle...");
 const macBinPath = path.join(BUILD_DIR, 'tarteel-local-exporter-macos');
 const macAppDir = path.join(BUILD_DIR, 'Tarteel Exporter.app');
 
 if (fs.existsSync(macBinPath)) {
+    if (fs.existsSync(macAppDir)) fs.rmSync(macAppDir, { recursive: true, force: true });
     const macOsDir = path.join(macAppDir, 'Contents', 'MacOS');
     const resourcesDir = path.join(macAppDir, 'Contents', 'Resources');
     
     fs.mkdirSync(macOsDir, { recursive: true });
     fs.mkdirSync(resourcesDir, { recursive: true });
     
-    // Move binary
     fs.renameSync(macBinPath, path.join(macOsDir, 'tarteel-exporter'));
     execSync(`chmod +x "${path.join(macOsDir, 'tarteel-exporter')}"`);
     
-    // Copy icon
     if (fs.existsSync(ICON_ICNS)) {
         fs.copyFileSync(ICON_ICNS, path.join(resourcesDir, 'icon.icns'));
     }
     
-    // Create Info.plist
     const plist = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -117,8 +147,10 @@ if (fs.existsSync(macBinPath)) {
 </plist>`;
     fs.writeFileSync(path.join(macAppDir, 'Contents', 'Info.plist'), plist);
     
-    // Zip the app bundle for easy distribution
     console.log("🗜️ Zipping macOS App Bundle...");
+    if (fs.existsSync(path.join(BUILD_DIR, "Tarteel_Exporter_macOS.zip"))) {
+        fs.unlinkSync(path.join(BUILD_DIR, "Tarteel_Exporter_macOS.zip"));
+    }
     execSync(`cd "${BUILD_DIR}" && zip -r "Tarteel_Exporter_macOS.zip" "Tarteel Exporter.app"`, { stdio: 'ignore' });
     
     console.log("✅ macOS App Bundle created and zipped!");
