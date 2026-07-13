@@ -1,11 +1,11 @@
-import { supabaseClient, state } from './store.js';
-import { UI } from './ui.js';
-import { enforceSingleSession, loadUserPlan, getSessionStatus } from './auth.js';
-import { initAudio, stopAudio, playSeamless, fetchAudioBuffer, fetchAudioRaw, createReverbBuffer, addToAudioCache, clearAudioCache, calculateSilence } from './audio.js';
-import { loadAndSendFont } from './renderer.js';
-import { getUserCapabilities, getAllowedRange, getRealVerseCount, getAyahIndexByRealNumber } from './permissions.js';
-import { exportQueue, isExporting, EXPORT_ERRORS } from './exportQueue.js';
-import { getCache, setCache } from './db.js';
+import { supabaseClient, state } from './store.js?v=1783957436877';
+import { UI } from './ui.js?v=1783957436877';
+import { enforceSingleSession, loadUserPlan, getSessionStatus } from './auth.js?v=1783957436877';
+import { initAudio, stopAudio, playSeamless, fetchAudioBuffer, fetchAudioRaw, createReverbBuffer, addToAudioCache, clearAudioCache, calculateSilence } from './audio.js?v=1783957436877';
+import { loadAndSendFont } from './renderer.js?v=1783957436877';
+import { getUserCapabilities, getAllowedRange, getRealVerseCount, getAyahIndexByRealNumber } from './permissions.js?v=1783957436877';
+import { exportQueue, isExporting, EXPORT_ERRORS } from './exportQueue.js?v=1783957436877';
+import { getCache, setCache } from './db.js?v=1783957436877';
 
 let isQueueCallbackSet = false;
 function setupQueueCallback() {
@@ -856,9 +856,9 @@ function showLocalExporterModal() {
                 <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-tr from-blue-500/10 to-indigo-500/10 dark:from-blue-500/20 dark:to-indigo-500/20 rounded-full flex items-center justify-center border border-blue-500/20 dark:border-blue-500/30">
                     <i data-lucide="download-cloud" class="w-10 h-10 text-blue-600 dark:text-blue-400"></i>
                 </div>
-                <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">التصدير المحلي 🚀</h2>
+                <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">التصدير الاحترافي 🚀</h2>
                 <p class="text-gray-600 dark:text-zinc-400 text-sm md:text-base leading-relaxed mb-6">
-                    لكي تتمكن من تصدير الفيديوهات باستخدام خيار التصدير المحلي، يجب عليك تثبيت أداة <strong>Tarteel Studio Exporter</strong> المجانية على جهازك.
+                    لكي تتمكن من تصدير الفيديوهات باستخدام خيار التصدير الاحترافي، يجب عليك تثبيت أداة <strong>Tarteel Studio Exporter</strong> المجانية على جهازك.
                 </p>
                 <div class="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/5 p-4 rounded-xl text-right mb-8">
                     <p class="text-sm font-bold text-blue-600 dark:text-blue-400 mb-4 text-center">قم بتحميل الأداة لنظامك (التحميل مباشر):</p>
