@@ -1,4 +1,11 @@
         @font-face {
+            font-family: 'Scheherazade New';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('https://cdn.jsdelivr.net/gh/zyadabdelbaqi/tarteel-assets@main/fonts/name/scheherazade-new-semibold.woff2') format('woff2');
+        }
+        @font-face {
             font-family: 'Noto Sans Arabic';
             font-style: normal;
             font-weight: 400;
