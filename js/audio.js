@@ -1,10 +1,10 @@
-import { state } from './store.js';
-import { UI } from './ui.js';
-import { updateExportButtonState } from './export.js';
-import { ensureFontLoaded } from './renderer.js';
-import { getCache, setCache } from './db.js';
-import { getUserCapabilities, getAllowedRange, getRealVerseCount, getAyahIndexByRealNumber } from './permissions.js';
-import { isExporting } from './exportQueue.js';
+import { state } from './store.js?v=1783959146802';
+import { UI } from './ui.js?v=1783959146802';
+import { updateExportButtonState } from './export.js?v=1783959146802';
+import { ensureFontLoaded } from './renderer.js?v=1783959146802';
+import { getCache, setCache } from './db.js?v=1783959146802';
+import { getUserCapabilities, getAllowedRange, getRealVerseCount, getAyahIndexByRealNumber } from './permissions.js?v=1783959146802';
+import { isExporting } from './exportQueue.js?v=1783959146802';
 
 export function addToAudioCache(index, buffer) {
     const MAX_AUDIO_CACHE = 15;

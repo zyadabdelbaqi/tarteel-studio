@@ -1,11 +1,11 @@
-import { supabaseClient, state } from './store.js?v=1783957436877';
-import { UI } from './ui.js?v=1783957436877';
-import { enforceSingleSession, loadUserPlan, getSessionStatus } from './auth.js?v=1783957436877';
-import { initAudio, stopAudio, playSeamless, fetchAudioBuffer, fetchAudioRaw, createReverbBuffer, addToAudioCache, clearAudioCache, calculateSilence } from './audio.js?v=1783957436877';
-import { loadAndSendFont } from './renderer.js?v=1783957436877';
-import { getUserCapabilities, getAllowedRange, getRealVerseCount, getAyahIndexByRealNumber } from './permissions.js?v=1783957436877';
-import { exportQueue, isExporting, EXPORT_ERRORS } from './exportQueue.js?v=1783957436877';
-import { getCache, setCache } from './db.js?v=1783957436877';
+import { supabaseClient, state } from './store.js?v=1783959146802';
+import { UI } from './ui.js?v=1783959146802';
+import { enforceSingleSession, loadUserPlan, getSessionStatus } from './auth.js?v=1783959146802';
+import { initAudio, stopAudio, playSeamless, fetchAudioBuffer, fetchAudioRaw, createReverbBuffer, addToAudioCache, clearAudioCache, calculateSilence } from './audio.js?v=1783959146802';
+import { loadAndSendFont } from './renderer.js?v=1783959146802';
+import { getUserCapabilities, getAllowedRange, getRealVerseCount, getAyahIndexByRealNumber } from './permissions.js?v=1783959146802';
+import { exportQueue, isExporting, EXPORT_ERRORS } from './exportQueue.js?v=1783959146802';
+import { getCache, setCache } from './db.js?v=1783959146802';
 
 let isQueueCallbackSet = false;
 function setupQueueCallback() {

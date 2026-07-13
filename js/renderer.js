@@ -1,8 +1,8 @@
-import { state } from './store.js?v=1783957436877';
-import { UI } from './ui.js?v=1783957436877';
-import { getCache, setCache } from './db.js?v=1783957436877';
-import { getUserCapabilities, getRealVerseCount, getAyahIndexByRealNumber } from './permissions.js?v=1783957436877';
-import { isExporting } from './exportQueue.js?v=1783957436877';
+import { state } from './store.js?v=1783959146802';
+import { UI } from './ui.js?v=1783959146802';
+import { getCache, setCache } from './db.js?v=1783959146802';
+import { getUserCapabilities, getRealVerseCount, getAyahIndexByRealNumber } from './permissions.js?v=1783959146802';
+import { isExporting } from './exportQueue.js?v=1783959146802';
 
 export const sentFonts = new Set();
 
