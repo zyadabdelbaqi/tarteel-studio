@@ -849,33 +849,33 @@ function showLocalExporterModal() {
         modal.id = 'localExporterModal';
         modal.className = 'fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] hidden flex items-center justify-center p-4 opacity-0 transition-all duration-300';
         modal.innerHTML = `
-            <div class="bg-zinc-900 border border-white/10 p-6 md:p-8 rounded-2xl max-w-lg w-full text-center relative shadow-2xl">
-                <button id="closeLocalExporterModal" class="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors">
+            <div class="bg-white dark:bg-zinc-900 border border-black/10 dark:border-white/10 p-6 md:p-8 rounded-2xl max-w-lg w-full text-center relative shadow-2xl transition-colors">
+                <button id="closeLocalExporterModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:text-zinc-400 dark:hover:text-white transition-colors">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
-                <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-tr from-green-500/20 to-emerald-500/20 rounded-full flex items-center justify-center border border-green-500/30">
-                    <i data-lucide="rocket" class="w-10 h-10 text-green-400"></i>
+                <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-tr from-blue-500/10 to-indigo-500/10 dark:from-blue-500/20 dark:to-indigo-500/20 rounded-full flex items-center justify-center border border-blue-500/20 dark:border-blue-500/30">
+                    <i data-lucide="download-cloud" class="w-10 h-10 text-blue-600 dark:text-blue-400"></i>
                 </div>
-                <h2 class="text-2xl font-bold mb-4 text-white">تفعيل التصدير الخارق 🚀</h2>
-                <p class="text-zinc-400 text-sm md:text-base leading-relaxed mb-6">
-                    لكي تستمتع بسرعة التصدير الخارقة (التي تستغل موارد جهازك بنسبة 100%)، يجب عليك تثبيت أداة <strong>Tarteel Studio Exporter</strong> المجانية على جهازك.
+                <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">التصدير المحلي 🚀</h2>
+                <p class="text-gray-600 dark:text-zinc-400 text-sm md:text-base leading-relaxed mb-6">
+                    لكي تتمكن من تصدير الفيديوهات باستخدام خيار التصدير المحلي، يجب عليك تثبيت أداة <strong>Tarteel Studio Exporter</strong> المجانية على جهازك.
                 </p>
-                <div class="bg-black/40 border border-white/5 p-4 rounded-xl text-right mb-8">
-                    <p class="text-sm font-bold text-orange-400 mb-4 text-center">قم بتحميل الأداة لنظامك (التحميل مباشر):</p>
+                <div class="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/5 p-4 rounded-xl text-right mb-8">
+                    <p class="text-sm font-bold text-blue-600 dark:text-blue-400 mb-4 text-center">قم بتحميل الأداة لنظامك (التحميل مباشر):</p>
                     <div class="flex flex-wrap gap-3 justify-center">
-                        <a href="https://github.com/zyadabdelbaqi/tarteel-assets/releases/latest/download/tarteel-local-exporter-win.exe?utm_source=chatgpt.com" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm font-bold">
+                        <a href="https://github.com/zyadabdelbaqi/tarteel-assets/releases/latest/download/tarteel-local-exporter-win.exe?utm_source=chatgpt.com" class="bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm font-bold shadow-md shadow-blue-500/20">
                             <i data-lucide="monitor" class="w-4 h-4"></i> Windows
                         </a>
-                        <a href="https://github.com/zyadabdelbaqi/tarteel-assets/releases/latest/download/Tarteel_Exporter_macOS.zip?utm_source=chatgpt.com" class="bg-zinc-700 hover:bg-zinc-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm font-bold">
+                        <a href="https://github.com/zyadabdelbaqi/tarteel-assets/releases/latest/download/Tarteel_Exporter_macOS.zip?utm_source=chatgpt.com" class="bg-gray-800 hover:bg-gray-900 dark:bg-zinc-700 dark:hover:bg-zinc-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm font-bold shadow-md shadow-gray-500/20">
                             <i data-lucide="apple" class="w-4 h-4"></i> Mac
                         </a>
-                        <a href="https://github.com/zyadabdelbaqi/tarteel-assets/releases/latest/download/tarteel-local-exporter-linux?utm_source=chatgpt.com" class="bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm font-bold">
+                        <a href="https://github.com/zyadabdelbaqi/tarteel-assets/releases/latest/download/tarteel-local-exporter-linux?utm_source=chatgpt.com" class="bg-indigo-600 hover:bg-indigo-700 dark:hover:bg-indigo-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors text-sm font-bold shadow-md shadow-indigo-500/20">
                             <i data-lucide="terminal" class="w-4 h-4"></i> Linux
                         </a>
                     </div>
-                    <p class="text-xs text-zinc-500 mt-4 text-center">بعد تحميل وتثبيت الأداة، اضغط على الزر بالأسفل لتوصيلها بالموقع تلقائياً.</p>
+                    <p class="text-xs text-gray-500 dark:text-zinc-500 mt-4 text-center">بعد تحميل وتثبيت الأداة، اضغط على الزر بالأسفل لتوصيلها بالموقع تلقائياً.</p>
                 </div>
-                <button id="retryLocalExporterBtn" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white font-bold py-4 rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-green-500/20 flex items-center justify-center gap-2">
+                <button id="retryLocalExporterBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-4 rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2">
                     <i data-lucide="link" class="w-5 h-5"></i>
                     لقد قمت بتشغيل الأداة، اتصل الآن
                 </button>
@@ -1423,7 +1423,7 @@ export async function realExport(validatedCaps) {
                 transTextColor: UI.transTextColor.value, transShadowColor: UI.transShadowColor.value, transShadowBlur: state.transShadowBlur,
                 animType: UI.animType.value, animIntensity: state.animIntensity,
                 isContinuation: isTextContinuation,
-                showTranslation: UI.showTranslation.checked, showQariName: UI.showQariName.checked, qariName: UI.qariNameInput.value, qariFontSize: parseInt(UI.qariFontSize?.value || 35), qariY: parseInt(UI.qariY?.value || 85), qariX: parseInt(UI.qariX?.value || 50), qariColor: UI.qariColor?.value || '#ffffff', qariShadowColor: UI.qariShadowColor?.value || '#000000', qariShadowBlur: parseInt(UI.qariShadowBlur?.value || 10), showSurahName: UI.showSurahName.checked, surahY: parseInt(UI.surahY.value), surahX: parseInt(UI.surahX.value), surahFontSize: parseInt(UI.surahFontSize.value), surahColor: UI.surahColor?.value || '#ffffff', surahShadowColor: UI.surahShadowColor?.value || '#000000', surahShadowBlur: parseInt(UI.surahShadowBlur?.value || 15),
+                showTranslation: UI.showTranslation.checked, showQariName: UI.showQariName.checked, qariName: UI.qariNameInput.value, qariFontSize: parseInt(UI.qariFontSize?.value || 80), qariY: parseInt(UI.qariY?.value || 85), qariX: parseInt(UI.qariX?.value || 50), qariColor: UI.qariColor?.value || '#ffffff', qariShadowColor: UI.qariShadowColor?.value || '#000000', qariShadowBlur: parseInt(UI.qariShadowBlur?.value || 10), showSurahName: UI.showSurahName.checked, surahY: parseInt(UI.surahY.value), surahX: parseInt(UI.surahX.value), surahFontSize: parseInt(UI.surahFontSize.value), surahColor: UI.surahColor?.value || '#ffffff', surahShadowColor: UI.surahShadowColor?.value || '#000000', surahShadowBlur: parseInt(UI.surahShadowBlur?.value || 15),
                 showWaveform: UI.showWaveform.checked, waveformY: parseInt(UI.waveformY.value), waveformHeight: parseInt(UI.waveformHeight.value), waveformColor: UI.waveformColor.value,
                 showWatermark: UI.showWatermark.checked, watermarkType: state.watermarkType, watermarkText: UI.watermarkText.value, watermarkColor: UI.watermarkColor.value, watermarkX: parseInt(UI.watermarkX.value), watermarkY: parseInt(UI.watermarkY.value), watermarkSize: parseInt(UI.watermarkSize.value), watermarkOpacity: parseFloat(UI.watermarkOpacity.value),
                 showTarteelLogo: UI.showTarteelLogo.checked,

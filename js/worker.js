@@ -678,7 +678,7 @@ function draw() {
         // Dynamic position from UI sliders
         const qariY = height * ((state.qariY || 85) / 100);
         const qariX = width * ((state.qariX || 50) / 100);
-        const qariFontSize = (state.qariFontSize || 35) * scaleFactor;
+        const qariFontSize = (state.qariFontSize || 80) * scaleFactor;
         
         if (state.loadedFonts.has('qari_font')) {
             ctx.font = 'normal ' + qariFontSize + 'px "qari_font"';
