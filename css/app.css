@@ -187,7 +187,7 @@
 
         .tab-container { display: flex; background: var(--input-bg); padding: 4px; border-radius: 12px; margin-bottom: 16px; border: 1px solid var(--border-color); }
         .tab-btn { flex: 1; padding: 10px; text-align: center; font-size: 12px; font-weight: 700; border-radius: 9px; color: var(--text-muted); transition: all 0.2s; cursor: pointer; }
-        .tab-btn:hover { color: var(--text-main); }
+        .tab-btn:hover { color: var(--accent); }
         .tab-btn.active { background: var(--panel-bg); color: var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
 
         .loading-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.9); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; border-radius: 18px; text-align: center; padding: 20px; }
@@ -216,7 +216,7 @@
         cursor: pointer;
         white-space: nowrap;
     }
-    .settings-tab-btn:hover { color: var(--text-main); background: rgba(0, 122, 255, 0.05); }
+    .settings-tab-btn:hover { color: var(--accent); background: rgba(0, 122, 255, 0.05); }
     .settings-tab-btn.active { background: var(--panel-bg); color: var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
 
     /* Steps & Tabs Animation System */
