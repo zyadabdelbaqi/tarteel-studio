@@ -17,7 +17,9 @@ function registerProtocol() {
             try {
                 const check = execSync('reg query "HKCU\\Software\\Classes\\tarteel\\shell\\open\\command" /ve', { encoding: 'utf8', stdio: 'pipe' });
                 if (check.includes(exePath)) return;
-            } catch(e) {}
+            } catch(e) {
+                console.warn(`[i] Registry check failed or protocol not registered yet:`, e.message);
+            }
 
             console.log(`[+] Registering tarteel:// custom protocol handler...`);
             execSync(`reg add "HKCU\\Software\\Classes\\tarteel" /ve /t REG_SZ /d "URL:Tarteel Protocol" /f`, {stdio: 'ignore'});
@@ -44,7 +46,9 @@ function registerProtocol() {
                 const iconDest = path.join(iconsDir, 'tarteel-exporter.png');
                 fs.writeFileSync(iconDest, Buffer.from(iconBase64, 'base64'));
                 iconPathLine = `Icon=${iconDest}`;
-            } catch (e) {}
+            } catch (e) {
+                console.warn(`[!] Failed to extract or write Linux icon:`, e.message);
+            }
             
             const desktopFileContent = `[Desktop Entry]
 Name=Tarteel Exporter
@@ -58,7 +62,9 @@ ${iconPathLine}
             try {
                 execSync(`xdg-mime default tarteel-exporter.desktop x-scheme-handler/tarteel`, {stdio: 'ignore'});
                 console.log(`[+] Linux protocol registered successfully.`);
-            } catch (e) {}
+            } catch (e) {
+                console.warn(`[!] Failed to set xdg-mime default handler:`, e.message);
+            }
         }
         else if (os.platform() === 'darwin') {
             // For macOS, full auto-registration requires an .app bundle.
@@ -149,7 +155,9 @@ const wss = new WebSocketServer({
             if (hostname === 'localhost' || hostname === '127.0.0.1' || /^([a-zA-Z0-9-]+\.)*tarteel\.studio$/.test(hostname) || hostname === 'zyadabdelbaqi.github.io') {
                 return done(true);
             }
-        } catch(e) {}
+        } catch(e) {
+            console.warn(`[!] Invalid origin URL format:`, origin);
+        }
         console.log(`[!] Rejected connection from unauthorized origin: ${origin}`);
         return done(false, 403, 'Forbidden');
     }
@@ -202,7 +210,11 @@ wss.on('connection', (ws) => {
                         ws.close();
                         return;
                     }
-                    fs.writeSync(videoFd, chunk, 0, chunk.length, offset);
+                    fs.write(videoFd, chunk, 0, chunk.length, offset, (err) => {
+                        if (err) {
+                            console.error(`[!] Failed to write video chunk at offset ${offset}:`, err);
+                        }
+                    });
                 }
             }
         } else {
@@ -327,13 +339,13 @@ wss.on('connection', (ws) => {
     ws.on('close', () => {
         console.log(`[-] Browser disconnected.`);
         if (ffmpegProcess) {
-            try { ffmpegProcess.kill('SIGKILL'); } catch(e) {}
+            try { ffmpegProcess.kill('SIGKILL'); } catch(e) { console.warn(`[!] Failed to kill FFmpeg process:`, e.message); }
         }
         if (audioStream) {
             audioStream.end();
         }
         if (videoFd !== null) {
-            try { fs.closeSync(videoFd); } catch(e) {}
+            try { fs.closeSync(videoFd); } catch(e) { console.warn(`[!] Failed to close video file descriptor:`, e.message); }
             videoFd = null;
         }
     });
