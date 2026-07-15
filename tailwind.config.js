@@ -1,6 +1,6 @@
 module.exports = {
   content: [
-    "./index.html",
+    "./*.html",
     "./seo-pages/**/*.html",
     "./js/**/*.js"
   ],
