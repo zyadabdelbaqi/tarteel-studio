@@ -70,7 +70,30 @@ ${iconPathLine}
     }
 }
 
+let EXPECTED_TOKEN = null;
+
+const args = process.argv.join(' ');
+const initialTokenMatch = args.match(/token=([a-zA-Z0-9_-]+)/);
+if (initialTokenMatch) {
+    EXPECTED_TOKEN = initialTokenMatch[1];
+}
+
 const server = http.createServer((req, res) => {
+    if (req.url.startsWith('/set-token')) {
+        if (req.headers['x-tarteel-local'] !== 'true') {
+            res.writeHead(403);
+            res.end('Forbidden');
+            return;
+        }
+        const parsedUrl = new URL(req.url, `http://${req.headers.host || '127.0.0.1'}`);
+        const token = parsedUrl.searchParams.get('token');
+        if (token) {
+            EXPECTED_TOKEN = token;
+        }
+        res.writeHead(200);
+        res.end('Token updated');
+        return;
+    }
     res.writeHead(200);
     res.end('Tarteel Exporter Running');
 });
@@ -78,14 +101,32 @@ const server = http.createServer((req, res) => {
 server.on('error', (e) => {
     if (e.code === 'EADDRINUSE') {
         console.log(`[!] Tarteel Exporter is already running in the background.`);
-        process.exit(0);
+        const args = process.argv.join(' ');
+        const tokenMatch = args.match(/token=([a-zA-Z0-9_-]+)/);
+        if (tokenMatch) {
+            const req = http.request({
+                hostname: '127.0.0.1',
+                port: PORT,
+                path: '/set-token?token=' + tokenMatch[1],
+                method: 'GET',
+                headers: {
+                    'x-tarteel-local': 'true'
+                }
+            }, (res) => {
+                process.exit(0);
+            });
+            req.on('error', () => process.exit(0));
+            req.end();
+        } else {
+            process.exit(0);
+        }
     } else {
         console.error(e);
         process.exit(1);
     }
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '127.0.0.1', () => {
     registerProtocol();
     console.log(`===========================================`);
     console.log(` Tarteel Studio - Local FFmpeg Exporter`);
@@ -94,7 +135,25 @@ server.listen(PORT, () => {
     console.log(`Waiting for connection from the browser...`);
 });
 
-const wss = new WebSocketServer({ server });
+const wss = new WebSocketServer({ 
+    server,
+    verifyClient: (info, done) => {
+        const origin = info.origin;
+        if (!origin) {
+            console.log('[!] Rejected connection with no Origin header');
+            return done(false, 403, 'Forbidden');
+        }
+        try {
+            const url = new URL(origin);
+            const hostname = url.hostname;
+            if (hostname === 'localhost' || hostname === '127.0.0.1' || /^([a-zA-Z0-9-]+\.)*tarteel\.studio$/.test(hostname) || hostname === 'zyadabdelbaqi.github.io') {
+                return done(true);
+            }
+        } catch(e) {}
+        console.log(`[!] Rejected connection from unauthorized origin: ${origin}`);
+        return done(false, 403, 'Forbidden');
+    }
+});
 wss.on('error', (err) => {
     // Ignore WebSocketServer errors if it's due to port in use
 });
@@ -130,9 +189,19 @@ wss.on('connection', (ws) => {
                 audioStream.write(message);
             } else if (audioDone && videoFd !== null) {
                 // message is: [8 bytes Float64 offset] + [MP4 chunk data]
-                if (message.length > 8) {
+                if (message.length >= 8) {
                     const offset = message.readDoubleLE(0);
+                    if (offset < 0 || offset > 10 * 1024 * 1024 * 1024) { // 10 GB limit
+                        console.log(`[!] Offset out of bounds: ${offset}. Closing connection.`);
+                        ws.close();
+                        return;
+                    }
                     const chunk = message.subarray(8);
+                    if (chunk.length > 50 * 1024 * 1024) { // 50MB chunk limit
+                        console.log(`[!] Chunk too large: ${chunk.length} bytes. Closing connection.`);
+                        ws.close();
+                        return;
+                    }
                     fs.writeSync(videoFd, chunk, 0, chunk.length, offset);
                 }
             }
@@ -142,6 +211,11 @@ wss.on('connection', (ws) => {
                 const data = JSON.parse(message);
                 
                 if (data.type === 'init') {
+                    if (EXPECTED_TOKEN && data.token !== EXPECTED_TOKEN) {
+                        console.log(`[!] Invalid or missing token in init message. Closing connection.`);
+                        ws.close();
+                        return;
+                    }
                     config = data;
                     console.log(`\n[+] Export started with config: FPS=${config.fps}, Size=${config.width}x${config.height}`);
                     isInitialized = true;
@@ -168,9 +242,11 @@ wss.on('connection', (ws) => {
                         videoFd = null;
                     }
 
-                    const outputFilename = config.filename 
-                        ? path.join(os.homedir(), 'Desktop', config.filename) 
-                        : defaultOutputPath;
+                    let safeFilename = config.filename ? path.basename(config.filename) : `Tarteel_Export_${Date.now()}.mp4`;
+                    if (!safeFilename.toLowerCase().endsWith('.mp4')) {
+                        safeFilename += '.mp4';
+                    }
+                    const outputFilename = path.join(os.homedir(), 'Desktop', safeFilename);
                     
                     function getFfmpegPath() {
                         const isPkg = typeof process.pkg !== 'undefined';
