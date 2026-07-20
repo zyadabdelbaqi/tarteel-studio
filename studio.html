@@ -26,8 +26,8 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="css/tailwind.css?v=202607151846">
-    <link rel="stylesheet" href="css/app.css?v=202607151846">
+    <link rel="stylesheet" href="css/tailwind.css?v=202607201712">
+    <link rel="stylesheet" href="css/app.css?v=202607201712">
 
     <style>
         .active-link {
@@ -730,7 +730,9 @@
                                             <option value="v1" selected>عثماني كلاسيكي</option>
                                             <option value="v2">عثماني حديث</option>
                                             <option value="mushaf">المصحف الذهبي</option>
+                                            <option value="custom">خط مخصص...</option>
                                         </select>
+                                        <input type="file" id="customFontUpload" accept=".ttf,.woff,.woff2,.otf" class="hidden">
                                     </div>
 
                                     <div class="pt-2 border-t border-[var(--border-color)]">
@@ -1201,7 +1203,7 @@
             (function () {
                 const appScript = document.createElement('script');
                 appScript.type = 'module';
-                appScript.src = `js/app.js?v=202607191248`;
+                appScript.src = `js/app.js?v=202607201712`;
                 document.body.appendChild(appScript);
             })();
         </script>
